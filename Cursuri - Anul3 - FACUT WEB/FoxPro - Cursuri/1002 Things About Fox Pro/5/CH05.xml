@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<ipo:purchaseOrder xmlns:xsi="http://www.w3.org/2000/10/XMLSchema-instance" xmlns:ipo="http://www.example.com/IPO" orderDate="1999-12-01" xsi:schemaLocation="http://www.example.com/IPO
+ipo.xsd">
+	<shipTo export-code="1" xsi:type="ipo:UK-Address">
+		<name>Helen Zoe</name>
+		<street>47 Eden Street</street>
+		<city>Cambridge</city>
+		<postcode>126</postcode>
+	</shipTo>
+	<billTo xsi:type="ipo:US-Address">
+		<name>Robert Smith</name>
+		<street>8 Oak Avenue</street>
+		<city>Old Town</city>
+		<state>AK</state>
+		<zip>95819</zip>
+	</billTo>
+	<Items>
+		<item partNum="833-AA">
+			<productName>Lapis necklace</productName>
+			<quantity>1</quantity>
+			<price>99.95</price>
+			<ipo:comment>Want this for the holidays!</ipo:comment>
+			<shipDate>1999-12-05</shipDate>
+		</item>
+	</Items>
+</ipo:purchaseOrder>
