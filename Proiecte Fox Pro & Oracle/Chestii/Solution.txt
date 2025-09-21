@@ -1,0 +1,109 @@
+Acesta e cache-ul adresei http://support.microsoft.com/default.aspx?scid=kb;EN-US;142026 existent in G o o g l e.
+Cache-ul G o o g l e contine versiunea paginii în momentul gasirii ei pe web.
+Aceasta pagina e posibil sa se fi schimbat de atunci. Apasati aici pentru pagina actuala fara evidentiere.
+Pentru un link sau un semn de carte la aceasta pagina, folositi urmatoarea adresa: http://www.google.com/search?q=cache:zmC76C-VDPQJ:support.microsoft.com/default.aspx%3Fscid%3Dkb%3BEN-US%3B142026+The+system+file+is+not+suitable+for+running+ms-dos+and+microsoft+windows+applications&hl=ro
+
+
+Google nu este afiliat cu autorii acestei pagini si nici nu este responsabil pentru continutul ei. 
+Termenii din cautare au fost evidentiati.  system  file  not  suitable  running  ms  dos  microsoft  windows  applications  
+ 
+ 
+
+--------------------------------------------------------------------------------
+Comments? 
+ Provide us with feedback on this article 
+ 
+Support Centers 
+ Windows NT Server 4.0  
+ Windows NT Workstation 4.0  
+ 
+Other Support Options 
+ Contact Microsoft
+Phone Numbers, Support Options and Pricing, Online Help, and more.
+ 
+ Customer Service
+For non-technical assistance with product purchases, subscriptions, online services, events, training courses, corporate sales, piracy issues, and more.
+ 
+ Newsgroups
+Pose a question to other users. Discussion groups and Forums about specific Microsoft products, technologies, and services.
+ 
+ 
+Page Options 
+ Send 
+ Print 
+ 
+ 
+Err: "Hidden Console of WOW VDM" Running 16-bit or MS-DOS App
+View products that this article applies to.
+This article was previously published under Q142026 
+SYMPTOMS
+When running a 16-bit Windows application or an MS-DOS application, you may receive one of the following error messages: 
+
+
+Hidden console of WOWVDM NT VDM has encountered a system error. The handle is invalid. Choose Close to terminate the application. 
+
+
+Hidden console of WOW VDM c:\<winnt>\System32\Config.nt. The system file is not suitable for running MS-DOS and Microsoft Windows applications. Choose 'Close' to terminate the application. 
+
+
+Hidden Console of WOW VDM c:\<winnt>\System32\Autoexec.nt. The system file is not suitable for running MS-DOS and Microsoft Windows applications. Choose 'Close' to terminate the application. 
+
+
+Hidden Console of WOW VDM error while setting up environment for the application. Choose Close to terminate the application. 
+
+
+Config.nt The system file is not suitable for running MS-DOS and Microsoft Windows Applications. 
+CAUSE
+The symptoms above may occur for one or more of the following reasons: 
+
+One or all of the following files are corrupt or missing from the %Systemroot\System32 folder:
+
+Autoexec.nt
+Config.nt
+Command.com
+Windows NT is installed on a removable drive such as Bernoulli, IOMEGA, or SyQuest drive.
+You attempt to install another version of Windows NT on a removable drive.
+Pagefile.sys resides on a removable drive.
+RESOLUTION
+To correct this problem, perform one or more of the following: 
+
+Run the emergency repair disk (ERD) to replace the missing or corrupt file(s). The ERD also verifies the integrity of Windows NT system files in general.
+Manually expand the Autoexec.nt, Config.nt, and Command.com files off the Windows NT CD-ROM.
+Move the paging file to a permanent physical drive.
+
+
+To resolve this problem, obtain the latest service pack for Windows NT 4.0 or Windows NT Server 4.0, Terminal Server Edition. For additional information, click the following article number to view the article in the Microsoft Knowledge Base: 
+152734 How to Obtain the Latest Windows NT 4.0 Service Pack 
+
+
+
+STATUS
+Microsoft has confirmed that this is a problem in Windows NT 4.0 and Windows NT Server 4.0, Terminal Server Edition. This problem was first corrected in Windows NT 4.0 Service Pack 4.0 and Windows NT Server 4.0, Terminal Server Edition Service Pack 4. 
+MORE INFORMATION
+
+
+For more information on troubleshooting MS-DOS applications, please see the following Microsoft Knowledge Base article: 
+
+ARTICLE-ID: 165214
+TITLE : Troubleshooting MS-DOS-Based Programs in Windows NT 4.0 
+
+The information in this article applies to:
+Microsoft Windows NT Server 4.0 Terminal Server Edition
+Microsoft Windows NT Workstation 3.5
+Microsoft Windows NT Workstation 3.51
+Microsoft Windows NT Workstation 4.0
+Microsoft Windows NT Server 3.5
+Microsoft Windows NT Server 3.51
+Microsoft Windows NT Server 4.0
+Last Reviewed: 5/7/2003 (2.0)  
+Keywords: kbbug kbenv kbfix KB142026 
+
+ 
+ 
+ 
+
+ Contact Us  
+
+
+© 2004 Microsoft Corporation. All rights reserved.  Terms of use  Security & Privacy  Accessibility  
+ 
