@@ -1,0 +1,274 @@
+
+<SCRIPT>
+<!--
+function displayWindow(url, width, height) {
+        var Win = window.open(url,"displayWindow",'width=' + width +
+	',height=' + height + ',resizable=1,scrollbars=yes');
+	}
+	//-->
+	</SCRIPT>
+
+
+
+<FONT FACE="Arial,Helvetica" SIZE="-1">
+To access the contents, click the chapter and section titles.
+</FONT>
+<P>
+<B>Developing Java Enterprise Applications</B>
+<FONT SIZE="-1">
+<BR>
+<I>(Publisher: John Wiley & Sons, Inc.)</I>
+<BR>
+Author(s): Stephen Asbury ; Scott R. Weiner
+<BR>
+ISBN: 0471327565
+<BR>
+Publication Date: 02/01/99
+</FONT>
+<P>
+<Script language="JavaScript">
+function isIE4() 
+{
+    return( navigator.appName.indexOf("Microsoft") != -1 && (navigator.appVersion.charAt(0)=='4') );
+ }
+function bookMarkit()
+{
+        var url="http://www.itknowledge.com/PSUser/EWBookMarks.html?url="+window.location+"&isbn=0";
+	parent.location.href=url;
+        //var win = window.open(url,"myitk");
+        //if(!isIE4())
+        //       win.focus();
+
+}
+</Script>
+<a href="javascript:bookMarkit();"><img src="/images/bookmarkit.gif" border=0 alt="Bookmark It" width=97 height=23></a>
+
+<P>
+<form name="Search" method="GET" action="http://search.earthweb.com/search97/search_redir.cgi">
+
+<INPUT TYPE="hidden" NAME="Action" VALUE="Search">
+<INPUT TYPE="hidden" NAME="SearchPage" VALUE="http://search.earthweb.com/search97/samples/forms/srchdemo.htm">
+<INPUT TYPE="hidden" NAME="Collection" VALUE="ITK">
+<INPUT TYPE="hidden" NAME="ResultTemplate" VALUE="itk-simple-intrabook.hts">
+<INPUT TYPE="hidden" NAME="ViewTemplate" VALUE="view.hts">
+
+<font face="arial, helvetica" size=2><b>Search this book:</b></font><br>
+<INPUT NAME="queryText" size=50 VALUE="">&nbsp;<input type="submit" name="submitbutton" value="Go!">
+<INPUT type=hidden NAME="section_on" VALUE="on">
+<INPUT type=hidden NAME="section" VALUE="http://www.itknowledge.com/reference/standard/0471327565/">
+
+</form>
+
+
+<!-- Empty Reference Subhead -->
+
+<!--ISBN=0471327565//-->
+<!--TITLE=Developing Java Enterprise Applications//-->
+<!--AUTHOR=Stephen Asbury//-->
+<!--AUTHOR=Scott R. Weiner//-->
+<!--PUBLISHER=Wiley Computer Publishing//-->
+<!--CHAPTER=05//-->
+<!--PAGES=089-091//-->
+<!--UNASSIGNED1//-->
+<!--UNASSIGNED2//-->
+
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="05-03.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="05-05.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<P><BR></P>
+<TABLE WIDTH="90%">
+<TD CAPTION COLSPAN="2"><B>Table 5.3</B> NameClassPair Methods
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TH WIDTH="40%" VALIGN="TOP" ALIGN="LEFT">METHOD 
+<TH WIDTH="50%" VALIGN="TOP" ALIGN="LEFT">USE
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>NameClassPair(String name,String className)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">This constructor creates an instance of a NameClassPair and sets the name and class name associated with it.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>NameClassPair(Stringname, String className,boolean</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">This constructor creates an instance of a NameClassPair and sets the name and class isRelative) name associated with it. If isRelative is set to true, the name is set relative to the target context of the listing. If isRelative is set to false, the name is a complete URL string.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>StringgetClassName()</SMALL> <TD VALIGN="TOP" ALIGN="LEFT">Returns the class name of the object bound to this NameClassPair instance.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>String getName()</SMALL> <TD VALIGN="TOP" ALIGN="LEFT">Returns the name of this binding.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>boolean isRelative()</SMALL> <TD VALIGN="TOP" ALIGN="LEFT">Returns true if the name of this binding is relative to the target context.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>void setClassName(String name)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Sets the class name for this binding.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>void setName(String name)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Sets the name associated with this binding.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>void setRelative(boolean r)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Sets whether the name of this binding should be considered relative to the target context.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+</TABLE>
+<P>The code listing that follows for a class List demonstrates how these methods work. This example program uses an initial context of /tmp/marketing and lists the contents of the context and the bindings for each object in the context. The JNDI elements of this example are in bold.
+</P>
+<!-- CODE //-->
+<PRE>
+import javax.naming.*;
+import javax.naming.directory.*;
+import java.util.Hashtable;
+import java.util.Enumeration;
+import java.io.*;
+
+// example use: java List
+
+public class List
+{
+    public static void main(String[] args)
+    {
+        // Create a list of environment settings for our example.
+        Hashtable env = new Hashtable();
+
+        /*
+          By specifying we are using refFSContextFactory, we will
+          have the ability to access the file system and lookup and
+</PRE>
+<!-- END CODE //-->
+<TABLE WIDTH="90%">
+<TD CAPTION COLSPAN="2"><B>Table 5.4</B> Binding Methods
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TH WIDTH="35%" VALIGN="TOP" ALIGN="LEFT">METHOD 
+<TH WIDTH="55%" VALIGN="TOP" ALIGN="LEFT">USE
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>Binding(String name, Object obj)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">This constructor creates an instance of a binding with specific non-null name relative to the target context and the bound object, which can be null.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>Binding(String name, Object obj, boolean isRelative)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">This constructor creates an instance of a binding with specific non-null name and the bound object, which can be null. If isRelative is set to true, name is considered to be relative to the target context. If isRelative is false, name is considered to be a complete URL.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>Binding(String name, String className, Object obj)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">This constructor creates an instance of a binding with specific non-null name relative to the target context. If className, the class name of object (obj, the possibly null object bound to name) is returned using getClassName(). If obj is also null, getClassName() returns null.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>Binding(String name, String className, Object obj, boolean isRelative)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">This constructor creates an instance of a binding with specific non-null name. If className, the class name of object (obj, the possibly null object bound to name) is returned using getClassName(). If obj is also null, getClassName() returns null. If isRelative is set to true, name is considered to be relative to the target context. If isRelative is false, name is considered to be a complete URL.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>String getClassName()</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Returns the class name of the object bound to the name of this binding.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>Object getObject()</SMALL> <TD VALIGN="TOP" ALIGN="LEFT">Returns the actual object bound to the name of this binding.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>void setObject(Object obj)</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Sets the object associated with this binding to obj.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+</TABLE>
+<!-- CODE //-->
+<PRE>
+         store objects as well.     
+         */
+        <B>env.put(Context.INITIAL_CONTEXT_FACTORY,
+            &#147;com.sun.jndi.fscontext.RefFSContextFactory&#148;);</B>
+
+        // Specify the file system to search in this example.
+        <B>env.put(Context.PROVIDER_URL,&#147;file:/tmp/marketing&#148;);</B>
+
+        try
+        {
+            // Place holder for items in a context.
+            Object item = null;
+
+            // Based on our environment, set an initial context.
+            <B>Context initCtx = new InitialContext(env);</B>
+
+            <B>NamingEnumeration nl = initCtx.list(&#147;reports&#148;);</B>
+
+            System.out.println(&#147;*** Printing context list ***&#148;);
+
+            if (nl == null)
+                System.out.println(&#147;\nNo items in name list&#148;);
+            else
+            <B>    while (nl.hasMore())
+                {
+                    item=nl.next();</B>
+                    System.out.println(&#147;item's class is &#148; &#43;
+                      item.getClass().getName());
+                    System.out.println(item);
+                    System.out.println(&#147;&#148;);
+                }
+
+            System.out.println(&#147;<B> Printing context&#148; &#43; </B>
+                &#147; list bindings &#148;);
+
+            <B>nl = initCtx.listBindings(&#147;reports&#148;);</B>
+            if (nl == null)
+                System.out.println(&#147;\nNo items in name list&#148;);
+            else
+            <B>    while (nl.hasMore())
+                {
+                    item=nl.next();</B>
+                    System.out.println(&#147;item's class is &#148; &#43;
+                        item.getClass().getName());
+                    System.out.println(item);
+                    System.out.println(&#147;&#148;);
+                <B>}</B>
+        }catch(Exception e)
+        {
+            System.out.println(e);
+            e.printStackTrace(System.out);
+        }
+    }
+}
+</PRE>
+<!-- END CODE //-->
+<P>Figure 5.4 shows what would so far be returned from our example, assuming the previous code above was executed.
+</P>
+<P>In addition to accessing a list of objects in a context, you can also access a specific object by using the lookup or lookupLink methods. These methods look for a specific object in the current context and return the object bound to the name you provide. Here is the code for an example, Print, that uses the lookup operation to retrieve the file report1.txt based on the directory structure in Figure 5.2 and displays the file.</P><P><BR></P>
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="05-03.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="05-05.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+
+<!-- 
