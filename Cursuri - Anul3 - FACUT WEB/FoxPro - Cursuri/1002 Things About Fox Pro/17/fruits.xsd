@@ -1,0 +1,57 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name='yada' type='yadaType' />
+	
+	<xsd:complexType name='yadaType'>
+		<xsd:sequence>
+			<xsd:element name='FruitList' type='SizedFruits' minOccurs='0' maxOccurs='unbounded' />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:simpleType name='Fruits'>
+	  <xsd:restriction base='xsd:string'>
+	    <xsd:enumeration value='apples'/>
+	    <xsd:enumeration value='oranges'/>
+	    <xsd:enumeration value='pears'/>
+	    <xsd:enumeration value='bananas'/>
+	    <xsd:enumeration value='grapes'/>
+	    <xsd:enumeration value='cherries'/>
+	  </xsd:restriction>	
+	</xsd:simpleType>
+
+	<xsd:simpleType name='ListOfFruits'>
+	  <xsd:list itemType='Fruits'/>
+	</xsd:simpleType>
+
+	<xsd:simpleType name='FruitElement'>
+	  <xsd:restriction base='ListOfFruits'>
+	    <xsd:maxLength value='3'/>
+	  </xsd:restriction>
+ 	</xsd:simpleType>	
+
+	<xsd:complexType name="SizedFruits">
+		<xsd:simpleContent>
+		    <xsd:extension base="FruitElement">
+				<xsd:attribute name="FontSize">
+					<xsd:simpleType>
+						<xsd:union memberTypes="FontSizeNumber FontSizeString" />
+					</xsd:simpleType>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+		
+	<xsd:simpleType name="FontSizeNumber">
+		<xsd:restriction base="xsd:positiveInteger">
+			<xsd:maxInclusive value="72"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="FontSizeString">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="small"/>
+			<xsd:enumeration value="medium"/>
+			<xsd:enumeration value="large"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>
