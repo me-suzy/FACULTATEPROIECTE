@@ -1,0 +1,42 @@
+						*** CREAREA TABELEI DERIVATE vDivizii_Echipe
+						
+#include foxpro.h
+
+IF !DBUSED('campionat')
+	OPEN DATABASE DATABASE campionat
+ENDIF
+SET DATABASE TO CAMPIONAT
+
+IF USED('vDivizii_Echipe')
+	SELECT vDivizii_Echipe
+	USE
+ENDIF
+
+***Fraza SQL de creare a tabelei virtuale
+
+CREATE SQL VIEW vDivizii_Echipe AS;
+	SELECT lf.coddiv,f.numediv,lf.idech,numeech,culori,nrjuc;
+	from echipe lf inner join divizii f on lf.coddiv=f.coddiv;
+	ORDER BY lf.coddiv,numediv
+	
+	DBSETPROP('vDivizii_Echipe','view','tables','echipe')
+	
+	DBSETPROP('vdivizii.coddiv','field','keyfield',.t.)
+	DBSETPROP('vdivizii.idech','field','keyfield',.t.)
+	
+	DBSETPROP('vdivizii.coddiv','field','updatable',.t.)
+	DBSETPROP('vdivizii.idech','field','updatable',.t.)
+	
+	DBSETPROP('vdivizii.coddiv','field','defaultvalue','def_coddiv_divizii()')
+	DBSETPROP('vdivizii.idech','field','defaultvalue','def_idech_echipe()')
+	
+	dbsetprop('vdivizii','view','updatetype',db_update)
+
+	dbsetprop('vdivizii','view','wheretype',db_keyandupdatable)
+
+	dbsetprop('vdivizii','view','sendupdates',.t.)
+	
+	
+	
+	
+	
