@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+ <!-- Generated 06/23/02 by Microsoft SOAP Toolkit WSDL File Generator, Version 1.02.813.0 --> 
+<definitions  name ='xZipCodes'   targetNamespace = 'http://tempuri.org/wsdl/'
+	 xmlns:wsdlns='http://tempuri.org/wsdl/' 
+	 xmlns:typens='http://tempuri.org/type' 
+	 xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' 
+	 xmlns:xsd='http://www.w3.org/2001/XMLSchema' 
+	 xmlns:stk='http://schemas.microsoft.com/soap-toolkit/wsdl-extension'
+	 xmlns='http://schemas.xmlsoap.org/wsdl/'> 
+  <types>
+    <schema targetNamespace='http://tempuri.org/type'
+      xmlns='http://www.w3.org/2001/XMLSchema'
+      xmlns:SOAP-ENC='http://schemas.xmlsoap.org/soap/encoding/'
+      xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+      elementFormDefault='qualified'>
+    </schema>
+  </types>
+  <message name='xZipCodes.GetErrors'>
+  </message>
+  <message name='xZipCodes.GetErrorsResponse'>
+    <part name='Result' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.GetZipForCity'>
+    <part name='tcCity' type='xsd:string'/>
+    <part name='tcState' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.GetZipForCityResponse'>
+    <part name='Result' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.GetZipAreaCode'>
+    <part name='tcZipCode' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.GetZipAreaCodeResponse'>
+    <part name='Result' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.GetZipLocn'>
+    <part name='tcZipCode' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.GetZipLocnResponse'>
+    <part name='Result' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.GetZipLine'>
+    <part name='tcZipCode' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.GetZipLineResponse'>
+    <part name='Result' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.IsZipValid'>
+    <part name='tcZipCode' type='xsd:string'/>
+  </message>
+  <message name='xZipCodes.IsZipValidResponse'>
+    <part name='Result' type='xsd:int'/>
+  </message>
+  <portType name='xZipCodesSoapPort'>
+    <operation name='GetErrors' parameterOrder=''>
+      <input message='wsdlns:xZipCodes.GetErrors' />
+      <output message='wsdlns:xZipCodes.GetErrorsResponse' />
+    </operation>
+    <operation name='GetZipForCity' parameterOrder='tcCity tcState'>
+      <input message='wsdlns:xZipCodes.GetZipForCity' />
+      <output message='wsdlns:xZipCodes.GetZipForCityResponse' />
+    </operation>
+    <operation name='GetZipAreaCode' parameterOrder='tcZipCode'>
+      <input message='wsdlns:xZipCodes.GetZipAreaCode' />
+      <output message='wsdlns:xZipCodes.GetZipAreaCodeResponse' />
+    </operation>
+    <operation name='GetZipLocn' parameterOrder='tcZipCode'>
+      <input message='wsdlns:xZipCodes.GetZipLocn' />
+      <output message='wsdlns:xZipCodes.GetZipLocnResponse' />
+    </operation>
+    <operation name='GetZipLine' parameterOrder='tcZipCode'>
+      <input message='wsdlns:xZipCodes.GetZipLine' />
+      <output message='wsdlns:xZipCodes.GetZipLineResponse' />
+    </operation>
+    <operation name='IsZipValid' parameterOrder='tcZipCode'>
+      <input message='wsdlns:xZipCodes.IsZipValid' />
+      <output message='wsdlns:xZipCodes.IsZipValidResponse' />
+    </operation>
+  </portType>
+  <binding name='xZipCodesSoapBinding' type='wsdlns:xZipCodesSoapPort' >
+    <stk:binding preferredEncoding='UTF-8'/>
+    <soap:binding style='rpc' transport='http://schemas.xmlsoap.org/soap/http' />
+    <operation name='GetErrors' >
+      <soap:operation soapAction='http://tempuri.org/action/xZipCodes.GetErrors' />
+      <input>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </output>
+    </operation>
+    <operation name='GetZipForCity' >
+      <soap:operation soapAction='http://tempuri.org/action/xZipCodes.GetZipForCity' />
+      <input>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </output>
+    </operation>
+    <operation name='GetZipAreaCode' >
+      <soap:operation soapAction='http://tempuri.org/action/xZipCodes.GetZipAreaCode' />
+      <input>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </output>
+    </operation>
+    <operation name='GetZipLocn' >
+      <soap:operation soapAction='http://tempuri.org/action/xZipCodes.GetZipLocn' />
+      <input>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </output>
+    </operation>
+    <operation name='GetZipLine' >
+      <soap:operation soapAction='http://tempuri.org/action/xZipCodes.GetZipLine' />
+      <input>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </output>
+    </operation>
+    <operation name='IsZipValid' >
+      <soap:operation soapAction='http://tempuri.org/action/xZipCodes.IsZipValid' />
+      <input>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </input>
+      <output>
+        <soap:body use='encoded' namespace='http://tempuri.org/message/'
+		  encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' />
+      </output>
+    </operation>
+  </binding>
+  <service name='xZipCodes' >
+    <port name='xZipCodesSoapPort' binding='wsdlns:xZipCodesSoapBinding' >
+      <soap:address location='http://main/sdstesting/xZipCodes.WSDL' />
+    </port>
+  </service>
+</definitions>
