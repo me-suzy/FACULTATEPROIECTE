@@ -1,0 +1,22 @@
+/*
+ * ExceptieProprie.java
+ *
+ * Created on 07 aprilie 2003, 12:31
+ */
+
+package exemple.exceptii;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class ExceptieProprie {
+    int cod;
+    /** Creates a new instance of ExceptieProprie */
+    public ExceptieProprie(int pCod) {
+        cod = pCod;
+    }
+    public String toString(){
+        return "Exceptie proprie, cod: " + cod;
+    }
+}
