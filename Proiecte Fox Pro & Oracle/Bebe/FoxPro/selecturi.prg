@@ -1,0 +1,121 @@
+**	Erori:Daca scrie "Data Type Mismatch" atunci ai uitat ghilimele; 
+**  Data se scrie intre ghilimele {^2004/03/01}
+**	Numele din operatorul Like se scrie intre %
+	
+							***Select
+	***Selecteaza numele si prenumele jucatorilor
+SELECT nume,prenume from jucatori j	where j.nume = 'Popescu' and j.prenume = 'Marian'
+	***Selecteaza echipele si localitatile din care provin
+select numeech,loc,jud from localitati,echipe where localitati.codpost=echipe.codpost;
+	***Selecteaza localitatea din care este echipa Steaua
+SELECT codpost FROM echipe WHERE UPPER(TRIM(numeech))='STEAUA'
+	  
+SELECT count(nrjuc) as nrjuc FROM echipe WHERE UPPER(TRIM(numeech))='STEAUA' 
+	***Selecteaza cati jucatori are echipa Steaua
+SELECT sum(nrjuc) as nrjuc FROM echipe WHERE UPPER(TRIM(numeech))='STEAUA'
+	
+SELECT telefon from echipe WHERE numeech='Steaua'
+	
+SELECT datameci FROM meciuri WHERE UPPER(TRIM(idmeci))='MECI1'
+
+SELECT loc,jud,codpost FROM localitati ORDER BY jud DESC,loc ASC;
+
+SELECT nume,prenume FROM jucatori ORDER BY nume ASC,prenume ASC;
+
+SELECT nume,prenume FROM jucatori WHERE cnp='1821208226068';
+	***Selecteaza meciurile care s-au disputat intre 1 martie si 20 mai 2004
+SELECT idmeci FROM meciuri WHERE datameci BETWEEN {^2004/03/01} AND {^2004/05/20};
+
+SELECT idmeci FROM meciuri WHERE datameci={^2004/06/16};
+
+SELECT jud,loc,codpost FROM localitati WHERE jud BETWEEN 'IS' AND 'TM' ORDER BY jud DESC,loc ASC; 
+
+SELECT * FROM jucatori WHERE nume LIKE '%M%';
+
+SELECT * FROM jucatori WHERE prenume LIKE '%Ion%';
+
+SELECT loc FROM localitati WHERE jud='Iasi' AND jud='MS' ORDER BY loc;
+
+SELECT codjuc FROM transferuri WHERE datatran={^2004/04/16};
+
+SELECT DISTINCT loc,codpost,regiune FROM localitati l,judete j WHERE j.jud=l.jud;
+
+SELECT nume,prenume FROM jucatori j,transferuri t WHERE j.codjuc=t.codjuc AND idtran='Transfer10';
+
+SELECT nume,prenume FROM jucatori j,transferuri t WHERE j.codjuc=t.codjuc AND datatran BETWEEN {^2004/01/16} AND {^2004/09/20}; 
+
+***SELECT prenume FROM meciuri m,jucatori j,echipe e WHERE e.idech=j.idech AND m.idech=e.idech1 AND datameci={^2004/04/16} and idmeci='Meci10' EXCEPT 
+
+***SELECT prenume FROM meciuri m,jucatori j,echipe e WHERE e.idech=j.idech AND m.idech=e.idech1 AND datameci={^2004/03/19} and idmeci='Meci11;
+
+SELECT SUM(nrgolec2) AS NrGoluri from meciuri where idmeci='Meci4';
+
+SELECT COUNT(nrgolec2) AS Nrgolec2 FROM meciuri where idmeci='Meci6';
+
+SELECT idmeci,SUM(nrgolec2) AS Goluri from meciuri where Nrgolec2 =0 GROUP BY idmeci;
+
+SELECT etapa,idech1,SUM(nrgolec1) AS Nrgoluri FROM meciuri where nrgolec1=1 GROUP BY Etapa,idech1;
+
+*Care este zilele in care s-au dat cele mai multe goluri,si nr golurilo sa fie mai multe de 1;
+
+SELECT datameci,SUM(nrgolec1) AS NrGoluri from meciuri where nrgolec1 >1 group by datameci;
+
+SELECT idech,SUM(nrjuc) AS NRJUCATORI from echipe GROUP BY idech HAVING SUM(nrjuc) >=20;
+
+SELECT nume,prenume,COUNT(idech) AS Echipe from jucatori GROUP BY nume,prenume HAVING COUNT(idech) <4;
+
+SELECT nume,prenume,SUM(idech) AS Echipe from jucatori GROUP BY nume,prenume HAVING SUM(idech) <4;
+
+SELECT SUM(nrjuc) from echipe where numeech='Dinamo';
+select count(nrjuc) from echipe where numeech = "Dinamo"
+
+SELECT numestad from stadioane s,echipe e where s.codpost=e.codpost and numeech='Dinamo'
+
+SELECT numestad FROM stadioane s,meciuri m WHERE s.codstad=m.codstad AND idmeci='Meci1'
+
+SELECT numestad from stadioane s,echipe e,meciuri m where s.codpost=e.codpost and m.codstad=s.codstad AND numeech='Dinamo'
+
+SELECT regiune,loc FROM judete j,localitati l where j.jud=l.jud; 
+
+SELECT COUNT(etapa) AS ETAPA FROM meciuri WHERE idmeci='Meci1'
+
+SELECT SUM(etapa) AS ETAPA FROM meciuri WHERE idmeci='Meci1'
+
+SELECT SUM(nrgolec1) AS Nrgolec1, SUM(nrgolec2) AS Nrgolec2 FROM meciuri;
+
+SELECT idech1,idech2,SUM(nrfault) AS Nrfault FROM meciuri GROUP BY idech1,idech2 HAVING SUM(nrfault) >=4;
+
+SELECT codstad,SUM(cartrosu) AS CartRosu,SUM(cartgalb) AS Cartgalb FROM meciuri GROUP BY codstad HAVING SUM(cartrosu)>=3
+
+SELECT codstad,SUM(cartrosu) AS CartRosu,SUM(cartgalb) AS Cartgalb FROM meciuri GROUP BY codstad HAVING SUM(cartgalb)<2;
+
+SELECT codstad,SUM(cartrosu) AS Cartrosu FROM meciuri GROUP BY codstad HAVING SUM(cartrosu)>=3		
+		
+		
+****		Selecturi Noi		****
+
+SELECT codjuc FROM jucatori WHERE idech = 1;
+Select nrjuc FROM echipe WHERE numeech = "Dinamo";
+Select idmeci FROM meciuri WHERE etapa = 2;
+Select codjuc FROM jucatori;
+Select nume,prenume,adresa FROM jucatori WHERE Codjuc = "13568";
+
+select codjuc FROM jucatori WHERE nume = "Popescu";
+select nume,prenume FROM jucatori WHERE codjuc = "13568" or codjuc = "37679";
+select DISTINCT regiune FROM judete;
+select nume,prenume FROM jucatori WHERE codjuc = "13568" UNION select nume,prenume FROM jucatori WHERE codjuc = "37679";
+select codjuc FROM jucatori WHERE nume = "Popescu" AND prenume = "Marian";
+***select nume,prenume FROM jucatori WHERE idech = 1 minus select nume,prenume FROM jucatori WHERE idech = 2;
+
+select nume,prenume FROM jucatori ORDER BY nume;
+select jud,codpost FROM localitati ORDER BY jud desc,jud asc;
+SELECT codjuc,idech FROM jucatori ORDER BY nume DESC ,prenume asc;
+SELECT nume,prenume FROM jucatori ORDER BY idech desc,codjuc asc;
+SELECT codjuc FROM contract WHERE datainc_c between {^2003/03/02} AND {^2004/08/01} and datarez_c between {^2003/06/08} and {^2004/06/09} order BY codc;
+select loc,jud,codpost FROM localitati WHERE jud between "IS" AND "TM" ORDER BY jud,loc;
+select * FROM jucatori WHERE prenume like "_%da%";
+SELECT * FROM localitati WHERE jud = "IS" or jud = "TM" or jud = "VS" ORDER BY jud;
+select * FROM localitati WHERE Jud in ("IS","VS","TM");
+SELECT numeech FROM echipe e,jucatori j WHERE e.idech = j.idech AND nume="Popescu";
+
+
