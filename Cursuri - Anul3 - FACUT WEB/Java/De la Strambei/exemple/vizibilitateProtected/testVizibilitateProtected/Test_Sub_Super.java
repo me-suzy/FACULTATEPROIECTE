@@ -1,0 +1,35 @@
+/*
+ * Test_Sub_Super.java
+ *
+ * Created on 24 martie 2003, 12:52
+ */
+
+package exemple.vizibilitateProtected.testVizibilitateProtected;
+
+import exemple.vizibilitateProtected.packSub.Sub;
+import exemple.vizibilitateProtected.packSuper.Super;
+/**
+ *
+ * @author  strimbeic
+ */
+public class Test_Sub_Super {
+  public void test() {
+	Super mySuper = new Super();
+	Sub mySub = new Sub();
+
+	// primul test - toate cele trei variabile sunt valide
+	int i = mySuper.public_Super_Field ;
+	// prin moºtenire de la Super
+	int j = mySub.public_Super_Field ;
+	int k = mySub.public_Sub_Field ;
+        
+	// al doilea test - nici o variabilã nu este valabilã
+        int l = mySuper.private_Super_Field ;
+	int m = mySub.private_Super_Field ;
+	int n = mySub.private_Sub_Field ;
+	// al treilea test - nici o variabilã nu este valabilã
+	int o = mySuper.protected_Super_Field ;
+	int p = mySub.protected_Super_Field ;
+	int r = mySub.protected_Sub_Field ;
+  }
+}
