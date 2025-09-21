@@ -1,0 +1,5 @@
+<p>
+You do not have the most current version of the Office Web Components installed.<br>
+Please click on the link below and install them.
+</p>
+<a href="http://office.microsoft.com/downloads/2002/owc10.aspx?HelpLCID=%HelpLang%1033">Download Office Web Components</a>
