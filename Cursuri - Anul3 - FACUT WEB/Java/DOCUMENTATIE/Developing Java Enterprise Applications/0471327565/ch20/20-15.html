@@ -1,0 +1,223 @@
+
+<SCRIPT>
+<!--
+function displayWindow(url, width, height) {
+        var Win = window.open(url,"displayWindow",'width=' + width +
+	',height=' + height + ',resizable=1,scrollbars=yes');
+	}
+	//-->
+	</SCRIPT>
+
+
+
+<FONT FACE="Arial,Helvetica" SIZE="-1">
+To access the contents, click the chapter and section titles.
+</FONT>
+<P>
+<B>Developing Java Enterprise Applications</B>
+<FONT SIZE="-1">
+<BR>
+<I>(Publisher: John Wiley & Sons, Inc.)</I>
+<BR>
+Author(s): Stephen Asbury ; Scott R. Weiner
+<BR>
+ISBN: 0471327565
+<BR>
+Publication Date: 02/01/99
+</FONT>
+<P>
+<Script language="JavaScript">
+function isIE4() 
+{
+    return( navigator.appName.indexOf("Microsoft") != -1 && (navigator.appVersion.charAt(0)=='4') );
+ }
+function bookMarkit()
+{
+        var url="http://www.itknowledge.com/PSUser/EWBookMarks.html?url="+window.location+"&isbn=0";
+	parent.location.href=url;
+        //var win = window.open(url,"myitk");
+        //if(!isIE4())
+        //       win.focus();
+
+}
+</Script>
+<a href="javascript:bookMarkit();"><img src="/images/bookmarkit.gif" border=0 alt="Bookmark It" width=97 height=23></a>
+
+<P>
+<form name="Search" method="GET" action="http://search.earthweb.com/search97/search_redir.cgi">
+
+<INPUT TYPE="hidden" NAME="Action" VALUE="Search">
+<INPUT TYPE="hidden" NAME="SearchPage" VALUE="http://search.earthweb.com/search97/samples/forms/srchdemo.htm">
+<INPUT TYPE="hidden" NAME="Collection" VALUE="ITK">
+<INPUT TYPE="hidden" NAME="ResultTemplate" VALUE="itk-simple-intrabook.hts">
+<INPUT TYPE="hidden" NAME="ViewTemplate" VALUE="view.hts">
+
+<font face="arial, helvetica" size=2><b>Search this book:</b></font><br>
+<INPUT NAME="queryText" size=50 VALUE="">&nbsp;<input type="submit" name="submitbutton" value="Go!">
+<INPUT type=hidden NAME="section_on" VALUE="on">
+<INPUT type=hidden NAME="section" VALUE="http://www.itknowledge.com/reference/standard/0471327565/">
+
+</form>
+
+
+<!-- Empty Reference Subhead -->
+
+<!--ISBN=0471327565//-->
+<!--TITLE=Developing Java Enterprise Applications//-->
+<!--AUTHOR=Stephen Asbury//-->
+<!--AUTHOR=Scott R. Weiner//-->
+<!--PUBLISHER=Wiley Computer Publishing//-->
+<!--CHAPTER=20//-->
+<!--PAGES=544-548//-->
+<!--UNASSIGNED1//-->
+<!--UNASSIGNED2//-->
+
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="20-14.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="20-16.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<P><BR></P>
+<P>The server will serialize messages sent to a topic into a single sequence. This ensures that the client checking the queue will receive each message only once, and that the messages will be received in the order in which they were sent. The JMS provider is expected to keep messages for a topic available as long as the provider is running. Persistent messages should be maintained even if the server is shut down and restarted. Unlike Queues, the receivers for a topic may or may not be durable. In other words, a queue receiver expects to get messages that are sent while it is not running, but a topic subscriber can choose to ignore these missed messages.
+</P>
+<BLOCKQUOTE>
+<P><FONT SIZE="-1"><HR><B>NOTE:&nbsp;&nbsp;</B>Due to the similarities between using Queues and Topics, all of the examples from the discussion on point-to-point messaging are not repeated here. If you are planning to use publish-subscribe messaging, it will be useful to also look over the point-to-point examples for more complete coverage.</FONT><HR>
+</BLOCKQUOTE>
+<H4 ALIGN="LEFT"><A NAME="Heading23"></A><FONT COLOR="#000077">Topic Connection Factory</FONT></H4>
+<P>Clients that want to use topics and the publish-subscribe messaging model need to retrieve a topic-oriented connection factory from JNDI. This factory implements the TopicConnectionFactory interface, which extends the ConnectionFactory interface described previously. The TopicConnectionFactory provides two methods for creating connections:
+</P>
+<!-- CODE SNIP //-->
+<PRE>
+public TopicConnection createTopicConnection() throws JMSException
+public TopicConnection createTopicConnection(String userName
+                                            , String password)
+                                              throws JMSException
+</PRE>
+<!-- END CODE SNIP //-->
+<P>Both of these methods return an object that implements the TopicConnection interface. The first method uses the default user identification; the second takes a user name and password. These values may or may not be used by the JMS provider.
+</P>
+<P>MiniJMS registers a TopicConnectionFactory in JNDI using the name TopicConnectionFactory, so given a context, you can look it up using code such as:</P>
+<!-- CODE SNIP //-->
+<PRE>
+factory = (TopicConnectionFactory)
+            context.lookup(&#147;TopicConnectionFactory &#148;);
+</PRE>
+<!-- END CODE SNIP //-->
+<P>This code simply looks up an object in the JNDI context and casts it appropriately.
+</P>
+<H4 ALIGN="LEFT"><A NAME="Heading24"></A><FONT COLOR="#000077">Topic Connections</FONT></H4>
+<P>The TopicConnection is a special kind of Connection designed for publish-subscribe messaging and inherits the methods from that interface, as listed in Table 20.1. TopicConnection also defines three new methods. The first:
+</P>
+<!-- CODE SNIP //-->
+<PRE>
+public TopicSession createTopicSession(boolean transacted,
+                                       int acknowledgeMode)
+                                       throws JMSException
+</PRE>
+<!-- END CODE SNIP //-->
+<P>is used to create a session for your publish-subscribe messaging. This method takes a Boolean that indicates whether the returned session will use transactions and an integer that indicates the acknowledgment mode.
+</P>
+<P>The second and third methods defined in TopicConnection are:</P>
+<!-- CODE //-->
+<PRE>
+public ConnectionConsumer createConnectionConsumer(Topic topic
+                                     , String messageSelector
+                                     , ServerSessionPool sessionPool
+                                     , int maxMessages)
+                                     throws JMSException
+public ConnectionConsumer
+        createDurableConnectionConsumer(Topic topic
+                                     , String messageSelector
+                                     , ServerSessionPool sessionPool
+                                     , int maxMessages)
+                                       throws JMSException
+</PRE>
+<!-- END CODE //-->
+<P>These methods are for use in an application server and are not really part of the client API.
+</P>
+<H4 ALIGN="LEFT"><A NAME="Heading25"></A><FONT COLOR="#000077">Topic Sessions</FONT></H4>
+<P>The session created by a TopicConnection implements the TopicSession interface. This interface extends the Session interface described above and adds methods specific to publish-subscribe messages.
+</P>
+<P>The first thing that a TopicSession can do is create a special type of MessageProducer called a TopicPublisher. Use the method:</P>
+<!-- CODE SNIP //-->
+<PRE>
+public TopicPublisher createPublisher(Topic topic)
+                                         throws JMSException
+</PRE>
+<!-- END CODE SNIP //-->
+<P>to create this object for a specific topic.
+</P>
+<P>The session can also create special MessageConsumers called TopicSubscribers for a queue. There are four methods for creating consumers. The first two methods create normal subscribers:</P>
+<!-- CODE SNIP //-->
+<PRE>
+public TopicSubscriber createSubscriber(Topic topic)
+                                      throws JMSException
+
+public TopicSubscriber createSubscriber(Topic topic
+                                    , String messageSelector
+                                    , boolean noLocal)
+                                     throws JMSException
+</PRE>
+<!-- END CODE SNIP //-->
+<P>The second two create durable subscribers:
+</P>
+<!-- CODE //-->
+<PRE>
+public TopicSubscriber createDurableSubscriber(Topic topic
+                                      , String name)
+                                      throws JMSException
+
+public TopicSubscriber createDurableSubscriber(Topic topic
+                                    , String name
+                                    , String messageSelector
+                                    , boolean noLocal)
+                                     throws JMSException
+</PRE>
+<!-- END CODE //-->
+<P>The noLocal flag in these methods indicates whether a subscriber wants to receive messages sent by the client that created the subscription. The main difference between creating durable subscribers and plain subscribers is that durable subscribers have a name. This name is used to store messages for the subscriber when it is unavailable for message delivery. In usage, the main difference is that a durable subscriber will receive messages that were sent to it while it was not running, and a nondurable subscriber will not.
+</P>
+<P>Because a durable subscriber implies persistence, they require a mechanism for removing them from the JMS system. This mechanism is the TopicSession method:</P>
+<!-- CODE SNIP //-->
+<PRE>
+public void unsubscribe(java.lang.String name) throws JMSException
+</PRE>
+<!-- END CODE SNIP //-->
+<P>which takes the name of the durable subscription and unsubscribes it.
+</P>
+<P>Finally, the TopicSession can be used to create Topics. The method:</P>
+<!-- CODE SNIP //-->
+<PRE>
+public Topic createTopic(String topicName) throws JMSException
+</PRE>
+<!-- END CODE SNIP //-->
+<P>creates a real topic. This method may not be supported by all providers. Instead, providers may and should provide administration tools for defining queues. The name of a topic can be provider specific, so using create topic is not a portable coding convention.
+</P>
+<P>The TopicSession can also create temporary topics using the method:</P>
+<!-- CODE SNIP //-->
+<PRE>
+public TemporaryTopic createTemporaryTopic() throws JMSException
+</PRE>
+<!-- END CODE SNIP //-->
+<P>Temporary topics are deleted automatically when the client stops using them. You can also use TemporaryTopic&#146;s delete method to force deletion of the topic. Often, temporary topics are created to act as the reply-to destination for messages. The name of a temporary topic is defined by the provider&#146;s code, so this method is portable across JMS providers.
+</P>
+<H4 ALIGN="LEFT"><A NAME="Heading26"></A><FONT COLOR="#000077">The Topic Publisher</FONT></H4>
+<P>The TopicPublisher provides four methods for sending messages to a topic. These methods are listed in Table 20.12.
+</P>
+<P>The publisher also provides the method getTopic to access its default topic.</P>
+<P>The following example program displays a user interface, pictured in Figure 20.6, that allows the user to select a topic and send messages to it. This example is similar to the QueueSenderTest described earlier. TopicPublisherTest is a JPanel that handles user events by creating messages for a specified topic.</P><P><BR></P>
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="20-14.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="20-16.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+
+<!-- 
