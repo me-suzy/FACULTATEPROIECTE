@@ -1,0 +1,20 @@
+CREATE OR REPLACE TRIGGER trg_sporuri_after_row
+	AFTER INSERT OR UPDATE OR DELETE ON sporuri
+	FOR EACH ROW
+DECLARE
+BEGIN
+	IF INSERTING OR UPDATING THEN
+		UPDATE salarii 
+		SET sporuri = NVL(sporuri,0) + NVL(:NEW.spvech,0) + 
+			NVL(:NEW.spnoapte,0)+ NVL(:NEW.altesp,0) 
+		WHERE marca=:NEW.marca AND an=:NEW.an AND luna=:NEW.luna ;
+	END IF ;
+
+	IF DELETING OR UPDATING THEN
+		UPDATE salarii 
+		SET sporuri = NVL(sporuri,0) - NVL(:OLD.spvech,0) - 
+			NVL(:OLD.spnoapte,0) - NVL(:OLD.altesp,0) 
+		WHERE marca=:OLD.marca AND an=:OLD.an AND luna=:OLD.luna ;
+	END IF ;
+
+END;
