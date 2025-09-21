@@ -1,0 +1,645 @@
+.mstheme {
+	separator-image: url(aeclrule.gif); list-image-1: url(aeclbul1.gif); list-image-2: url(aeclbul2.gif); list-image-3: url(aeclbul3.gif); nav-banner-image: url(aeclbanr.gif); navbutton-horiz-normal: url(buthover.gif); navbutton-horiz-hovered: url(butsel_horiz.gif); navbutton-horiz-pushed: url(butsel.gif); navbutton-vert-normal: url(wathbtn.gif); navbutton-vert-hovered: url(awathseltransp.gif); navbutton-vert-pushed: url(wathbtn.gif); navbutton-home-normal: url(aeclhom.gif); navbutton-home-hovered: url(aeclhomh.gif); navbutton-home-pushed: url(blhomep.gif); navbutton-next-normal: url(aeclnxt.gif); navbutton-next-hovered: url(aeclnxth.gif); navbutton-next-pushed: url(blnextp.gif); navbutton-prev-normal: url(aeclbck.gif); navbutton-prev-hovered: url(aeclbckh.gif); navbutton-prev-pushed: url(blprevp.gif); navbutton-up-normal: url(aeclup.gif); navbutton-up-hovered: url(aecluph.gif); navbutton-up-pushed: url(blupp.gif)
+}
+.mstheme-bannertxt {
+	FONT-WEIGHT: normal; FONT-SIZE: 6px; COLOR: rgb(255,255,255); FONT-STYLE: normal
+}
+.mstheme-horiz-navtxt {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(255,255,255); FONT-STYLE: normal
+}
+.mstheme-vert-navtxt {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; VERTICAL-ALIGN: middle; COLOR: rgb(255,255,255); FONT-STYLE: normal; TEXT-ALIGN: center
+}
+.mstheme-navtxthome {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtnext {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtprev {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtup {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+UL {
+	LIST-STYLE-IMAGE: url(aeclbul1.gif)
+}
+UL UL {
+	LIST-STYLE-IMAGE: url(aeclbul2.gif)
+}
+UL UL UL {
+	LIST-STYLE-IMAGE: url(aeclbul3.gif)
+}
+A:link {
+	COLOR: rgb(255,255,0)
+}
+A:active {
+	COLOR: rgb(255,0,0)
+}
+A:visited {
+	COLOR: rgb(255,255,255)
+}
+BODY {
+	COLOR: rgb(0,0,0); BACKGROUND-COLOR: rgb(255,255,255)
+}
+TABLE {
+	table-border-color-light: rgb(204, 204, 204); table-border-color-dark: rgb(102, 102, 102)
+}
+H1 {
+	COLOR: rgb(0,0,0)
+}
+H2 {
+	COLOR: rgb(0,0,0)
+}
+H3 {
+	COLOR: rgb(0,0,0)
+}
+H4 {
+	COLOR: rgb(0,0,0)
+}
+H5 {
+	COLOR: rgb(0,0,0)
+}
+H6 {
+	COLOR: rgb(0,0,0)
+}
+BUTTON {
+	COLOR: rgb(255,255,255); BACKGROUND-COLOR: rgb(0,0,0)
+}
+LABEL {
+	COLOR: rgb(0,0,0)
+}
+.mstheme-text {
+	
+}
+TEXTAREA {
+	COLOR: rgb(0,0,0)
+}
+FIELDSET {
+	COLOR: rgb(0,0,0)
+}
+LEGEND {
+	COLOR: rgb(0,0,0)
+}
+SELECT {
+	COLOR: rgb(0,0,0)
+}
+CAPTION {
+	COLOR: rgb(0,0,0)
+}
+TH {
+	COLOR: rgb(0,0,0)
+}
+.mstheme-bannertxt A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-bannertxt A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-bannertxt A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-bannertxt-g {
+	FONT-WEIGHT: normal; FONT-SIZE: 6px; COLOR: rgb(255,255,255); FONT-STYLE: normal
+}
+.mstheme-bannertxt-g A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-bannertxt-g A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-bannertxt-g A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-bannertxt-s {
+	FONT-WEIGHT: normal; FONT-SIZE: 6px; COLOR: rgb(255,255,255); FONT-STYLE: normal
+}
+.mstheme-bannertxt-s A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-bannertxt-s A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-bannertxt-s A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-horiz-navtxt A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-horiz-navtxt A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-horiz-navtxt A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-horiz-navtxt-g {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(255,255,255); FONT-STYLE: normal
+}
+.mstheme-horiz-navtxt-g A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-horiz-navtxt-g A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-horiz-navtxt-g A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-horiz-navtxt-gs {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(255,255,255); FONT-STYLE: normal
+}
+.mstheme-horiz-navtxt-gs A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-horiz-navtxt-gs A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-horiz-navtxt-gs A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxthome A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxthome A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxthome A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxthome-g {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxthome-g A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxthome-g A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxthome-g A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxthome-gs {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxthome-gs A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxthome-gs A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxthome-gs A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtnext A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtnext A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtnext A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtnext-g {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtnext-g A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtnext-g A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtnext-g A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtnext-gs {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtnext-gs A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtnext-gs A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtnext-gs A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtprev A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtprev A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtprev A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtprev-g {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtprev-g A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtprev-g A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtprev-g A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtprev-gs {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtprev-gs A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtprev-gs A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtprev-gs A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtup A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtup A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtup A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtup-g {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtup-g A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtup-g A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtup-g A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-navtxtup-gs {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; COLOR: rgb(0,0,0); FONT-STYLE: normal
+}
+.mstheme-navtxtup-gs A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-navtxtup-gs A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-navtxtup-gs A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-topbar-font A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-topbar-font A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-topbar-font A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-topbar-font-g {
+	FONT-SIZE: 8pt; COLOR: rgb(0,0,0)
+}
+.mstheme-topbar-font-g A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-topbar-font-g A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-topbar-font-g A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-vert-navtxt A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-vert-navtxt A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-vert-navtxt A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-vert-navtxt-g {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; VERTICAL-ALIGN: middle; COLOR: rgb(255,255,255); FONT-STYLE: normal; TEXT-ALIGN: center
+}
+.mstheme-vert-navtxt-g A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-vert-navtxt-g A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-vert-navtxt-g A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-vert-navtxt-gs {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; VERTICAL-ALIGN: middle; COLOR: rgb(255,255,255); FONT-STYLE: normal; TEXT-ALIGN: center
+}
+.mstheme-vert-navtxt-gs A:link {
+	COLOR: rgb(51,102,204)
+}
+.mstheme-vert-navtxt-gs A:active {
+	COLOR: rgb(153,102,0)
+}
+.mstheme-vert-navtxt-gs A:visited {
+	COLOR: rgb(102,102,102)
+}
+.mstheme-vert-navtxt {
+	FONT-WEIGHT: normal; FONT-SIZE: 1px; VERTICAL-ALIGN: middle; COLOR: rgb(255,255,255); FONT-STYLE: normal; TEXT-ALIGN: center
+}
+.ms-addnew {
+	FONT-WEIGHT: normal; FONT-SIZE: 0.6em; COLOR: #666666; TEXT-DECORATION: none
+}
+.ms-announcementtitle {
+	FONT-WEIGHT: normal
+}
+.ms-appt {
+	BORDER-RIGHT: #336666 2px solid; BORDER-TOP: #336666 2px solid; FONT-SIZE: 8pt; VERTICAL-ALIGN: middle; OVERFLOW: hidden; BORDER-LEFT: #336666 2px solid; COLOR: black; BORDER-BOTTOM: #336666 2px solid; HEIGHT: 18px; BACKGROUND-COLOR: #cccccc; TEXT-ALIGN: center
+}
+.ms-appt A {
+	COLOR: #2d425f
+}
+.ms-appt A:hover {
+	COLOR: red
+}
+.ms-authoringcontrols {
+	FONT-SIZE: 8pt; COLOR: #000000; BACKGROUND-COLOR: #f2f2f2
+}
+.ms-banner {
+	FONT-SIZE: 9pt; COLOR: #000000
+}
+.ms-banner A:link {
+	FONT-WEIGHT: normal; FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+.ms-banner A:visited {
+	FONT-WEIGHT: normal; FONT-SIZE: 9pt; COLOR: #000000; TEXT-DECORATION: none
+}
+.ms-bannerframe {
+	BORDER-BOTTOM: #336666 2px solid; BACKGROUND-COLOR: #99cccc
+}
+.ms-cal {
+	TABLE-LAYOUT: fixed; CURSOR: default; BORDER-COLLAPSE: collapse
+}
+.ms-calbot {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: medium none; BORDER-LEFT: black 1px solid; BORDER-BOTTOM: black 1px solid; HEIGHT: 2px
+}
+.ms-caldow {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 10pt; VERTICAL-ALIGN: top; BORDER-LEFT: black 1px solid; HEIGHT: 20px; TEXT-ALIGN: center
+}
+.ms-caldowdown {
+	FONT-WEIGHT: bold; VERTICAL-ALIGN: middle; COLOR: #000000; TEXT-ALIGN: center
+}
+.ms-caldown {
+	FONT-SIZE: 8pt; VERTICAL-ALIGN: top; COLOR: #000000; TEXT-ALIGN: left
+}
+.ms-calhead {
+	BORDER-RIGHT: medium none; PADDING-RIGHT: 2px; BORDER-TOP: medium none; PADDING-LEFT: 2px; FONT-SIZE: 16pt; PADDING-BOTTOM: 2px; BORDER-LEFT: medium none; COLOR: #ffffff; PADDING-TOP: 2px; BORDER-BOTTOM: medium none; BACKGROUND-COLOR: #336666; TEXT-ALIGN: center
+}
+.ms-calmid {
+	BORDER-RIGHT: black 1px solid; BORDER-LEFT: black 1px solid; HEIGHT: 20px
+}
+.ms-calspacer {
+	BORDER-RIGHT: black 1px solid; BORDER-LEFT: black 1px solid; HEIGHT: 4px
+}
+.ms-caltop {
+	BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; FONT-SIZE: 10pt; VERTICAL-ALIGN: top; BORDER-LEFT: black 1px solid; WIDTH: 14%; HEIGHT: 30px
+}
+.ms-datepicker {
+	BORDER-RIGHT: activeborder 2px outset; BORDER-TOP: activeborder 2px outset; BORDER-LEFT: activeborder 2px outset; CURSOR: default; BORDER-BOTTOM: activeborder 2px outset
+}
+.ms-datepickeriframe {
+	BACKGROUND-POSITION: 0% 50%; DISPLAY: none; BACKGROUND-ATTACHMENT: scroll; BACKGROUND-REPEAT: repeat; POSITION: absolute; BACKGROUND-COLOR: white
+}
+.ms-descriptiontext {
+	FONT-SIZE: 10pt; COLOR: #000000
+}
+.ms-descriptiontext A {
+	FONT-SIZE: 10pt; COLOR: #339999
+}
+.ms-discussiontitle {
+	FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: #336666
+}
+.ms-dpday {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-SIZE: 8pt; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none; TEXT-ALIGN: center
+}
+.ms-dpdow {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-WEIGHT: bold; FONT-SIZE: 8pt; VERTICAL-ALIGN: top; BORDER-LEFT: medium none; BORDER-BOTTOM: black 1px solid; TEXT-ALIGN: center
+}
+.ms-dpfoot {
+	BORDER-RIGHT: medium none; BORDER-TOP: 1px solid; FONT-SIZE: 8pt; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none; FONT-STYLE: italic; HEIGHT: 24px; TEXT-ALIGN: center
+}
+.ms-dphead {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-WEIGHT: bold; FONT-SIZE: 8pt; BORDER-LEFT: medium none; COLOR: black; BORDER-BOTTOM: medium none; BACKGROUND-COLOR: #99cccc; TEXT-ALIGN: center
+}
+.ms-dpnonmonth {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-SIZE: 8pt; BORDER-LEFT: medium none; COLOR: gray; BORDER-BOTTOM: medium none; TEXT-ALIGN: center
+}
+.ms-dpselectedday {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; FONT-SIZE: 8pt; BORDER-LEFT: medium none; BORDER-BOTTOM: medium none; BACKGROUND-COLOR: #e6e6e6; TEXT-ALIGN: center
+}
+.ms-filedialog TD {
+	HEIGHT: 16px
+}
+.ms-formbody {
+	FONT-SIZE: 10pt; COLOR: #000000; TEXT-ALIGN: left
+}
+.ms-formdescription {
+	FONT-SIZE: 10pt; COLOR: #000000
+}
+.ms-formdescription A {
+	COLOR: #3399cc; TEXT-DECORATION: underline
+}
+.ms-formlabel {
+	FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: #000000; TEXT-ALIGN: left
+}
+.ms-homepagetitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 10pt; COLOR: #000000; TEXT-DECORATION: none
+}
+.ms-homepagetitle:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.ms-input {
+	FONT-SIZE: 9pt; VERTICAL-ALIGN: baseline
+}
+.ms-itemheader A {
+	FONT-WEIGHT: normal; FONT-SIZE: 11pt; COLOR: #339999; TEXT-DECORATION: none
+}
+.ms-itemheader A:hover {
+	COLOR: #3366cc; TEXT-DECORATION: underline
+}
+.ms-itemheader A:visited {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+.ms-long {
+	FONT-SIZE: 9pt; WIDTH: 300px
+}
+.ms-main {
+	BORDER-RIGHT: #99cccc 50px solid
+}
+.ms-nav A {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #339999; TEXT-DECORATION: none
+}
+.ms-nav A:hover {
+	COLOR: #3366cc; TEXT-DECORATION: underline
+}
+.ms-nav A:visited {
+	COLOR: #999999
+}
+.ms-nav TD {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #000000
+}
+.ms-nav TH {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #000000; TEXT-ALIGN: left
+}
+.ms-navframe {
+	BORDER-LEFT: #336666 2px solid; COLOR: #000000
+}
+.ms-pagetitle {
+	FONT-WEIGHT: normal; FONT-SIZE: 14pt; COLOR: #336666
+}
+.ms-pagetitle A {
+	COLOR: #336666; TEXT-DECORATION: underline
+}
+.ms-pagetitle A:hover {
+	COLOR: #336666; TEXT-DECORATION: underline
+}
+.ms-propertysheet {
+	FONT-SIZE: 10pt
+}
+.ms-propertysheet A {
+	COLOR: #339999; TEXT-DECORATION: none
+}
+.ms-propertysheet A:hover {
+	COLOR: #3366cc; TEXT-DECORATION: underline
+}
+.ms-propertysheet A:visited {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+.ms-propertysheet TH {
+	FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: #000000
+}
+.ms-radiotext {
+	FONT-SIZE: 10pt; CURSOR: default; HEIGHT: 19px; TEXT-ALIGN: left
+}
+.ms-searchbox {
+	WIDTH: 100%
+}
+.ms-sectionheader {
+	FONT-SIZE: 12pt; COLOR: #000000
+}
+.ms-sectionline {
+	HEIGHT: 1px; BACKGROUND-COLOR: #000000
+}
+.ms-selected {
+	COLOR: #000000; BACKGROUND-COLOR: #99cccc
+}
+.ms-selected SPAN {
+	COLOR: #000000
+}
+.ms-separator {
+	FONT-SIZE: 10pt; COLOR: #99cccc
+}
+.ms-titlearea {
+	FONT-SIZE: 9pt; COLOR: #000000
+}
+.ms-titleareaframe {
+	BORDER-LEFT: #336666 2px solid; COLOR: #000000
+}
+.ms-toolbar {
+	FONT-SIZE: 8pt; COLOR: #666666; TEXT-DECORATION: none
+}
+.ms-vb {
+	FONT-SIZE: 10pt; VERTICAL-ALIGN: top; HEIGHT: 18px
+}
+.ms-vb A {
+	COLOR: #339999; TEXT-DECORATION: none
+}
+.ms-vb A:hover {
+	COLOR: #3366cc; TEXT-DECORATION: underline
+}
+.ms-vb A:visited {
+	COLOR: #999999; TEXT-DECORATION: none
+}
+.ms-verticaldots {
+	BACKGROUND-POSITION: right 50%; BACKGROUND-IMAGE: url(blank.gif); BACKGROUND-REPEAT: repeat-y
+}
+.ms-vh {
+	FONT-WEIGHT: normal; FONT-SIZE: 10pt; COLOR: #000000; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+.ms-vh A {
+	COLOR: #339999; TEXT-DECORATION: none
+}
+.ms-vh A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-viewselect A:link {
+	FONT-SIZE: 8pt; COLOR: #339999
+}
+.ms-wvsel {
+	COLOR: #3366cc
+}
+.mstheme {
+	navbutton-background-color: rgb(255,255,255); top-bar-button: url(eclglobl.gif)
+}
+.mstheme-topbar-font {
+	FONT-SIZE: 8pt; COLOR: rgb(0,0,0)
+}
+BODY {
+	BACKGROUND-IMAGE: url(eclbkgnd.gif)
+}
+BUTTON {
+	BORDER-RIGHT: 1pt solid; BORDER-TOP: 1pt solid; FONT-SIZE: 8pt; BORDER-LEFT: 1pt solid; BORDER-BOTTOM: 1pt solid; FONT-STYLE: normal
+}
+CAPTION {
+	FONT-SIZE: 14pt; FONT-STYLE: normal
+}
+FIELDSET {
+	BORDER-RIGHT: 1pt solid; BORDER-TOP: 1pt solid; FONT-SIZE: 8pt; BORDER-LEFT: 1pt solid; BORDER-BOTTOM: 1pt solid; FONT-STYLE: normal
+}
+H1 {
+	FONT-WEIGHT: normal; FONT-SIZE: 24pt; FONT-STYLE: normal
+}
+H2 {
+	FONT-WEIGHT: normal; FONT-SIZE: 18pt; FONT-STYLE: normal
+}
+H3 {
+	FONT-WEIGHT: normal; FONT-SIZE: 14pt; FONT-STYLE: normal
+}
+H4 {
+	FONT-WEIGHT: normal; FONT-SIZE: 12pt; FONT-STYLE: normal
+}
+H5 {
+	FONT-WEIGHT: normal; FONT-SIZE: 10pt; FONT-STYLE: normal
+}
+H6 {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; FONT-STYLE: normal
+}
+IMG.ms-button {
+	CURSOR: hand
+}
+LABEL {
+	FONT-SIZE: 8pt; FONT-STYLE: normal
+}
+LABEL {
+	FONT-SIZE: 8pt; FONT-STYLE: normal
+}
+.mstheme-label {
+	FONT-SIZE: 8pt; FONT-STYLE: normal
+}
+LEGEND {
+	FONT-SIZE: 8pt; FONT-STYLE: normal
+}
+MARQUEE {
+	FONT-SIZE: 14pt
+}
+SELECT {
+	BORDER-RIGHT: 1pt solid; BORDER-TOP: 1pt solid; FONT-SIZE: 8pt; BORDER-LEFT: 1pt solid; BORDER-BOTTOM: 1pt solid; FONT-STYLE: normal
+}
+TABLE {
+	FONT-STYLE: normal
+}
+TEXTAREA {
+	BORDER-RIGHT: 1pt solid; BORDER-TOP: 1pt solid; FONT-SIZE: 8pt; BORDER-LEFT: 1pt solid; BORDER-BOTTOM: 1pt solid; FONT-STYLE: normal
+}
+TH {
+	FONT-STYLE: normal
+}
