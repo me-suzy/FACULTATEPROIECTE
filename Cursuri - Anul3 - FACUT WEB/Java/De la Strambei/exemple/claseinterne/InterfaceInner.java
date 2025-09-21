@@ -1,0 +1,12 @@
+/*
+ * InterfaceInner.java
+ *
+ * Created on 31 martie 2003, 12:41
+ */
+
+package exemple.claseinterne;
+
+public interface InterfaceInner {
+  String m1 =  "Valoare Interna";
+  String getm1();
+}
