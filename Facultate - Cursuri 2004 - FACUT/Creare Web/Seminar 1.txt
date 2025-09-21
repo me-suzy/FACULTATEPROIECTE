@@ -1,0 +1,24 @@
+RunCommand - xterm
+scrii RedHat(TAB 2 sau 3 ori)
+	config-network - Edit
+Pt a restarta interfata de retea - /etc/rc.d/init.d/ apoi TAB apoi /nedW apoi TAB(sau ENTER)
+
+redhat.config.users(enter)
+addgroup - (vezi sus) - Preferences (debifez filtrate...)
+add user
+pt a iesi EXIT sai CTRL+D
+
+click dreapta - login off different user
+
+RunCommand - eXterm
+top 
+Q - pt a iesi
+ps aux\grep kde
+Start-Modzilla-www.google.com : ICEWM
+icewm - 1.2.1.3.tar.dz
+/home/nickname
+in consola - du -h icewm
+
+SU - Switch User (ls)
+RPM - (RedHat package menges)
+rpm-ivh icevm-1.2.1.3.rpm
