@@ -1,0 +1,38 @@
+ declare
+an sallarii.an%type:=2004
+luna salarii.luna&type;
+prima_zi date;
+ zi date;
+cursor c_personal is
+select marca,numepren from personal;
+rec_c_personal c_personal%rowtype;
+open c_personal;
+fetch c_personal into rec_c_personal;
+while c_personal%found loop
+fetch c_personal into rec_c_personal;
+end loop;
+close c_personal;
+begin
+for rec_c_personal in c_personal loop
+for luna in 1..12 loop
+prima_zi:=to_date('01'||'/'||luna||'/'||an,'dd/mm/yyyy');
+for zi in prima_zi..last_day(prima_zi) loop
+if rtrim(ltrim(to_char(zi,'day'))) not in ('Saturday','Sunday') then
+case
+when rec_c_personal.marca in (1001,1005) and
+rtrim(ltrim(to_char(zi,'day'))) in ('Monday','Thursday') then
+insert into pontaje(marca,data,orelucrate,orenoapte)
+values(rec_c_personal.marca,zi,8,6);
+when rec_c_personal.marca in (1002,1006) and
+zi between to_date('1/03/04',dd/mm/yyyy') and to_date ('15/03/04','dd/mm/yyyy') then
+insert into pontaje(marca,data,orelucrate,oreco)
+values(rec_c_personal.marca,zi,0,8);
+else
+insert into pontaje(marca,data,orelucrate)
+values(rec_c_personal.marca,zi,8);
+end case;
+end if;
+end loop;-- sf parcurgere zi luna
+end loop;-- sf parcurgere luna an
+end loop;--sf parcurgere cursor
+end;
