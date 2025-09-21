@@ -1,0 +1,20 @@
+create sql view vcomponente as ;
+select codcompo,numecompo,tip_compo,pretcompo from componente
+
+dbsetprop('vcomponente','view','tables','componente')
+
+dbsetprop('vcomponente.codcompo','field','keyfield',.t.)
+
+dbsetprop('vcomponente.codcompo','field','updatename','componente.codcompo')
+dbsetprop('vcomponente.numecompo','field','updatename','componente.numecompo')
+dbsetprop('vcomponente.tip_compo','field','updatename','componente.tip_compo')
+dbsetprop('vcomponente.pretcompo','field','updatename','componente.pretcompo')
+
+dbsetprop('vcomponente.codcompo','field','defaultvalue','def_codcompo_componente()')
+
+dbsetprop('vcomponente.codcompo','field','updatable',.t.)
+dbsetprop('vcomponente.numecompo','field','updatable',.t.)
+dbsetprop('vcomponente.tip_compo','field','updatable',.t.)
+dbsetprop('vcomponente.pret_compo','field','updatable',.t.)
+
+dbsetprop('vcomponente','view','sendupdates',.t.)
