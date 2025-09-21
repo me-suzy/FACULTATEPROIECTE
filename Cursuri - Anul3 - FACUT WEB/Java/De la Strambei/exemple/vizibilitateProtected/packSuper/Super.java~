@@ -1,0 +1,37 @@
+/*
+ * ClientPro1.java
+ *
+ * Created on 24 martie 2003, 12:45
+ */
+
+package exemple.vizibilitate_protected.pack_Super;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class Super {
+	public int public_Super_Field;
+	protected int protected_Super_Field;
+	private int private_Super_Field;
+	
+	public Super(){
+		public_Super_Field = 10;
+		protected_Super_Field = 20;
+		private_Super_Field = 30;
+	}
+
+        public void superToSuper (Super anotherSuper) {
+		int i = anotherSuper.public_Super_Field ;
+		int j = anotherSuper.protected_Super_Field ;
+		int k = anotherSuper.private_Super_Field ;
+	}
+        
+	public void superToSub (Sub sub) {
+		// i este Ok pentru cã este vorba de un membru public
+		int i = sub.public_Sub_Field ;
+		// j ºi k sunt invalide, accesul protected sau private este restricþionat
+		int j = sub.protected_Sub_Field ;
+		//int k = sub.private_Sub_Field ;
+	}        
+}
