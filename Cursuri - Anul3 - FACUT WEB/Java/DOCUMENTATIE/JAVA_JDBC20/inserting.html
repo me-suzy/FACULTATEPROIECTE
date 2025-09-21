@@ -1,0 +1,261 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Inserting and Deleting Rows Programmatically</title>
+<script language="JavaScript">
+<!-- hide
+function openWin(term) {
+  url="../../information/glossary.html#" + term;
+  myWin= window.open(url, "Glossary",
+              "width=400,height=150,scrollbars=yes,status=no,toolbar=no,menubar=no");
+  myWin.focus();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#ffffff" LINK="#000099">
+<B><FONT SIZE="-1">The Java</font><sup><font size="-2">TM</font></sup> <font size="-1">Tutorial</FONT></B>
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="updating.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/updating.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#jdbc2dot0'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#jdbc2dot0" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="sample.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/sample.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+
+<font size="-1">
+<b>Trail</b>: JDBC(TM) Database Access
+<br>
+<b>Lesson</b>: New Features in the JDBC 2.0 API
+</font>
+
+<h2>
+Inserting and Deleting Rows Programmatically
+</h2>
+<blockquote>
+In the previous section you saw how to modify a column value using methods in the JDBC 2.0 API rather than having to use SQL commands. With the JDBC 2.0 API, you can also insert a new row into a table or delete an existing row programmatically.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1015620">
+ </A>
+Let's suppose that our coffee house proprietor is getting a new variety from one of his coffee suppliers, The High Ground, and wants to add the new coffee to his database. Using the JDBC 1.0 API, he would write code that passes an SQL insert statement to the DBMS. The following code fragment, in which <CODE CLASS="Code-Variable1">
+stmt</CODE>
+ is a <CODE CLASS="Code">
+Statement</CODE>
+ object, shows this approach:</P>
+<blockquote>
+<PRE CLASS="Code"><A NAME="pgfId=1015591"> </A>
+stmt.executeUpdate(&quot;INSERT INTO COFFEES &quot; +
+		   &quot;VALUES ('Kona', 150, 10.99, 0, 0)&quot;);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1015619">
+ </A>
+You can do the same thing without using any SQL commands by using <CODE CLASS="Code">
+ResultSet</CODE>
+ methods in the JDBC 2.0 API. Basically, after you have a <CODE CLASS="Code">
+ResultSet</CODE>
+ object with results from the table <CODE CLASS="Code">
+COFFEES</CODE>
+, you can build the new row and then insert it into both the result set and the table <CODE CLASS="Code">
+COFFEES</CODE>
+ in one step. You build a new row in what is called the insert row, a special row associated with every <CODE CLASS="Code">
+ResultSet</CODE>
+ object. This row is not actually part of the result set; you can think of it as a separate buffer in which to compose a new row.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1015640">
+ </A>
+Your first step will be to move the cursor to the insert row, which you do by invoking the method <CODE CLASS="Code">
+moveToInsertRow</CODE>
+. The next step is to set a value for each column in the row. You do this by calling the appropriate <CODE CLASS="Code-Italic">
+updateXXX</CODE>
+ method for each value. Note that these are the same <CODE CLASS="Code-Italic">
+updateXXX</CODE>
+ methods you used in the previous section for changing a column value. Finally, you call the method <CODE CLASS="Code">
+insertRow</CODE>
+ to insert the row you have just populated with values into the result set. This one method simultaneously inserts the row into both the <CODE CLASS="Code">
+ResultSet</CODE>
+ object and the database table from which the result set was selected.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1015706">
+ </A>
+The following code fragment creates the scrollable and updatable <CODE CLASS="Code">
+ResultSet</CODE>
+ object <CODE CLASS="Code-Variable1">
+uprs</CODE>
+, which contains all of the rows and columns in the table <CODE CLASS="Code">
+COFFEES</CODE>
+: </P>
+<blockquote>
+<PRE CLASS="Code"><A NAME="pgfId=1015680"> </A>
+Connection con = DriverManager.getConnection(&quot;jdbc:mySubprotocol:mySubName&quot;);
+Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
+				     ResultSet.CONCUR_UPDATABLE);
+ResultSet uprs = stmt.executeQuery(&quot;SELECT * FROM COFFEES&quot;);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1015786">
+ </A>
+The next code fragment uses the <CODE CLASS="Code">
+ResultSet</CODE>
+ object <CODE CLASS="Code-Variable1">
+uprs</CODE>
+ to insert the row for Kona coffee, shown in the SQL code example. It moves the cursor to the insert row, sets the five column values, and inserts the new row into <CODE CLASS="Code-Variable1">
+uprs</CODE>
+ and <CODE CLASS="Code">
+COFFEES</CODE>
+:</P>
+<blockquote>
+<PRE CLASS="Code"><A NAME="pgfId=1015708"> </A>
+uprs.moveToInsertRow();
+uprs.updateString(&quot;COF_NAME&quot;, &quot;Kona&quot;);
+uprs.updateInt(&quot;SUP_ID&quot;, 150);
+uprs.updateFloat(&quot;PRICE&quot;, 10.99);
+uprs.updateInt(&quot;SALES&quot;, 0);
+uprs.updateInt(&quot;TOTAL&quot;, 0);
+uprs.insertRow();
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1015761">
+ </A>
+Because you can use either the column name or the column number to indicate the column to be set, your code for setting the column values could also have looked like this:</P>
+<blockquote>
+<PRE CLASS="Code"><A NAME="pgfId=1015803"> </A>
+uprs.updateString(1, &quot;Kona&quot;);
+uprs.updateInt(2, 150);
+uprs.updateFloat(3, 10.99);
+uprs.updateInt(4, 0);
+uprs.updateInt(5, 0);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1015822">
+ </A>
+You might be wondering why the <CODE CLASS="Code-Italic">
+updateXXX</CODE>
+ methods seem to behave differently here from the way they behaved in the update examples. In those examples, the value set with an <CODE CLASS="Code-Italic">
+updateXXX</CODE>
+ method immediately replaced the column value in the result set. That was true because the cursor was on a row in the result set. When the cursor is on the insert row, the value set with an <CODE CLASS="Code-Italic">
+updateXXX</CODE>
+ method is likewise immediately set, but it is set in the insert row rather than in the result set itself. In both updates and insertions, calling an <CODE CLASS="Code-Italic">
+updateXXX</CODE>
+ method does not affect the underlying database table. The method <CODE CLASS="Code">
+updateRow</CODE>
+ must be called to have updates occur in the database. For insertions, the method <CODE CLASS="Code">
+insertRow</CODE>
+ inserts the new row into the result set and the database at the same time.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1015839">
+ </A>
+You might also wonder what happens if you insert a row but do not supply a value for every column in the row. If you fail to supply a value for a column that was defined to accept SQL <CODE CLASS="Code">
+NULL</CODE>
+ values, then the value assigned to that column is <CODE CLASS="Code">
+NULL</CODE>
+. If a column does not accept null values, however, you will get an <CODE CLASS="Code">
+SQLException</CODE>
+ when you do not call an <CODE CLASS="Code-Italic">
+updateXXX</CODE>
+ method to set a value for it. This is also true if a table column is missing in your <CODE CLASS="Code">
+ResultSet</CODE>
+ object. In the example above, the query was <CODE CLASS="Code">
+SELECT * FROM COFFEES</CODE>
+, which produced a result set with all the columns of all the rows. When you want to insert one or more rows, your query does not have to select all rows, but it is safer to select all columns. Especially if your table has hundreds or thousands of rows, you might want to use a <CODE CLASS="Code">
+WHERE</CODE>
+ clause to limit the number of rows returned by your <CODE CLASS="Code">
+SELECT</CODE>
+ statement.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1016105">
+ </A>
+After you have called the method <CODE CLASS="Code">
+insertRow</CODE>
+, you can start building another row to be inserted, or you can move the cursor back to a result set row. You can, for instance, invoke any of the methods that put the cursor on a specific row, such as <CODE CLASS="Code">
+first</CODE>
+, <CODE CLASS="Code">
+last</CODE>
+, <CODE CLASS="Code">
+beforeFirst</CODE>
+, <CODE CLASS="Code">
+afterLast</CODE>
+, and <CODE CLASS="Code">
+absolute</CODE>
+. You can also use the methods <CODE CLASS="Code">
+previous</CODE>
+, <CODE CLASS="Code">
+relative</CODE>
+, and <CODE CLASS="Code">
+moveToCurrentRow</CODE>
+. Note that you can invoke <CODE CLASS="Code">
+moveToCurrentRow</CODE>
+ only when the cursor is on the insert row. </P>
+<P CLASS="Body">
+<A NAME="pgfId=1018053">
+ </A>
+When you call the method <CODE CLASS="Code">
+moveToInsertRow</CODE>
+, the result set records which row the cursor is sitting on, which is by definition the current row. As a consequence, the method <CODE CLASS="Code">
+moveToCurrentRow </CODE>
+can move the cursor from the insert row back to the row that was previously the current row. This also explains why you can use the methods <CODE CLASS="Code">
+previous</CODE>
+ and <CODE CLASS="Code">
+relative</CODE>
+, which require movement relative to the current row.</P>
+
+</blockquote>
+
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="updating.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/updating.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#jdbc2dot0'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#jdbc2dot0" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="sample.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/sample.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<p>
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/information/copyright.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/information/copyright.html'" tppabs="http://java.sun.com/docs/books/tutorial/information/copyright.html">Copyright</a>
+1995-2002 Sun Microsystems, Inc.  All rights reserved.
+</font>
+</p>
+</body>
+</html>
