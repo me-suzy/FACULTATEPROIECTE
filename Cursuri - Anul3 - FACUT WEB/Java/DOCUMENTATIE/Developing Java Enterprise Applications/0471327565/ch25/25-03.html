@@ -1,0 +1,303 @@
+
+<SCRIPT>
+<!--
+function displayWindow(url, width, height) {
+        var Win = window.open(url,"displayWindow",'width=' + width +
+	',height=' + height + ',resizable=1,scrollbars=yes');
+	}
+	//-->
+	</SCRIPT>
+
+
+
+<FONT FACE="Arial,Helvetica" SIZE="-1">
+To access the contents, click the chapter and section titles.
+</FONT>
+<P>
+<B>Developing Java Enterprise Applications</B>
+<FONT SIZE="-1">
+<BR>
+<I>(Publisher: John Wiley & Sons, Inc.)</I>
+<BR>
+Author(s): Stephen Asbury ; Scott R. Weiner
+<BR>
+ISBN: 0471327565
+<BR>
+Publication Date: 02/01/99
+</FONT>
+<P>
+<Script language="JavaScript">
+function isIE4() 
+{
+    return( navigator.appName.indexOf("Microsoft") != -1 && (navigator.appVersion.charAt(0)=='4') );
+ }
+function bookMarkit()
+{
+        var url="http://www.itknowledge.com/PSUser/EWBookMarks.html?url="+window.location+"&isbn=0";
+	parent.location.href=url;
+        //var win = window.open(url,"myitk");
+        //if(!isIE4())
+        //       win.focus();
+
+}
+</Script>
+<a href="javascript:bookMarkit();"><img src="/images/bookmarkit.gif" border=0 alt="Bookmark It" width=97 height=23></a>
+
+<P>
+<form name="Search" method="GET" action="http://search.earthweb.com/search97/search_redir.cgi">
+
+<INPUT TYPE="hidden" NAME="Action" VALUE="Search">
+<INPUT TYPE="hidden" NAME="SearchPage" VALUE="http://search.earthweb.com/search97/samples/forms/srchdemo.htm">
+<INPUT TYPE="hidden" NAME="Collection" VALUE="ITK">
+<INPUT TYPE="hidden" NAME="ResultTemplate" VALUE="itk-simple-intrabook.hts">
+<INPUT TYPE="hidden" NAME="ViewTemplate" VALUE="view.hts">
+
+<font face="arial, helvetica" size=2><b>Search this book:</b></font><br>
+<INPUT NAME="queryText" size=50 VALUE="">&nbsp;<input type="submit" name="submitbutton" value="Go!">
+<INPUT type=hidden NAME="section_on" VALUE="on">
+<INPUT type=hidden NAME="section" VALUE="http://www.itknowledge.com/reference/standard/0471327565/">
+
+</form>
+
+
+<!-- Empty Reference Subhead -->
+
+<!--ISBN=0471327565//-->
+<!--TITLE=Developing Java Enterprise Applications//-->
+<!--AUTHOR=Stephen Asbury//-->
+<!--AUTHOR=Scott R. Weiner//-->
+<!--PUBLISHER=Wiley Computer Publishing//-->
+<!--CHAPTER=25//-->
+<!--PAGES=625-629//-->
+<!--UNASSIGNED1//-->
+<!--UNASSIGNED2//-->
+
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="25-02.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="25-04.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<P><BR></P>
+<P>This EJB doesn&#146;t do anything on Activate, but it closes the log if removed or passivated. Messages to the log are encapsulated in the method logToServer, a discussion of which follows. This method reconnects the DebugLog appropriately.
+</P>
+<!-- CODE //-->
+<PRE>
+    public void ejbActivate()
+     {
+    }
+
+    public void ejbRemove()
+    {
+        try
+        {
+            logger.closeLog();
+            logger = null;
+        }
+        catch(Exception exp)
+        {
+        }
+    }
+
+    public void ejbPassivate()
+    {
+        try
+        {
+            logger.closeLog();
+            logger = null;
+        }
+        catch(Exception exp)
+        {
+        }
+    }
+</PRE>
+<!-- END CODE //-->
+<P>When the SessionContext is provided to the bean via the method setSessionContext, it caches all of its configuration properties in instance variables.
+</P>
+<!-- CODE //-->
+<PRE>
+    public void setSessionContext(SessionContext ctx)
+     {
+        Properties env = ctx.getEnvironment();
+        
+        user = env.getProperty(&#147;user&#148;);
+        password = env.getProperty(&#147;password&#148;);
+        url = env.getProperty(&#147;url&#148;);
+        driver = env.getProperty(&#147;driver&#148;);
+        logServer = env.getProperty(&#147;logserver&#148;);
+    }
+</PRE>
+<!-- END CODE //-->
+<P>The home interface requires a bean to be created using a name. This name is logged to the debug log in the ejbCreate method, as follows. The create method also instantiates the hash table that the bean uses to store shopping cart items or clears it if one is already assigned.
+</P>
+<!-- CODE //-->
+<PRE>
+    public void ejbCreate(String nm)
+     {
+        cartName = nm;
+        
+        if(items == null) items = new Hashtable();
+        else items.clear();
+
+        logToServer(&#147;Created bean: &#148;+cartName);
+    }
+</PRE>
+<!-- END CODE //-->
+<P>The ShoppingCartBean&#146;s first remote method is addItem. This method takes a shopping cart item and adds it to the bean, logging the addition to the debug log. Each time an item is added, the bean connects to the database to check and update the item&#146;s availability and price before adding the item to its items hash table. Although this reconnecting may seem like overkill, it really isn&#146;t. The Application Server hosting the bean is actually storing a pool of database connections. When the bean &#147;connects,&#148; it is really getting a connection from this pool. If your EJB host doesn&#146;t support connection pooling, make this connection in ejbActivate and close it in ejbPassivate to save the connection time. With pooling, open and close the connection as needed, making it available to other beans in the interim.
+</P>
+<P>Because a shopper might add the same item twice, check the database only the first time. Subsequent additions change only the quantity field in the ShoppingCartItem object. The complete implementation for addItem is included below. The primary code for adding items appears in boldface type.</P>
+<!-- CODE //-->
+<PRE>
+    public ShoppingCartItem addItem(ShoppingCartItem item)
+     {
+        ShoppingCartItem test=null;
+        ResultSet rs=null;
+        Statement statement=null;
+        ShoppingCartItem retVal = null;
+        Connection conn=null;
+        double curPrice;
+        int curQuantity;
+    
+        if(items == null) items = new Hashtable();
+        
+        logToServer(&#147;Adding item: &#148;+item);
+        
+<B>        if(item != null)
+            test = (ShoppingCartItem) items.get(item.desc);
+        
+        if(test == null)
+        {</B>
+            try
+            {
+<B>                conn = connectToDB();
+                
+                statement = conn.createStatement();
+                rs =
+                 statement.executeQuery(&#147;select * from inventory&#148;
+                                             +&#147; where item_desc=&#148;
+                                             +&#147;\&#145;&#148;+item.desc+&#147;\&#145;&#148;);</B>
+                
+                //Only take the first one
+<B>                if(rs.next())
+                {
+                    curPrice = item.price;
+                    
+                    //reset price from DB
+                    item.price = rs.getDouble(&#147;PRICE&#148;);
+                    
+                    curQuantity = rs.getInt(&#147;QUANTITY&#148;);
+                    
+                    logToServer(&#147;Adding &#148;+item.desc
+                                  +&#147; at price &#148;+item.price);
+                    
+                    if(curQuantity &lt item.quantity)
+                        item.quantity = curQuantity;
+                        
+                    items.put(item.desc,item);</B>
+                    
+                    retVal = item;
+<B>                }</B>
+                else
+                {
+                    logToServer("Item "+item.desc
+                                    +" not in database.");
+                }
+            }
+            catch(Exception exp)
+            {
+                logToServer(exp.toString());
+                retVal = null;
+            }
+            finally
+            {
+                try
+                {
+                    if(rs!=null) rs.close();
+                    if(statement != null) statement.close();
+                    if(conn!=null) conn.close();
+                }
+                catch(Exception exp)
+                {
+                    logToServer(exp.toString());
+                }
+            }
+        }
+        <B>else
+        {
+            test.quantity+=item.quantity;</B>
+            
+            retVal = test;
+<B>        }</B>
+        
+        return retVal;
+    }
+</PRE>
+<!-- END CODE //-->
+<P>The bean&#146;s client can request a list of the current contents using the method getItems, defined as follows. This method returns the ShoppingCartItems stored in the items hash table.
+</P>
+<!-- CODE //-->
+<PRE>
+    public ShoppingCartItem[] getItems()
+     {
+        Enumeration keys;
+        ShoppingCartItem[] retVal=null;
+        int i=0;
+        
+        if(items != null)
+        {
+            retVal = new ShoppingCartItem[items.size()];
+        
+            keys=items.keys();
+        
+            while(keys.hasMoreElements())
+            {
+                retVal[i] = (ShoppingCartItem) 
+                            items.get(keys.nextElement());
+                i++;
+            }
+        }
+        return retVal;
+    }
+</PRE>
+<!-- END CODE //-->
+<P>Clients may also want to delete an item using the method deleteItem. Deleting an item updates the quantity of the associated ShoppingCartItem. If the ShoppingCartItem&#146;s quantity goes to 0, the object is removed from the items hash table. The definition for deleteItem is:
+</P>
+<!-- CODE //-->
+<PRE>
+    public boolean deleteItem(ShoppingCartItem item)
+     {
+        ShoppingCartItem test=null;
+        boolean retVal = false;
+        
+        if((items != null)&amp&amp(item != null))
+            test = (ShoppingCartItem) items.get(item.desc);
+        
+        if(test != null)
+        {
+            test.quantity-=item.quantity;
+            
+            if(test.quantity &lt= 0) items.remove(test.desc);
+            
+            retVal = true;
+        }
+        
+        return retVal;
+    }
+</PRE>
+<!-- END CODE //-->
+<P><BR></P>
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="25-02.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="25-04.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+
+<!-- 
