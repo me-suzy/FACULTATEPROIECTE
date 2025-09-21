@@ -1,0 +1,88 @@
+"Pag. "+allt(str(_pageno))
+Error in line 9: Unrecognized command verb.
+"Imobil :"+allt(denimobil)
+Error in line 10: Unrecognized command verb.
+Left = 10
+Error in line 39: Statement is not in a procedure.
+Height = 90
+Error in line 40: Statement is not in a procedure.
+Width = 91
+Error in line 41: Statement is not in a procedure.
+Alias = "incasari"
+Error in line 42: Statement is not in a procedure.
+Database = ..\data1.dbc
+Error in line 43: Syntax error.
+CursorSource = "incasari"
+Error in line 44: Statement is not in a procedure.
+Name = "Cursor1"
+Error in line 45: Statement is not in a procedure.
+Left = 150
+Error in line 47: Statement is not in a procedure.
+Height = 90
+Error in line 48: Statement is not in a procedure.
+Width = 91
+Error in line 49: Statement is not in a procedure.
+Alias = "imobile"
+Error in line 50: Statement is not in a procedure.
+Database = ..\data1.dbc
+Error in line 51: Syntax error.
+CursorSource = "imobile"
+Error in line 52: Statement is not in a procedure.
+Name = "Cursor2"
+Error in line 53: Statement is not in a procedure.
+Left = 290
+Error in line 55: Statement is not in a procedure.
+Height = 90
+Error in line 56: Statement is not in a procedure.
+Width = 91
+Error in line 57: Statement is not in a procedure.
+Alias = "agenti"
+Error in line 58: Statement is not in a procedure.
+Database = ..\data1.dbc
+Error in line 59: Syntax error.
+CursorSource = "agenti"
+Error in line 60: Statement is not in a procedure.
+Name = "Cursor3"
+Error in line 61: Statement is not in a procedure.
+Left = 10
+Error in line 63: Statement is not in a procedure.
+Height = 90
+Error in line 64: Statement is not in a procedure.
+Width = 91
+Error in line 65: Statement is not in a procedure.
+Alias = "sucursale"
+Error in line 66: Statement is not in a procedure.
+Database = ..\data1.dbc
+Error in line 67: Syntax error.
+CursorSource = "sucursale"
+Error in line 68: Statement is not in a procedure.
+Name = "Cursor4"
+Error in line 69: Statement is not in a procedure.
+Left = 150
+Error in line 71: Statement is not in a procedure.
+Height = 90
+Error in line 72: Statement is not in a procedure.
+Width = 91
+Error in line 73: Statement is not in a procedure.
+Alias = "localitati"
+Error in line 74: Statement is not in a procedure.
+Database = ..\data1.dbc
+Error in line 75: Syntax error.
+CursorSource = "localitati"
+Error in line 76: Statement is not in a procedure.
+Name = "Cursor5"
+Error in line 77: Statement is not in a procedure.
+Left = 290
+Error in line 79: Statement is not in a procedure.
+Height = 90
+Error in line 80: Statement is not in a procedure.
+Width = 91
+Error in line 81: Statement is not in a procedure.
+Alias = "oferta_vanzare"
+Error in line 82: Statement is not in a procedure.
+Database = ..\data1.dbc
+Error in line 83: Syntax error.
+CursorSource = "oferta_vanzare"
+Error in line 84: Statement is not in a procedure.
+Name = "Cursor6"
+Error in line 85: Statement is not in a procedure.
