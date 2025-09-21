@@ -1,0 +1,24 @@
+/*
+ * TestCont.java
+ *
+ * Created on 17 martie 2003, 10:48
+ */
+
+package Salariati;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class TestCont {
+  public static void main(String[] args) {
+    Cont c = new Cont();
+    c.nrCont = "1111112211";
+    c.titularCont = "Ion Ion";
+    c.tipCont = "Credit";
+    c.stabLimitaCreditare(2000000);
+    c.depune(1000000);
+    c.retrage(2000000);
+  }
+}
+
