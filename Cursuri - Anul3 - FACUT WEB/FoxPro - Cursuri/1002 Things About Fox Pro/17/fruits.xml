@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="WINDOWS-1252"?>
+	<yada>
+		<FruitList FontSize="small">cherries oranges apples</FruitList>
+		<FruitList FontSize="large">apples oranges</FruitList>
+		<FruitList FontSize="12">cherries pears</FruitList>
+		<FruitList FontSize="14">grapes</FruitList>
+	</yada>
