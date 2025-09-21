@@ -1,0 +1,21 @@
+package Salariati;
+
+/*
+ * SuperTest.java
+ *
+ * Created on 13 martie 2003, 10:06
+ */
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class SuperTest {
+    public float X = 0;
+    /** Creates a new instance of SuperTest */
+    public SuperTest() {
+    }
+    public float getX(){
+        return X;
+    }
+}
