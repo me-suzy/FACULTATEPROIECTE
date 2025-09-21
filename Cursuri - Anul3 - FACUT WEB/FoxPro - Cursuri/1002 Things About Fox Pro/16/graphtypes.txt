@@ -1,0 +1,70 @@
+<script language="Javascript">
+function ChangeGraph() {
+	var iGraphType = 0
+	var iListIndex = -1
+	if ( self.cboGraphType.selectedIndex != -1 ) {	
+		iListIndex = self.cboGraphType.selectedIndex;
+		iGraphType = self.cboGraphType.options(iListIndex).value;
+		oChartSpace.Charts(0).Type = iGraphType;
+		}
+	}
+</script>
+<p><select name="cboGraphType" onChange="ChangeGraph()";>
+  <option	value=0>Clustered Column</option>
+  <option	value=1>Stacked Column</option>
+  <option	value=2>100% Stacked Column</option>
+  <option	value=46>3-D Column</option>
+  <option	value=47>3-D Clustered Column</option>
+  <option	value=48>3-D Stacked Column</option>
+  <option	value=49>100% 3-D Stacked Column</option>
+  <option	value=3>Clustered Bar</option>
+  <option	value=4>Stacked Bar</option>
+  <option	value=5>100% Stacked Bar</option>
+  <option	value=50>3-D Bar</option>
+  <option	value=51>3-D Clustered Bar</option>
+  <option	value=52>3-D Stacked Bar</option>
+  <option	value=53>100% 3-D Stacked Bar</option>
+  <option	value=18>Pie</option>
+  <option	value=19>Exploded Pie</option>
+  <option	value=20>Stacked Pie</option>
+  <option	value=58>3-D Pie</option>
+  <option	value=59>3-D Exploded Pie</option>
+  <option	value=6>Line</option>
+  <option	value=8>Stacked Line</option>
+  <option	value=10>100% Stacked Line</option>
+  <option	value=7>Line With Data Markers</option>
+  <option	value=9>Stacked Line With Data Markers</option>
+  <option	value=11>100% Stacked Line With Data Markers</option>
+  <option	value=12>Smooth Line</option>
+  <option	value=14>Smooth Stacked Line</option>
+  <option	value=16>100% Smooth Stacked Line</option>
+  <option	value=13>Smooth Line with Data Markers</option>
+  <option	value=15>Smooth Stacked Line with Data Markers</option>
+  <option	value=17>100% Smooth Line with Data Markers</option>
+  <option	value=54>3-D Line</option>
+  <option	value=55>3-D Overlapped Line</option>
+  <option	value=56>3-D Stacked Line</option>
+  <option	value=57>100% 3-D Stacked Line</option>
+  <option	value=32>Doughnut</option>
+  <option	value=33>Exploded Doughnut</option>
+  <option	value=29>Area</option>
+  <option	value=30>Stacked Area</option>
+  <option	value=31>100% Stacked Area</option>
+  <option	value=60>3-D Area</option>
+  <option	value=61>3-D Overlapped Area</option>
+  <option	value=62>3-D Stacked Area</option>
+  <option	value=63>100% 3-D Stacked Area</option>
+</select></p>
+<object id=oChartSpace classid=CLSID:0002E556-0000-0000-C000-000000000046 style="width:{{This.nWidth}};height:{{This.nHeight}}"></object>
+
+<script language=vbs>
+Sub Window_OnLoad()
+' Clear the contents of the chart workspace. This removes
+' any old charts that may already exist and leaves the chart workspace
+' completely empty. One chart object is then added.
+On Error Resume Next
+oChartSpace.Clear
+Set oChart = oChartSpace.Charts.Add
+Set oConstants = oChartSpace.Constants
+oChart.Type = {{This.nGraphType}}
+oChart.HasLegend = True
