@@ -1,0 +1,43 @@
+%FDF-1.2
+%âãÏÓ
+1 0 obj
+<< 
+/FDF << /Fields [ << /V /Off /T (chkNonResidentialTheater)>> << /V /Off /T (chkResidentialChurch)>> 
+<< /V /Off /T (chkResidentialGasStation)>> << /V /Off /T (chkResidentialHospital)>> 
+<< /V /Off /T (chkResidentialHotelMotel)>> << /V /Yes /T (chkResidentialIndustrial)>> 
+<< /V /Off /T (chkResidentialOffice)>> << /V /Off /T (chkResidentialOther)>> 
+<< /V /Off /T (chkResidentialParkingStructure)>> << /V /Off /T (chkResidentialPlanNumberOnFile)>> 
+<< /V /Off /T (chkResidentialPublicUtility)>> << /V /Off /T (chkResidentialSchool)>> 
+<< /V /Off /T (chkResidentialSingle)>> << /V /Off /T (chkResidentialStore)>> 
+<< /V /Off /T (chkResidentialTwoOrMore)>> << /V /Off /T (chkTypeAddition)>> 
+<< /V /Off /T (chkTypeAlteration)>> << /V /Off /T (chkTypeConcrete)>> 
+<< /V /Off /T (chkTypeDeck)>> << /V /Off /T (chkTypeDemolition)>> 
+<< /V /Off /T (chkTypeFireRepair)>> << /V /Off /T (chkTypeGarage)>> 
+<< /V /Off /T (chktypeMobileHome)>> << /V /Yes /T (chkTypeNewBuilding)>> 
+<< /V /Off /T (chkTypePool)>> << /V /Off /T (chkTypeRelocate)>> 
+<< /V /Off /T (chkTypeRepair)>> << /V /Off /T (chkTypeRoofing)>> 
+<< /V /Off /T (chkTypeShed)>> << /V (11/15/2001)/T (txtAppDate)>> 
+<< /V (12/31/2099)/T (txtContactorHomeExpirationDate)>> << /V (38-9999999)/T (txtContactorHomeFedId)>> 
+<< /V (987654321)/T (txtContactorHomeLicenseNumber)>> << /V (VFP Specialists)/T (txtContactorHomeLicenseType)>> 
+<< /V (Sterling Heights)/T (txtContactorHomeOwnerCity)>> << /V (48313)/T (txtContactorHomePostalCode)>> 
+<< /V (MI)/T (txtContactorHomeState)>> << /V (5865551234)/T (txtContactorHomeTelephoneNumber)>> 
+<< /V (Weasel and Shifty Insurance Group, Inc.)/T (txtContactorHomeWorkerCompIns)>> 
+<< /V (Steve Bodnar, Steve Sawyer, or Rick Schummer)/T (txtContactPerson)>> 
+<< /V (3134181290)/T (txtContactPhoneNumber)>> << /V (Acme Construction)/T (txtContractorHomeOwner)>> 
+<< /V (9999 Elms Street)/T (txtContractorHomeOwnerAddress)>> << /V (New Geeks and Gurus norther Detroit office)/T (txtDescriptionOfWorkOther)>> 
+<< /V (D3726312873621878)/T (txtDriverLicense)>> << /V (999999999999)/T (txtMESC)>> 
+<< /V (5869400081)/T (txtOwnerPhoneNumber)>> << /V (42424 Front Street)/T (txtOwnersAddress)>> 
+<< /V (Sterling Heights)/T (txtOwnersCity)>> << /V (Geeks and Gurus, Inc.)/T (txtOwnersName)>> 
+<< /V (48314)/T (txtOwnersPostalcode)>> << /V (MI)/T (txtOwnersState)>> 
+<< /V (Downtown Sterling Heights)/T (txtSiteLocation)>> << /V (9876 Main Street)/T (txtStreetAddress)>> 
+] 
+/F (SHAppBuildPermitData.pdf)/ID [ <8c562dff8dbc2284ab14a9e4b572b02f><98995e30afea0090038a1c9c79587e1d>
+] >> 
+>> 
+endobj
+trailer
+<<
+/Root 1 0 R 
+
+>>
+%%EOF
