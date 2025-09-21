@@ -1,0 +1,9 @@
+CREATE OR REPLACE TRIGGER trg_inchideri_ins_before_row
+	BEFORE INSERT ON inchideri
+	FOR EACH ROW
+BEGIN
+	SELECT SYSDATE, USER INTO :NEW.data, :NEW.operator FROM DUAL ;
+	un_pachet.v_ult_an_inchis := NULL ;
+	un_pachet.v_ult_luna_inchisa := NULL ;
+	un_pachet.v_ult_zi_inchisa := NULL ;
+END;
