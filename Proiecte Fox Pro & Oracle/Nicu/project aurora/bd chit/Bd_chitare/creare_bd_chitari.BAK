@@ -1,0 +1,302 @@
+
+
+***************************************************************************
+***							CREAREA BAZEI DE DATE					    ***					
+***************************************************************************
+close data all
+close table all
+close all
+*If not dbused ("vanzrepar")
+*open database "vanzrepar"
+*endif
+delete database vanzrepar deletetables
+
+create database vanzrepar
+
+****
+*drop table judete
+
+create table judete(;
+jud char (2);
+check(jud=ltrim(upper(jud)));
+error 'Se scrie cu majuscule!!!',;
+judet char (25);
+not null;
+check(judet=Ltrim(Proper(judet)));
+error 'Prima litera din numele judetului se scrie cu majuscula!!!!',;
+regiune char(15);
+check(inlist(regiune,'Moldova','Transilvania','Oltenia','Dobrogea','Banat','Muntenia'));
+Error 'Regiunea trebuie sa se afle in lista urmatoare: Moldova,Transilvania,Oltenia,Dobrogea,Banat,Muntenia',;
+primary key jud tag jud;
+)
+
+******
+*drop table localitati
+ 
+create table localitati(;
+codpost char(5);
+check(codpost=ltrim(codpost));
+error'Codul postal se scrie fara spatiu la inceput!!!',;
+loc char(25);
+check(loc=ltrim(proper(loc)));
+error 'Prima litera din numele localitatii se scrie cu majuscula',;
+jud char(2),;
+primary key codpost tag codpost,;
+foreign key jud tag jud references judete tag jud;
+) 
+
+****
+*drop table clienti
+
+create table clienti(;
+codcl numeric(6);
+default def_codcl_clienti(),;
+numepren char(25);
+check (numepren=ltrim(upper(numepren)));
+error'Numele si prenumele clientului se scriu cu majuscule!!!',;
+adresa char(25);
+null;
+check(substr(adresa,1,1)=upper(substr(adresa,1,1)));
+error'Prima litera este obligatoriu majuscula',;
+codpost char(5),;
+telefon numeric(12) null,;
+email char(20) null,;
+primary key codcl tag codcl,;
+foreign key codpost tag codpost references localitati tag codpost;
+)
+
+****
+*drop table chitare_celebre
+
+create table chitare_celebre(;
+codsign char(20),;
+numemuzician char(30);
+check(numemuzician=ltrim(proper(numemuzician)));
+error'Prima litera din numele muzicianului se scrie cu majuscula!!!',;
+datafabricatie date;
+default date(),;
+nrconcerte numeric(3),;
+primary key codsign tag codsign;
+)
+
+****
+*drop table chitare
+
+create table chitare(;
+codchitara char(20);
+check(substr(codchitara,1,1)=upper(substr(codchitara,1,1)));
+error'Prima litera este obligatoriu majuscula',;
+firma char(15);
+check(firma=ltrim(proper(firma)));
+error'Prima litera din numele firmei se scrie cu majuscula restul cu litere mici!!!',;
+tip_chitara char(8);
+check(inlist(tip_chitara,'Chitara','Bass','Double-six'));
+error'Tipul chitarei trebuie sa fie de tipul : Chitara,Bass,Double-six',;
+tip_poz char (8);
+default 'Dreapta';
+check(inlist(tip_poz,'Stanga','Dreapta'));
+error'Pozitia poatefi :Stanga sau Dreapta',;
+rezonanta char(20),;
+check(inlist(rezonanta,'Electrica','Acustica','Semi-acustica'));
+error'Rezonanta poate fi:Electrica,Acustica,Semi-acustica!!!',;
+nr_doze numeric(1),;
+model_doza char(20),;
+nr_taste numeric(2);
+default 21,;
+tip_taste char(15);
+check(inlist(tip_taste,'Rotunjite','Subtiri','Late'));
+error'Tipul de taste trebuie sa se gaseasca in urmatoarea lista:Rotunjite,Subtiri,Late',;
+material char(20),;
+vibrato char(20);
+null,;
+greutate_kg numeric(4,2),;
+imaginech general,;
+codsign char(20);
+default 'No Sign',;
+primary key codchitara tag codchitara,;
+foreign key codsign tag codsign references chitare_celebre tag codsign;
+)
+
+****
+*drop table facturi
+
+create table facturi(;
+nrfact number(6);
+default def_nrfact_facturi(),;
+datafact date;
+default date(),;
+codcl number(6);
+default def_codcl_facturi(),;
+valtotala numeric(16),;
+valincasata numeric(16),;
+obs char(50) null,;
+primary key nrfact tag nrfact,;
+foreign key codcl tag codcl references clienti tag codcl;
+)
+
+****
+*drop table liniifact
+
+create table liniifact(;
+nrfact number(8);
+default def_nrfact_liniifact(),;
+linie number(2);
+check (linie>0);
+error 'Linia trebuie sa fie mai mare ca 0';
+default def_linie_liniifact(),;
+codchitara char(20),;
+cantitate number (10);
+check cantitate_pretunit_valfaratva_valcutva(),;
+pretunit number(12);
+check cantitate_pretunit_valfaratva_valcutva(),;
+tva numeric(2);
+default 19;
+check tva_liniifact(),;
+valfaratva numeric(16);
+check valfaratva(),;
+valcutva numeric (16);
+check valcutva(),;
+primary key str(nrfact)+str(linie) tag Pk_liniif,;
+foreign key codchitara tag codchitara references chitare tag codchitara,;
+foreign key nrfact tag nrfact references facturi tag nrfact;
+)
+
+****
+*drop table incasari
+create table incasari(;
+codinc number(8);
+default def_codinc_incasari(),;
+datainc date;
+default date(),;
+coddoc char(4);
+check (coddoc=ltrim(Upper(coddoc)));
+error 'Codul documentului se scrie cu majuscule',;
+nrdoc char (16),;
+datadoc date;
+default date(),;
+primary key codinc tag codinc;
+)
+
+****
+*drop table incasfact
+
+create table incasfact(;
+codinc number(8),;
+nrfact number(8),;
+transa number(16);
+not null,;
+primary key str(codinc)+str(nrfact) tag Pk_incf,;
+foreign key codinc tag codinc references incasari tag codinc,;
+foreign key nrfact tag nrfact references facturi tag nrfact;
+)
+
+****
+*drop table premii
+
+create table premii(;
+codchitara char(10),;
+denpremiu char(20),;
+check (denpremiu=ltrim(proper(denpremiu)));
+error'Numele premiului se scrie cu prima litera majuscula',;
+categorie char(20),;
+anpremiu numeric(4),;
+primary key codchitara+denpremiu+categorie+str(anpremiu) tag pk_premii,;
+foreign key codchitara tag codchitara references chitare tag codchitara;
+)
+
+****
+*drop table componente
+
+create table componente(;
+codcompo numeric(6);
+default def_codcompo_componente(),;
+numecompo char(15);
+check(substr(numecompo,1,1)=upper(substr(numecompo,1,1)));
+error'Prima litera este obligatoriu majuscula',;
+tip_compo char(20);
+check(tip_compo=ltrim(proper(tip_compo)));
+error 'Tipul componentei se scrie cu prima litera majuscula!!!',;
+pretcompo numeric(12),;
+imagineco general,;
+primary key codcompo tag codcompo;
+)
+
+****
+*drop table grad_defectiune
+
+create table grad_defectiune(;
+grad_defect numeric(1),;
+numegrad char(10);
+check(inlist(numegrad,'Usor','Mediu','Sever'));
+error 'Trebuie introdus un grad ce se afla in urmatoarea lista:Usor,Mediu,Sever!!!',;
+proc_defect numeric(2),;
+decizie char (15);
+check(inlist(decizie,'Inlocuire','Reparare'));
+error 'Decizia poate fi de Inlocuire sau Reparare',;
+primary key grad_defect tag grad_def;
+)
+
+****
+*drop table reparatii
+
+create table reparatii(;
+codrepar number(6);
+default def_codrepar_reparatii(),;
+codchitara char(20),;
+codcl number(6),;
+codcompo numeric(3);
+default def_codcompo_reparatii();
+check pret_repar_codcompo(),;
+datarepar date;
+default date(),;
+grad_defect numeric(1);
+check pret_repar_grad_defect(),;
+nr_reparatii numeric(2);
+default def_nr(),;
+pretreparatie numeric(12);
+check pret_reparatie() ,;
+primary key codrepar tag codrepar,;
+foreign key codcl tag codcl references clienti tag codcl,;
+foreign key codchitara tag codchitara references chitare tag codchitara,;
+foreign key codcompo tag codcompo references componente tag codcompo,;
+foreign key grad_defect tag grad_def references grad_defectiune tag grad_def;
+)
+****
+*drop table comanda
+
+create table comanda(;
+codcomanda numeric(6);
+default def_codcomanda_comanda(),;
+datacomanda date;
+default date(),;
+codcl numeric(6);
+default def_codcl_comanda(),;
+valtotala numeric(16),;
+primary key codcomanda tag codcomanda,;
+foreign key codcl tag codcl references clienti tag codcl;
+)
+
+****
+*drop table liniicomanda
+
+create table liniicomanda(;
+codcomanda numeric(6);
+default def_codcomanda_liniicomanda(),;
+liniec numeric(2);
+check (liniec>0);
+error 'Linia trebuie sa fie mai mare ca 0';
+default def_linie_comanda(),;
+codchitara char(20),;
+cantitate number(10);
+check cantitate_pretunit_valoare(),;
+pretunit number(16);
+check cantitate_pretunit_valoare(),;
+valoare numeric(16);
+check valoare(),; 
+primary key str(codcomanda)+str(liniec) tag pk_lincom,;
+foreign key codcomanda tag codcomanda references comanda tag codcomanda,;
+foreign key codchitara tag codchitara references chitare tag codchitara;
+)
+
+
+
