@@ -1,0 +1,19 @@
+/*
+ * SegmentArbore.java
+ *
+ * Created on 24 martie 2003, 11:40
+ */
+
+package exemple.constructori_polimorfism;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class SegmentArbore {
+    
+    /** Creates a new instance of SegmentArbore */
+    public SegmentArbore() {
+    }
+    
+}
