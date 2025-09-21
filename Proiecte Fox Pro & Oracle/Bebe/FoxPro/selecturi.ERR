@@ -1,0 +1,2 @@
+where j.nume = 'Popescu' and j.prenume = 'Marian'
+Error in line 5: Unrecognized command verb.
