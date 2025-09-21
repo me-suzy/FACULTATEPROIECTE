@@ -1,0 +1,71 @@
+Microsoft Visual FoxPro Language Reference   
+
+TABLEUPDATE( ) Function
+Commits changes made to a buffered row or a buffered table or cursor.
+
+TABLEUPDATE([nRows [, lForce]] [, cTableAlias | nWorkArea]
+[, cErrorArray])
+Return Values 
+Logical
+
+Parameters 
+nRows 
+Specifies which changes made to the table or cursor are committed. If nRows is 0 (or .F.) and row or table buffering is enabled, only changes made to the current record in the table or cursor are committed. 
+If nRows is 1 and table buffering is enabled, changes made to all records are committed to the table or cursor. If nRows is 1 (or .T.) and row buffering is enabled, only changes made to the current record in the table or cursor are committed. 
+
+If nRows is 2, changes made to the table or cursor are committed in the same manner as when nRows is 1. However, an error doesn't occur when a change cannot be committed, and Visual FoxPro continues to process any remaining records in the table or cursor. If cErrorArray is included, an array containing error information is created when an error occurs. 
+
+The default value for nRows is 0. 
+
+lForce 
+Determines whether changes made to the table or cursor by another user on a network are overwritten. If lForce is true (.T.), any changes made to the table or cursor by another user on a network are overwritten. 
+If lForce is false (.F.), Visual FoxPro commits changes to the table or cursor, starting with the first record and continuing towards the end of the table or cursor. If a record modified by another user on the network is encountered, Visual FoxPro generates an error. 
+
+When Visual FoxPro generates the error, you can handle the error through an ON ERROR routine, and the ON ERROR routine can issue TABLEUPDATE( ) with lForce set to true (.T.) to commit changes to the record. Alternately, if a transaction is in progress, the ON ERROR routine can handle the error and then issue ROLLBACK to revert the table or cursor to its original state. 
+
+The default for lForce is false (.F.). 
+
+cTableAlias 
+Specifies the alias of the table or cursor in which the changes are committed. If you include a table or cursor alias, you must include the lForce argument. 
+nWorkArea 
+Specifies the work area of the table or cursor in which the changes are committed. If you include a work area, you must include the lForce argument. 
+cErrorArray 
+Specifies the name of an array created when nRows is 2 and changes to a record cannot be committed. The array contains a single column containing the record numbers of the records for which changes could not be committed. If you include an array name, you must include either a table or cursor alias cTableAlias or a work area number nWorkArea. 
+Note   If an error other than a simple commit error occurs while updating records, the first element of cErrorArray will contain 1 and you can then use AERROR( ) to determine the why the changes could not be committed.
+Remarks 
+TABLEUPDATE( ) returns true (.T.) if changes to all records are committed; otherwise, TABLEUPDATE( ) returns false (.F.). If you specify 0 or 1 for nRow, the record pointer remains on the record where changes could not be committed and can issue AERROR( ) to determine why the changes could not be committed.
+
+TABLEUPDATE( ) cannot commit changes made to a table or cursor that does not have row or table buffering enabled. If you issue TABLEUPDATE( ) and row or table buffering is not enabled, Visual FoxPro generates an error message. However, TABLEUPDATE( ) can still commit changes to a table or cursor that has validation rules. Use CURSORSETPROP( ) to enable or disable row and table buffering.
+
+Changes are committed to the table or cursor open in the currently selected work area if TABLEUPDATE( ) is issued without the optional cTableAlias or nWorkArea arguments.
+
+If table buffering is used and multiple records are updated, TABLEUPDATE( ) moves the record pointer to the last record updated.
+
+Note   Calling TABLEUPDATE( ) for a local table or view that doesn't use key fields generates a long WHERE clause to find the update row. The default number of fields supported in the WHERE clause is 40. If you receive the error 1812 - SQL: Statement Too Long, you should either use a key field for the update or increase the complexity of the WHERE clause with SYS(3055). If you use SYS(3055), increase its value to 8 times the number of fields in the table: = SYS(3055, 8 * MIN(40, FCOUNT( ))
+Example 
+The following example demonstrates how you can use TABLEUPDATE( ) to commit changes made to a buffered table. A table named employees is created and INSERT - SQL is used insert the value "Smith" into the cLastName field.
+
+MULTILOCKS is set to ON, a requirement for table buffering. CURSORSETPROP( ) is used to set the buffering mode to optimistic table buffering (5).
+
+The original value of the cLastName field (Smith) is displayed and then the cLastName field is modified with REPLACE. The new value of the cLastName field (Jones) is displayed. TABLEUPDATE( ) is then used to commit changes to the table (TABLEREVERT( ) could be issued instead to discard the changes). The updated value of the cLastName field (Jones) is then displayed.
+
+CLOSE DATABASES
+CREATE TABLE employee (cLastName C(10))
+SET MULTILOCKS ON  && Must be on for table buffering
+= CURSORSETPROP('Buffering', 5, 'employee' )  && Enable table buffering
+INSERT INTO employee (cLastName) VALUES ('Smith')
+
+CLEAR
+? 'Original cLastName value: '
+?? cLastName  && Displays current cLastName value (Smith)
+
+REPLACE cLastName WITH 'Jones'
+? 'New cLastName value: '
+?? cLastName  && Displays new cLastName value (Jones)
+
+= TABLEUPDATE(.T.)  && Commits changes
+? 'Updated cLastName value: '
+?? cLastName  && Displays current cLastName value (Jones)
+See Also 
+CURSORSETPROP( ) | CURVAL( ) | OLDVAL( ) | TABLEREVERT( )
+
