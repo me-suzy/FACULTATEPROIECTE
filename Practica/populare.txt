@@ -1,0 +1,143 @@
+--populare smartCV
+
+
+delete from stud_soft;
+delete from stud_lb_straine;
+delete from studenti;
+delete from useri;
+
+---------------------------------------------------------------
+
+insert into useri(username,grup) values('EL011301' ,'Studenti');
+insert into useri(username,grup) values('EL010286' ,'Studenti');
+insert into useri(username,grup) values('EL011509' ,'Studenti');
+insert into useri(username,grup) values('EL011623' ,'Studenti');
+insert into useri(username,grup) values('EL011431' ,'Studenti');
+insert into useri(username,grup) values('EL010344' ,'Studenti');
+insert into useri(username,grup) values('EL010054' ,'Studenti');
+insert into useri(username,grup) values('EL010064' ,'Studenti');
+insert into useri(username,grup) values('EL010449' ,'Studenti');
+insert into useri(username,grup) values('EL001323' ,'Studenti');
+insert into useri(username,grup) values('EL011451' ,'Studenti');
+insert into useri(username,grup) values('EL011368' ,'Studenti');
+insert into useri(username,grup) values('EL010759' ,'Studenti');
+insert into useri(username,grup) values('EL011473' ,'Studenti');
+insert into useri(username,grup) values('EL010833' ,'Studenti');
+insert into useri(username,grup) values('EL011366' ,'Studenti');
+insert into useri(username,grup) values('EL011457' ,'Studenti');
+insert into useri(username,grup) values('EL010264' ,'Studenti');
+insert into useri(username,grup) values('EL010174' ,'Studenti');
+insert into useri(username,grup) values('EL011304' ,'Studenti');
+insert into useri(username,grup) values('EL011278' ,'Studenti');
+insert into useri(username,grup) values('EL010519' ,'Studenti');
+insert into useri(username,grup) values('EL010474' ,'Studenti');
+insert into useri(username,grup) values('EL010181' ,'Studenti');
+insert into useri(username,grup) values('EL010288' ,'Studenti');
+insert into useri(username,grup) values('EL011411' ,'Studenti');
+insert into useri(username,grup) values('EL011279' ,'Studenti');
+insert into useri(username,grup) values('EL010627' ,'Studenti');
+insert into useri(username,grup) values('EL010743' ,'Studenti');
+insert into useri(username,grup) values('EL011172' ,'Studenti');
+insert into useri(username,grup) values('EL014010' ,'Studenti');
+insert into useri(username,grup) values('EL010126' ,'Studenti');
+insert into useri(username,grup) values('EL010682' ,'Studenti');
+insert into useri(username,grup) values('EL010247' ,'Studenti');
+insert into useri(username,grup) values('EL010807' ,'Studenti');
+insert into useri(username,grup) values('EL010534' ,'Studenti');
+insert into useri(username,grup) values('EL010050' ,'Studenti');
+insert into useri(username,grup) values('EL010497' ,'Studenti');
+insert into useri(username,grup) values('EL010991' ,'Studenti');
+insert into useri(username,grup) values('EL010307' ,'Studenti');
+insert into useri(username,grup) values('EL011193' ,'Studenti');
+insert into useri(username,grup) values('EL011536' ,'Studenti');
+insert into useri(username,grup) values('EL001526' ,'Studenti');
+insert into useri(username,grup) values('EL001734' ,'Studenti');
+insert into useri(username,grup) values('EL011127' ,'Studenti');
+insert into useri(username,grup) values('EL011121' ,'Studenti');
+insert into useri(username,grup) values('EL010012' ,'Studenti');
+insert into useri(username,grup) values('EL011520' ,'Studenti');
+insert into useri(username,grup) values('EL011310' ,'Studenti');
+insert into useri(username,grup) values('EL010488' ,'Studenti');
+insert into useri(username,grup) values('EL015080' ,'Studenti');
+insert into useri(username,grup) values('EL011265' ,'Studenti');
+insert into useri(username,grup) values('EL013831' ,'Studenti');
+insert into useri(username,grup) values('EL010335' ,'Studenti');
+insert into useri(username,grup) values('EL010955' ,'Studenti');
+insert into useri(username,grup) values('EL010604' ,'Studenti');
+insert into useri(username,grup) values('EL011243' ,'Studenti');
+insert into useri(username,grup) values('EL011650' ,'Studenti');
+insert into useri(username,grup) values('EL014465' ,'Studenti');
+insert into useri(username,grup) values('EL010531' ,'Studenti');
+insert into useri(username,grup) values('EL010959' ,'Studenti');
+insert into useri(username,grup) values('EL010275' ,'Studenti');
+insert into useri(username,grup) values('EL010188' ,'Studenti');
+insert into useri(username,grup) values('EL011238' ,'Studenti');
+insert into useri(username,grup) values('EL010733' ,'Studenti');
+insert into useri(username,grup) values('EL010736' ,'Studenti');
+insert into useri(username,grup) values('EL011246' ,'Studenti');
+insert into useri(username,grup) values('EL010495' ,'Studenti');
+insert into useri(username,grup) values('EL010116' ,'Studenti');
+insert into useri(username,grup) values('EL010779' ,'Studenti');
+insert into useri(username,grup) values('EL011083' ,'Studenti');
+insert into useri(username,grup) values('EL010762' ,'Studenti');
+insert into useri(username,grup) values('EL011058' ,'Studenti');
+insert into useri(username,grup) values('EL010788' ,'Studenti');
+insert into useri(username,grup) values('EL010518' ,'Studenti');
+insert into useri(username,grup) values('EL010600' ,'Studenti');
+insert into useri(username,grup) values('EL011387' ,'Studenti');
+insert into useri(username,grup) values('EL010731' ,'Studenti');
+insert into useri(username,grup) values('EL011189' ,'Studenti');
+insert into useri(username,grup) values('EL010302' ,'Studenti');
+insert into useri(username,grup) values('EL010248' ,'Studenti');
+insert into useri(username,grup) values('EL011125' ,'Studenti');
+insert into useri(username,grup) values('EL010367' ,'Studenti');
+insert into useri(username,grup) values('EL011223' ,'Studenti');
+insert into useri(username,grup) values('EL011134' ,'Studenti');
+insert into useri(username,grup) values('EL011064' ,'Studenti');
+insert into useri(username,grup) values('EL010920' ,'Studenti');
+insert into useri(username,grup) values('EL011367' ,'Studenti');
+insert into useri(username,grup) values('EL011286' ,'Studenti');
+insert into useri(username,grup) values('EL010427' ,'Studenti');
+insert into useri(username,grup) values('EL010121' ,'Studenti');
+insert into useri(username,grup) values('EL010176' ,'Studenti');
+insert into useri(username,grup) values('EL010782' ,'Studenti');
+insert into useri(username,grup) values('EL010338' ,'Studenti');
+insert into useri(username,grup) values('EL011031' ,'Studenti');
+insert into useri(username,grup) values('EL011068' ,'Studenti');
+insert into useri(username,grup) values('EL011634' ,'Studenti');
+insert into useri(username,grup) values('EL011259' ,'Studenti');
+insert into useri(username,grup) values('EL010212' ,'Studenti');
+insert into useri(username,grup) values('EL013802' ,'Studenti');
+insert into useri(username,grup) values('EL011642' ,'Studenti');
+insert into useri(username,grup) values('EL010240' ,'Studenti');
+insert into useri(username,grup) values('EL010394' ,'Studenti');
+insert into useri(username,grup) values('EL010643' ,'Studenti');
+insert into useri(username,grup) values('EL011332' ,'Studenti');
+insert into useri(username,grup) values('EL010741' ,'Studenti');
+insert into useri(username,grup) values('EL011658' ,'Studenti');
+insert into useri(username,grup) values('EL010108' ,'Studenti');
+insert into useri(username,grup) values('EL015023' ,'Studenti');
+insert into useri(username,grup) values('EL010196' ,'Studenti');
+insert into useri(username,grup) values('EL011633' ,'Studenti');
+insert into useri(username,grup) values('EL010569' ,'Studenti');
+insert into useri(username,grup) values('EL011331' ,'Studenti');
+insert into useri(username,grup) values('EL010969' ,'Studenti');
+insert into useri(username,grup) values('EL011329' ,'Studenti');
+insert into useri(username,grup) values('EL011355' ,'Studenti');
+
+----------------------------------------------------------------
+
+INSERT INTO studenti VALUES('EL011301','Aelenei',  'Adrian', 1982, 'Ianuarie', 10, 'str. Vama Veche nr. 5 bis', ' ',0232722519, 0788785123, 1820710226209, 'M', 'necasatorit', 'nesatisfacut', 'adrian.aelenei@feaa.uaic.ro', 'muzica', 200,'fara', 'CISCO', 'fara', 'fara');
+INSERT INTO studenti VALUES('EL010286','Agheorghiesei', 'Oana',1982, 'Ianuarie', 10, 'str. Black Sabath nr. 5 bis', ' ',0232722419, 0788545123, 2820710226209, 'F', 'necasatorit', 'nu e cazul', 'oana.agheorghiesei@feaa.uaic.ro', 'dans', 200,'fara', 'CISCO', 'fara', 'fara');
+
+----------------------------------------------------------------
+
+insert into stud_soft values('EL011301','Mediu','Mediu','Mediu','Mediu','Mediu','Mediu','Mediu','Reason')
+insert into stud_soft values('EL010286','Avansat','Mediu','Mediu','Mediu','Mediu','Mediu','Mediu','Reason')
+----------------------------------------------------------------
+
+insert into stud_lb_straine values('EL011301','mediu','mediu','','','','','','')
+insert into stud_lb_straine values('EL010286','avansat','mediu','','','','','','')
+
+
+
