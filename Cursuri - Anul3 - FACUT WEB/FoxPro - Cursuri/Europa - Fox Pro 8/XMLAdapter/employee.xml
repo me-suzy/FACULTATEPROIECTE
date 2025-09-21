@@ -1,0 +1,62 @@
+<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+<VFPDataSet>
+	<xsd:schema id="VFPDataSet" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="VFPDataSet" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="curEmployees" minOccurs="0" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="employeeid" type="xsd:int"/>
+								<xsd:element name="lastname">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="20"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+				<xsd:anyAttribute namespace="http://www.w3.org/XML/1998/namespace" processContents="lax"/>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<curEmployees>
+		<employeeid>1</employeeid>
+		<lastname>Davolio</lastname>
+	</curEmployees>
+	<curEmployees>
+		<employeeid>2</employeeid>
+		<lastname>Fuller</lastname>
+	</curEmployees>
+	<curEmployees>
+		<employeeid>3</employeeid>
+		<lastname>Leverling</lastname>
+	</curEmployees>
+	<curEmployees>
+		<employeeid>4</employeeid>
+		<lastname>Peacock</lastname>
+	</curEmployees>
+	<curEmployees>
+		<employeeid>5</employeeid>
+		<lastname>Buchanan</lastname>
+	</curEmployees>
+	<curEmployees>
+		<employeeid>6</employeeid>
+		<lastname>Suyama</lastname>
+	</curEmployees>
+	<curEmployees>
+		<employeeid>7</employeeid>
+		<lastname>King</lastname>
+	</curEmployees>
+	<curEmployees>
+		<employeeid>8</employeeid>
+		<lastname>Callahan</lastname>
+	</curEmployees>
+	<curEmployees>
+		<employeeid>9</employeeid>
+		<lastname>Dodsworth</lastname>
+	</curEmployees>
+</VFPDataSet>
