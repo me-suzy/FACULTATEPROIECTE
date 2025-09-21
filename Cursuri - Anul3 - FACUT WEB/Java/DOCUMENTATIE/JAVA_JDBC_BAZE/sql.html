@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>SQL Statements for Creating a Stored Procedure</title>
+<script language="JavaScript">
+<!-- hide
+function openWin(term) {
+  url="../../information/glossary.html#" + term;
+  myWin= window.open(url, "Glossary",
+              "width=400,height=150,scrollbars=yes,status=no,toolbar=no,menubar=no");
+  myWin.focus();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#ffffff" LINK="#000099">
+<B><FONT SIZE="-1">The Java</font><sup><font size="-2">TM</font></sup> <font size="-1">Tutorial</FONT></B>
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="storedprocedures.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/storedprocedures.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="complete.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/complete.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+
+<font size="-1">
+<b>Trail</b>: JDBC(TM) Database Access
+<br>
+<b>Lesson</b>: JDBC Basics
+</font>
+
+<h2>
+SQL Statements for Creating a Stored Procedure
+</h2>
+<blockquote>
+This section looks at a very simple stored procedure that has no parameters. Even though most stored procedures do something more complex than this example, it serves to illustrate some basic points about them. As previously stated, the syntax for defining a stored procedure is different for each DBMS. For example, some use <CODE CLASS="Code">
+begin . . . end</CODE>
+ or other keywords to indicate the beginning and ending of the procedure definition. In some DBMSs, the following SQL statement creates a stored procedure:</P>
+<blockquote><pre>
+create procedure SHOW_SUPPLIERS
+as
+select SUPPLIERS.SUP_NAME, COFFEES.COF_NAME
+from SUPPLIERS, COFFEES
+where SUPPLIERS.SUP_ID = COFFEES.SUP_ID
+order by SUP_NAME
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1001774">
+ </A>
+The following code puts the SQL statement into a string and assigns it to the variable <CODE CLASS="Code-Variable1">
+createProcedure</CODE>
+, which we will use later:</P>
+<blockquote><pre>
+String createProcedure = &quot;create procedure SHOW_SUPPLIERS &quot; +
+			 &quot;as &quot; +
+			 &quot;select SUPPLIERS.SUP_NAME, COFFEES.COF_NAME &quot; +
+			 &quot;from SUPPLIERS, COFFEES &quot; +
+			 &quot;where SUPPLIERS.SUP_ID = COFFEES.SUP_ID &quot; +
+			 &quot;order by SUP_NAME&quot;;
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1005758">
+ </A>
+The following code fragment uses the <CODE CLASS="Code">
+Connection</CODE>
+ object <CODE CLASS="Code-Variable1">
+con</CODE>
+ to create a <CODE CLASS="Code">
+Statement</CODE>
+ object, which is used to send the SQL statement creating the stored procedure to the database:</P>
+<blockquote><pre>
+Statement stmt = con.createStatement();
+stmt.executeUpdate(createProcedure);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1005756">
+ </A>
+The procedure <CODE CLASS="Code">
+SHOW_SUPPLIERS</CODE>
+ will be compiled and stored in the database as a database object that can be called, similar to the way you would call a method. </P>
+<DIV>
+</blockquote>
+<h3 CLASS="C-Head">
+<A NAME="pgfId=1001702">
+ </A>
+Calling a Stored Procedure from JDBC</h3>
+<blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1005412">
+ </A>
+JDBC allows you to call a database stored procedure from an application written in the Java programming language. The first step is to create a <CODE CLASS="Code">
+CallableStatement</CODE>
+ object. As with <CODE CLASS="Code">
+Statement</CODE>
+ and <CODE CLASS="Code">
+PreparedStatement</CODE>
+ objects, this is done with an open <CODE CLASS="Code">
+Connection</CODE>
+ object. A <CODE CLASS="Code">
+CallableStatement</CODE>
+ object contains a call to a stored procedure; it does not contain the stored procedure itself. The first line of code below creates a call to the stored procedure <CODE CLASS="Code">
+SHOW_SUPPLIERS</CODE>
+ using the connection <CODE CLASS="Code-Variable1">
+con</CODE>
+. The part that is enclosed in curly braces is the escape syntax for stored procedures. When the driver encounters <CODE CLASS="Code">
+&quot;{call SHOW_SUPPLIERS}&quot;</CODE>
+, it will translate this escape syntax into the native SQL used by the database to call the stored procedure named <CODE CLASS="Code">
+SHOW_SUPPLIERS</CODE>
+. </P>
+<blockquote>
+<PRE CLASS="Code"><A NAME="pgfId=1001817"> </A>
+CallableStatement cs = con.prepareCall(&quot;{call SHOW_SUPPLIERS}&quot;);
+ResultSet rs = cs.executeQuery();
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1011565">
+ </A>
+The <CODE CLASS="Code">
+ResultSet</CODE>
+ <CODE CLASS="Code-Variable1">
+rs</CODE>
+ will be similar to the following:</P>
+<blockquote><pre>
+SUP_NAME			COF_NAME
+----------------		-----------------------
+Acme, Inc.			Colombian
+Acme, Inc.			Colombian_Decaf
+Superior Coffee			French_Roast
+Superior Coffee			French_Roast_Decaf
+The High Ground			Espresso
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1003273">
+ </A>
+Note that the method used to execute <CODE CLASS="Code-Variable1">
+cs</CODE>
+ is <CODE CLASS="Code">
+executeQuery</CODE>
+ because <CODE CLASS="Code-Variable1">
+cs</CODE>
+ calls a stored procedure that contains one query and thus produces one result set. If the procedure had contained one update or one DDL statement, the method <CODE CLASS="Code">
+executeUpdate</CODE>
+ would have been the one to use. It is sometimes the case, however, that a stored procedure contains more than one SQL statement, in which case it will produce more than one result set, more than one update count, or some combination of result sets and update counts. In this case, where there are multiple results, the method <CODE CLASS="Code">
+execute</CODE>
+ should be used to execute the <CODE CLASS="Code">
+CallableStatement</CODE>
+. </P>
+<P CLASS="Body">
+<A NAME="pgfId=1005963">
+ </A>
+The class <CODE CLASS="Code">
+CallableStatement</CODE>
+ is a subclass of <CODE CLASS="Code">
+PreparedStatement</CODE>
+, so a <CODE CLASS="Code">
+CallableStatement</CODE>
+ object can take input parameters just as a <CODE CLASS="Code">
+PreparedStatement</CODE>
+ object can. In addition, a <CODE CLASS="Code">
+CallableStatement</CODE>
+ object can take output parameters or parameters that are for both input and output. INOUT parameters and the method <CODE CLASS="Code">
+execute</CODE>
+ are used rarely. For complete information, refer to JDBC Database Access with Java.</P>
+
+
+</blockquote>
+
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="storedprocedures.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/storedprocedures.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="complete.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/complete.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<p>
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/information/copyright.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/information/copyright.html'" tppabs="http://java.sun.com/docs/books/tutorial/information/copyright.html">Copyright</a>
+1995-2002 Sun Microsystems, Inc.  All rights reserved.
+</font>
+</p>
+</body>
+</html>
