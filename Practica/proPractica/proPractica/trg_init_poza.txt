@@ -1,0 +1,9 @@
+create trigger init_poza 
+before insert on studenti
+for each row
+begin
+	if :new.foto is null then
+		:new.foto:=empty_blob();
+	end if;
+end;
+/
