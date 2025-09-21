@@ -1,0 +1,38 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="ORDERS" type="OrderType" />
+
+	<xsd:complexType name="OrderType">
+		<xsd:sequence>
+			<xsd:element name="CUSTOMER" minOccurs="1" maxOccurs="unbounded" type= "CustomerType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="CustomerType">
+		<xsd:sequence>
+			<xsd:element name="COMPANY" minOccurs="1" maxOccurs="1" type="xsd:string"/>
+			<xsd:element name="CONTACT" type="xsd:string"/>
+			<xsd:element name="ORDERHEADER" minOccurs="1" maxOccurs="unbounded" type="OrderHeaderType" />
+		</xsd:sequence>
+		<xsd:attribute name="ID" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="OrderHeaderType">
+		<xsd:sequence>
+			<xsd:element name="DATE" minOccurs="1" maxOccurs="1" type="xsd:date" />
+			<xsd:element name="AMOUNT" minOccurs="1" maxOccurs="1" type="xsd:decimal" />
+			<xsd:element name="ORDERLINE" minOccurs="1" maxOccurs="unbounded" type="OrderLineType" />
+		</xsd:sequence>
+		<xsd:attribute name="ID" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="OrderLineType">
+		<xsd:sequence>
+			<xsd:element name="PRICE" minOccurs="1" maxOccurs="1" type="xsd:decimal" />
+			<xsd:element name="QUANTITY" minOccurs="1" maxOccurs="1" type="xsd:decimal" />			  		
+			<xsd:element name="PRODUCT" minOccurs="1" maxOccurs="1" />	
+		</xsd:sequence>
+		<xsd:attribute name="LINE" use="required" type="xsd:integer" />
+		<xsd:attribute name="ID" use="required" />
+	</xsd:complexType>
+
+</xsd:schema>		
