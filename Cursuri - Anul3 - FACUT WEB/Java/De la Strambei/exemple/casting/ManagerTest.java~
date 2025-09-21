@@ -1,0 +1,72 @@
+/*
+ * ManagerTest.java
+ *
+ * Created on 31 martie 2003, 11:28
+ */
+
+package exemple.casting;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class ManagerTest {
+  public static void main (String args[]){
+    Angajat[] staff = new Angajat[3];
+    staff[0] = new Angajat("X", 35000, new Data(1989, 10, 1));
+    staff[1] = new Manager("Y", 75000, new Data(1987, 12, 15));
+    staff[2] = new Angajat("Z", 85000, new Data(1990, 3, 15));
+    for(int i=0; i<staff.length; i++) staff[i].crestereSalariu(5);
+    for(int i=0; i<staff.length; i++) staff[i].print();
+  }
+}
+
+class Data {
+  int an, zi, luna;
+  public Data(int an_, int luna_, int zi_){
+    an = an_;
+    luna = luna_;
+    zi = zi_;
+  }
+  public int getAn(){return an;}
+  public int getLuna(){return luna;}
+  public int getZi(){return zi;}
+}
+
+class Angajat {
+  public Angajat (String n, double s, Data d) {
+    nume = n;
+    salariu = s;
+    dataAngajare = d;
+  }
+  public void print() {
+    System.out.println(nume+" "+salariu+" "+ anAngajare());
+  }
+  public void crestereSalariu(double procent){
+    salariu *= 1+procent/100;
+    salariu = (Math.round(salariu * 100))/100.0;
+  }
+  public int anAngajare(){return dataAngajare.getAn();}
+  public String nume;
+  private double salariu;
+  protected Data dataAngajare;
+}
+
+class Manager extends Angajat{
+  public Manager(String n, double s, Data d){
+    super(n, s, d);
+    numeSecretara = "";
+  }
+  public void crestereSalariu(double procent){
+    Data astazi = new Data(2003, 03, 31);
+    double bonus = 0.5 * (astazi.getAn() - dataAngajare.getAn());
+    super.crestereSalariu(procent+bonus);
+  }
+  public void setNumeSecretara(String n){
+    numeSecretara = n;
+  }
+  public String getNumeSecretara(){
+    return numeSecretara ;
+  }
+  private String numeSecretara;
+}
