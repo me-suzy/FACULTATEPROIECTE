@@ -1,0 +1,39 @@
+/*
+ * Persoana.java
+ *
+ * Created on 17 martie 2003, 11:35
+ */
+
+package clienti;
+
+import banci.Cont;
+import banci.Banca;
+/**
+ *
+ * @author  strimbeic
+ */
+public class Persoana {
+  public String cnp;
+  public String nume;
+  public String prenume;
+  public String domiciliu;
+  protected Cont contBanca;
+
+  protected Persoana(){}
+  public Persoana(String pCnp, String pNume, String pPrenume, String pDomiciliu){
+    //iniþializare în constructor
+    cnp = pCnp;
+    nume = pNume;
+    prenume = pPrenume;
+    domiciliu = pDomiciliu;
+  }
+  public void stabContBanca(String pNrCont, Banca pBanca){
+    // iniþializare în momentul folosirii      
+    contBanca = new Cont();
+    contBanca.nrCont = pNrCont;
+    contBanca.banca = pBanca;
+    contBanca.tipCont = new String("PersoanaFizica");
+    contBanca.titularCont = this.nume;
+  }
+}
+
