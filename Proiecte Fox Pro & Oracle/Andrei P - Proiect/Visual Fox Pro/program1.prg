@@ -1,0 +1,19 @@
+PROCEDURE sterg_client
+(pcnpcl in char,pRezultat out varchar2)
+is
+violare_fk exception;
+v_client number;
+pragma exception_init(violare_fk,-02292);
+begin
+DELETE FROM clienti WHERE cnpcl = pcnpcl;
+pRezultat := 'Succes';
+exception
+when violare_fk then
+SELECT codcl INTO v_client FROM clienti WHERE cnpcl=pcnpcl;
+delete FROM clienti WHERE cnpcl=pcnpcl;
+delete FROM cerere_cumparare WHERE cnpcl=pcnpcl;
+delete FROM preturi WHERE cnpcl=pcnpcl;
+pRezultat := 'Operatiunea de stergere a fost efectuata!!!'||v_client;
+when others then
+pRezultat := 'Insucces';
+END;
