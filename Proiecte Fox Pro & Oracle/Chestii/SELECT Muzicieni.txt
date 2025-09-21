@@ -1,0 +1,96 @@
+	
+				Subiectul 5
+
+1) Care sunt muzicienii care au cantat in formatia YES ?
+	SELECT NumeMuz
+	From Muzicieni M, Formatii F,Discografie D,Realizare Disc R
+	Where M.idmuz = R.idmuz and D.idformatie = F.idformatie
+and denformatie = 'Yes'
+
+2) Care sunt discurile scoase de formatia Beatles ?
+	SELECT Titlu Disc
+	From ...
+	Where denformatie = 'Beatles'
+
+3) Care este formatia care in anii 60 a scos cele mai multe discuri ?
+	SELECT Denformatie,SUM(nrBuc) or disc vandute
+	From Formatii F INNER JoIN Discografie d on F.idform = D.idformatie
+INNER JOIN Vanzari discuri ON D.iddisc = vd.iddisc
+Where ON between 1960 AND 1969
+Group By DenForm
+	Having discvandute >=ALL
+
+
+4) Care sunt piesele de pe discul Cantafabule al formatiei Phoenix ?
+
+
+
+
+5) La ce instrumente a cantat Paul McCartney ?
+
+
+
+
+6) La cate discuri a participat,in calitate de membru al unei formatii,George Harison ?
+	*	SELECT Count Iddisc
+	*	From...
+	*	Where..
+and numemuz = George Harrison
+
+7) Care sunt discurile la care au participat impreuna Jon Anderson si Steve Have?
+		SELECT titlu disc
+		From ..
+		Where..
+and numemuz = Jon Anderson and numemuz = Steve Hawe
+
+8) Care sunt formatiile la care au cantat Steve Howe si Geoff Downas,dar fara Alan White ?
+		SELECT Den Formatie
+		From Formatii F,Muzicieni M,Discografie D,Realizare Disc R
+		Where F.idform = D.idform and D.iddisc = R.iddisc and R.idmuz = M.idmuz
+and numemuz = Steve Howe and numemuz = Geoff Downas
+		Except
+		SELECT Den Formatie
+		From Formatii F,Muzicieni M,Discografie D,Realizare Disc R
+		Where numemuz = Alan White
+
+9) Care sunt membrii formatiei Camel care au participat la toate discurile formatiei?
+
+
+
+
+10) Care este cel mai batran membru al formatiei Holograf ?
+
+
+
+
+11) Cate piese contin toate discurile lansate de formatia "Black Sabath"?
+		SELECT Count (Distinct idpiesa) nr.piese
+		From..
+		INNER JOIN alcatdisc ad ON alcatdisc.iddisc = d.iddisc
+		Where denformatie = 'Black Sabath'
+
+12) Sa se afiseze nr de piese continute de fiecare disc al formatiei Queen?
+		SELECT titludisc ,COUNT(idpiesa) AS nr.piese
+		From...
+		Where denformatie = 'Queen'
+		GROUP BY titludisc,dataapa
+		ORDER BY dataapa
+
+13) Cate discuri a lansat formatia Queen ?
+		SELECT COUNT(iddisc) AS nrdiscuri
+		From Discografie D INNER JOIN Formatie F ON D.idformatie = F.idformatie
+		Where denformatie = 'Queen'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
