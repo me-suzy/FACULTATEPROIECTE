@@ -1,0 +1,13 @@
+CREATE OR REPLACE TRIGGER trg_personal_upd_after_row
+	AFTER UPDATE OF marca ON personal
+	FOR EACH ROW
+BEGIN
+	UPDATE pontaje SET marca=:NEW.marca
+		WHERE marca=:OLD.marca ;	
+	UPDATE sporuri SET marca=:NEW.marca	
+		WHERE marca=:OLD.marca ;
+	UPDATE retineri SET marca=:NEW.marca
+		WHERE marca=:OLD.marca ;
+	UPDATE salarii SET marca=:NEW.marca
+		WHERE marca=:OLD.marca ;
+END;
