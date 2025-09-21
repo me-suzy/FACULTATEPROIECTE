@@ -1,0 +1,4 @@
+[ODBC]
+DRIVER=Microsoft ODBC for Oracle
+UID=el010741
+SERVER=bdstud
