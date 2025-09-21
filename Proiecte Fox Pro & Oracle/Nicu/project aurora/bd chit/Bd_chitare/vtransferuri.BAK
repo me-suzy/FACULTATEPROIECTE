@@ -1,0 +1,49 @@
+						*** CREAREA TABELEI DERIVATE vTransferuri
+						
+#include foxpro.h
+
+IF !DBUSED('campionat')
+	OPEN DATABASE DATABASE campionat
+ENDIF
+SET DATABASE TO CAMPIONAT
+
+IF USED('vtransferuri')
+	SELECT vtransferuri
+	USE
+ENDIF
+
+***Fraza SQL de creare a tabelei virtuale
+
+CREATE SQL VIEW vTransferuri AS;
+	SELECT lf.idtran,f.datatran,pretachiz,lf.codjuc,lf.idechp,idechn;
+	from jucatori lf inner join transferuri f on lf.codjuc=f.codjuc;
+	INNER JOIN echipe ec on lf.idech=ec.idech;
+	ORDER BY lf.idtran,datatran
+	
+	DBSETPROP('vtransferuri','view','tables','jucatori')
+	
+	DBSETPROP('vtransferuri.idtran','field','keyfield',.t.)
+	DBSETPROP('vtransferuri.codjuc','field','keyfield',.t.)
+	
+	DBSETPROP('vtransferuri.idtran','field','updatable',.t.)
+	DBSETPROP('vtransferuri.codjuc','field','updatable',.t.)
+	DBSETPROP('vtransferuri.idechn','field','updatable',.t.)
+	DBSETPROP('vtransferuri.idechp','field','updatable',.t.)
+	DBSETPROP('vtransferuri.pretachiz','field','updatable',.t.)
+	
+	DBSETPROP('vtransferuri.idtran','field','defaultvalue','def_idtran_transferuri()')
+	DBSETPROP('vtransferuri.codjuc','field','defaultvalue','def_codjuc_jucatori()')
+	DBSETPROP('vtransferuri.idechn','field','defaultvalue','def_idech_echipe()')
+	DBSETPROP('vtransferuri.idechp','field','defaultvalue','def_idech_echipe()')
+	dbsetprop('vtransferuri.pretachiz','field','defaultvalue','def_pretachiz_vtransferuri()')
+	
+	dbsetprop('vtransferuri','view','updatetype',db_update)
+
+	dbsetprop('vtransferuri','view','wheretype',db_keyandupdatable)
+
+	dbsetprop('vtransferuri','view','sendupdates',.t.)
+	
+	
+	
+	
+	
