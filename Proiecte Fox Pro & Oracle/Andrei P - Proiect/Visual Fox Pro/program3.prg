@@ -1,0 +1,21 @@
+nrcanal=SQLCONNECT('Connect1')
+*IF nrcanal<0
+*MESSAGEBOX('conexiune esuata')
+*RETURN
+*ENDIF
+vcnpcl=''
+vRezultat='Incert'
+nRezultat=SQLEXEC(nrcanal,"Begin program1(?vcnpcl,?@Rezultat);END;")
+IF nRezultat<0
+MESSAGEBOX('Probleme...!')
+DIMENSION vEroare(1,1)
+=AERROR(VEroare)
+ELSE
+MESSAGEBOX(vRezultat)
+ENDIF
+=SQLDISCONNECT(nrcanal)
+nrcanal=SQLCONNECT('Connect1')
+IF nrcanal<0
+MESSAGEBOX('conexiune esuata')
+RETURN
+ENDIF
