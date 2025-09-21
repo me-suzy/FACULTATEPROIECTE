@@ -1,0 +1,5 @@
+USE demone
+CURSORSETPROP( 'Buffering', 5 )
+BEGIN TRANSACTION
+BROWSE nowait
+REPLACE ALL d1city WITH "London"
