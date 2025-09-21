@@ -1,0 +1,7 @@
+
+Fatal Error in Converter: 
+Error: Alias 'S6379771' is not found.
+Error Number: 13
+Method: writeresult
+Offending Code: SELECT ...
+File being processed: z:\vb\form1.frx
