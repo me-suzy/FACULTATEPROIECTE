@@ -1,0 +1,231 @@
+-- ===================================================================
+CREATE OR REPLACE PACKAGE un_pachet
+AS
+	-- variabile publice
+	v_ult_an_inchis NUMBER(4) := NULL ;
+	v_ult_luna_inchisa NUMBER(2) := NULL ;
+	v_ult_zi_inchisa DATE := NULL ;
+	v_alta_variabila NUMBER(1) := 0;
+	v_trg_pontaje BOOLEAN := FALSE;
+	v_trg_sporuri BOOLEAN := FALSE;
+	v_trg_retineri BOOLEAN := FALSE;
+
+	-- proceduri
+	PROCEDURE p_popluna (v_an salarii.an%TYPE,
+	v_luna salarii.luna%TYPE ) ;
+	PROCEDURE p_init ;
+
+	-- functii
+	FUNCTION f_procsv2004 (nr_ani transe_sv.ani_limita_inf%TYPE )
+		RETURN transe_sv.procent_sv%TYPE ;
+
+	FUNCTION f_aniv (marca_ personal.marca%TYPE, an_ salarii.an%TYPE,
+		luna_ salarii.luna%TYPE)
+		RETURN transe_sv.ani_limita_inf%TYPE ;
+
+
+	-- functie care verifica existenta unei inregistrati
+	-- in tabelel SPORURI si RETINERI
+	FUNCTION f_este_SPSAL (tabela_ VARCHAR2, marca_ personal.marca%TYPE,
+		an_ sporuri.an%TYPE, luna_ sporuri.luna%TYPE)
+		RETURN BOOLEAN ;
+
+	FUNCTION f_salorar (marca_ personal.marca%TYPE)
+		RETURN personal.salorar%TYPE ;
+	FUNCTION f_salorarCO (marca_ personal.marca%TYPE)
+		RETURN personal.salorarCO%TYPE ;
+
+END un_pachet ;	
+/
+-- ==================================================================
+CREATE OR REPLACE PACKAGE BODY un_pachet
+AS
+
+-- ********************************************************
+	PROCEDURE p_popluna (v_an salarii.an%TYPE,
+	v_luna salarii.luna%TYPE ) 
+	IS
+		v_ultimazi NUMBER(2) ;
+		v_zicrt DATE ;
+		-- definirea cursorului explicit
+		CURSOR c_zileco (zi_inceput DATE, zi_sfirsit DATE) IS
+			SELECT * FROM concedii WHERE datainit <= zi_sfirsit AND
+				datafin >= zi_inceput ; 
+		v_zileco c_zileco%ROWTYPE;
+		v_zi_init_co DATE ;
+		v_zi_fin_co DATE ;
+	BEGIN
+		DELETE FROM pontaje WHERE EXTRACT (YEAR FROM data)= v_an AND
+			EXTRACT (MONTH FROM data) = v_luna ;
+		v_ultimazi := TO_NUMBER(TO_CHAR(LAST_DAY(TO_DATE('01/'||
+			v_luna||'/'||v_an,'DD/MM/YYYY')), 'DD'),'99') ; 
+		FOR i IN 1..v_ultimazi LOOP
+			v_zicrt := TO_DATE( i||'/'||v_luna||'/'||v_an,
+				'DD/MM/YYYY') ;
+			IF RTRIM(TO_CHAR(v_zicrt, 'DAY')) IN ('SATURDAY',
+				'SUNDAY') THEN
+				-- zi nelucratoare
+				NULL ;
+			ELSE
+				IF RTRIM(TO_CHAR(v_zicrt, 'DAY')) = ('FRIDAY') THEN
+					INSERT INTO pontaje (marca, data, orelucrate)
+					SELECT marca, v_zicrt, 6
+					FROM personal 
+					WHERE colaborator <> 'D';
+				ELSE
+					-- luni - joi
+					INSERT INTO pontaje (marca, data, orelucrate)
+					SELECT marca, v_zicrt, 8
+					FROM personal 
+					WHERE colaborator <> 'D';
+				END IF;
+			END IF ;
+		END LOOP ;
+
+		-- deschiderea cursorului
+		OPEN c_zileco (TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY'), 
+			LAST_DAY(TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY')));
+		FETCH c_zileco INTO v_zileco ;
+		LOOP
+			EXIT WHEN c_zileco%NOTFOUND ;		
+--			DBMS_OUTPUT.PUT_LINE('Marca '||v_zileco.marca||', DataIn '
+--			|| v_zileco.datainit || ', DataFinala '||
+--			v_zileco.datafin) ;	
+
+			-- prima zi din concediu (pentru luna curenta)
+			IF v_zileco.datainit > TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY') THEN
+				v_zi_init_co := v_zileco.datainit ;			
+			ELSE
+				v_zi_init_co := TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY') ;			
+			END IF ;
+		
+			-- ultima zi din concediu (pentru luna curenta)		
+			IF v_zileco.datafin > LAST_DAY(TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY')) THEN
+				v_zi_fin_co := LAST_DAY(TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY')) ;
+			ELSE
+				v_zi_fin_co := v_zileco.datafin ;
+			END IF;
+--			DBMS_OUTPUT.PUT_LINE('DataInceput '
+--			|| v_zi_init_co || ', DataSfirsit '||
+--			v_zi_fin_co) ;	
+
+			v_zicrt := v_zi_init_co ;
+			WHILE v_zicrt <= v_zi_fin_co LOOP 
+				UPDATE pontaje SET orelucrate=0, orenoapte=0, 
+					oreabsnem=0, oreco=8
+				WHERE marca=v_zileco.marca AND data=v_zicrt ;
+				v_zicrt := v_zicrt + 1 ;		
+			END LOOP ;
+	
+			FETCH c_zileco INTO v_zileco ;
+		END LOOP ;
+
+	END p_popluna ;
+
+--*******************************************************
+PROCEDURE p_init 
+IS
+BEGIN
+	SELECT an, luna, LAST_DAY(TO_DATE('01/'||luna||'/'||
+		an, 'DD/MM/YYYY'))
+	INTO un_pachet.v_ult_an_inchis, un_pachet.v_ult_luna_inchisa,
+		un_pachet.v_ult_zi_inchisa
+	FROM inchideri
+	WHERE TO_DATE('01/'||luna||'/'||an, 'DD/MM/YYYY') =
+			(SELECT MAX(TO_DATE('01/'||luna||'/'||an, 
+				'DD/MM/YYYY')) 
+			FROM inchideri);
+END p_init ;
+
+-- ********************************************************
+FUNCTION f_procsv2004 (nr_ani transe_sv.ani_limita_inf%TYPE )
+		RETURN transe_sv.procent_sv%TYPE 
+IS
+	v_proc transe_sv.procent_sv%TYPE ;
+	v_nr INTEGER := 0 ;
+BEGIN 
+	SELECT COUNT(*) INTO v_nr FROM transe_sv
+	WHERE nr_ani >= ani_limita_inf AND 
+		nr_ani < ani_limita_sup ;
+
+	IF v_nr > 0 THEN
+		SELECT procent_sv INTO v_proc FROM transe_sv
+		WHERE nr_ani >= ani_limita_inf AND 
+			nr_ani < ani_limita_sup ;
+		RETURN v_proc ;
+	ELSE
+		RETURN 0 ;
+	END IF ;
+
+--	SELECT procent_sv INTO v_proc FROM transe_sv
+--	WHERE nr_ani >= ani_limita_inf AND 
+--		nr_ani < ani_limita_sup ;
+--	RETURN v_proc ;
+--EXCEPTION
+--	WHEN no_data_found THEN
+--		RETURN 0 ;
+END f_procsv2004 ;
+
+
+--**************************************************************
+FUNCTION f_aniv (marca_ personal.marca%TYPE, an_ salarii.an%TYPE,
+	luna_ salarii.luna%TYPE)
+	RETURN transe_sv.ani_limita_inf%TYPE 
+IS
+	v_ani transe_sv.ani_limita_inf%TYPE ;
+BEGIN 
+	SELECT TRUNC(MONTHS_BETWEEN(TO_DATE('01/'||luna_||'/'||an_,
+		'DD/MM/YYYY'), datasv)/12,0)
+	INTO v_ani FROM personal  WHERE marca=marca_ ;
+	RETURN v_ani;
+END f_aniv ;
+
+--****************************************************************
+FUNCTION f_este_SPSAL (tabela_ VARCHAR2, marca_ personal.marca%TYPE,
+		an_ sporuri.an%TYPE, luna_ sporuri.luna%TYPE)
+		RETURN BOOLEAN 
+IS
+	v_unu NUMBER(1) := 0 ;
+BEGIN
+	IF tabela_ = 'SPORURI' THEN
+		SELECT 1 INTO v_unu FROM sporuri 
+		WHERE marca=marca_ AND an=an_ AND luna=luna_ ;
+		RETURN TRUE;
+	END IF ;
+	IF tabela_ = 'SALARII' THEN
+		SELECT 1 INTO v_unu FROM salarii 
+		WHERE marca=marca_ AND an=an_ AND luna=luna_ ;
+		RETURN TRUE;
+	END IF ;
+EXCEPTION
+	WHEN NO_DATA_FOUND THEN
+		RETURN FALSE ;
+END f_este_SPSAL ;
+
+--********************************************************
+FUNCTION f_salorar (marca_ personal.marca%TYPE)
+		RETURN personal.salorar%TYPE 
+IS
+	v_salorar personal.salorar%TYPE ;
+BEGIN
+	SELECT salorar INTO v_salorar FROM personal
+		WHERE marca=marca_ ;
+	RETURN v_salorar ;
+END f_salorar;
+
+
+--********************************************************
+FUNCTION f_salorarCO (marca_ personal.marca%TYPE)
+		RETURN personal.salorarCO%TYPE 
+IS
+	v_salorarCO personal.salorarCO%TYPE ;
+BEGIN
+	SELECT salorarCO INTO v_salorarCO FROM personal
+		WHERE marca=marca_ ;
+	RETURN v_salorarCO ;
+END f_salorarCO;
+
+
+END un_pachet ;	
+/
+
