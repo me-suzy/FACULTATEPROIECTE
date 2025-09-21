@@ -1,0 +1,15 @@
+******************************************
+*** FoxCentral.Net
+http://www.foxcentral.net/foxcentral.wsdl
+******************************************
+
+*** ProFox.Com
+http://www.leafe.com/ProFoxWS.wsdl 
+******************************************
+
+*** XMethods Listing
+http://www.xmethods.net/sd/2001/XMethodsListingsService.wsdl                                        ******************************************
+
+*** Session state store
+http://webservices.matlus.com/scripts/sessionservice.dll/wsdl/IMsSessionBrokerService
+******************************************
