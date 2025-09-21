@@ -1,0 +1,19 @@
+daca vrei sa-ti cumperi un apartament la bloc
+
+
+1)Subliniaza o linie de jos de sub toate cifrele
+2)Insert Function/All->Select Linest
+3)Know y's - Pretul
+  Know x's - Tot fara pret
+
+
+
+ La Corect - Scrii:
+1) = (select a*d + b*c + c*b + d*a + m)
+	ENTER	
+
+ La Raport - Scrii:
+1) = Corect/Solicitat
+
+
+dupa ce scrii tot dai Ctrl+Shift+Enter
