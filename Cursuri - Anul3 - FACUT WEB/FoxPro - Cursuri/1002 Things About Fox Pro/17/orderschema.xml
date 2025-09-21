@@ -1,0 +1,34 @@
+<Schema xmlns="urn:schemas-microsoft-com:xml-data" 
+  xmlns:dt="urn:schemas-microsoft-com:datatypes">
+	<AttributeType name="ID" dt:type="string" required="yes" />
+	<AttributeType name="LINE" dt:type="int" />
+	<ElementType name="PRICE" dt:type="number" />
+	<ElementType name="QUANTITY" dt:type="number" />			  		
+	<ElementType name="PRODUCT" content="textOnly" />			  		
+	<ElementType name="ORDERLINE" content="mixed">
+  		<attribute type="LINE" />
+  		<attribute type="ID" />
+		<element type="PRICE" />
+		<element type="QUANTITY" />
+		<element type="PRODUCT" />
+  	</ElementType>
+	<ElementType name="DATE" dt:type="date" />
+	<ElementType name="AMOUNT" dt:type="number" />
+	<ElementType name="ORDERHEADER" content="mixed">
+  		<attribute type="ID" />
+		<element type="DATE" minOccurs="1" maxOccurs="1" />
+		<element type="AMOUNT" minOccurs="1" maxOccurs="1" />
+		<element type="ORDERLINE" minOccurs="1" maxOccurs="*" />
+	</ElementType>
+	<ElementType name="COMPANY" content="textOnly" />
+	<ElementType name="CONTACT" content="textOnly" />
+  <ElementType name="CUSTOMER" content="mixed">
+  		<attribute type="ID" />
+		<element type="COMPANY" minOccurs="1" maxOccurs="1" />
+		<element type="CONTACT" minOccurs="1" maxOccurs="1" />
+		<element type="ORDERHEADER" minOccurs="1" maxOccurs="*" />
+	</ElementType>
+	<ElementType name="ORDERS" content="eltOnly">
+		<element type="CUSTOMER" />
+	</ElementType>
+</Schema>
