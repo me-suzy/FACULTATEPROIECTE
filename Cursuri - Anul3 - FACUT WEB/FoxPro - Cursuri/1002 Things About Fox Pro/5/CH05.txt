@@ -1,0 +1,195 @@
+/****** DEMODATA database generation script for SQL 2000 ******
+===============================================================
+NOTE: Database physical files names must be hard-coded in this script
+      To change where files are located do Search and Replace on:
+      "D:\MSSQL\DATA\"  
+**************************************************************/
+
+-- Remove database if it already exists
+IF EXISTS (SELECT name FROM master.dbo.sysdatabases WHERE name = N'Demodata')
+	DROP DATABASE [Demodata]
+GO
+
+-- Create the database
+CREATE DATABASE [Demodata] ON (NAME = N'Demodata', FILENAME = N'd:\MSSQL\data\Demodata.mdf' , SIZE = 1, FILEGROWTH = 10%)
+               LOG ON (NAME = N'Demodata_log', FILENAME = N'd:\MSSQL\data\Demodata_log.LDF' , SIZE = 1, FILEGROWTH = 10%)
+               COLLATE SQL_Latin1_General_CP1_CI_AS
+GO
+ 
+-- Set standard options
+exec sp_dboption N'Demodata', N'autoclose', N'false'
+exec sp_dboption N'Demodata', N'bulkcopy', N'false'
+exec sp_dboption N'Demodata', N'trunc. log', N'false'
+exec sp_dboption N'Demodata', N'torn page detection', N'true'
+exec sp_dboption N'Demodata', N'read only', N'false'
+exec sp_dboption N'Demodata', N'dbo use', N'false'
+exec sp_dboption N'Demodata', N'single', N'false'
+exec sp_dboption N'Demodata', N'autoshrink', N'false'
+exec sp_dboption N'Demodata', N'ANSI null default', N'false'
+exec sp_dboption N'Demodata', N'recursive triggers', N'false'
+exec sp_dboption N'Demodata', N'ANSI nulls', N'false'
+exec sp_dboption N'Demodata', N'concat null yields null', N'false'
+exec sp_dboption N'Demodata', N'cursor close on commit', N'false'
+exec sp_dboption N'Demodata', N'default to local cursor', N'false'
+exec sp_dboption N'Demodata', N'quoted identifier', N'false'
+exec sp_dboption N'Demodata', N'ANSI warnings', N'false'
+exec sp_dboption N'Demodata', N'auto create statistics', N'true'
+exec sp_dboption N'Demodata', N'auto update statistics', N'true'
+GO
+
+-- Now create the tables
+use [Demodata]
+GO
+
+-- And the login for the 'DemoData' User
+if not exists (select * from master.dbo.syslogins where loginname = N'DemoData')
+BEGIN
+  declare @logindb nvarchar(132), @loginlang nvarchar(132) select @logindb = N'Demodata', @loginlang = N'us_english'
+    if @logindb is null or not exists (select * from master.dbo.sysdatabases where name = @logindb)
+	select @logindb = N'master'
+    if @loginlang is null or (not exists (select * from master.dbo.syslanguages where name = @loginlang) and @loginlang <> N'us_english')
+	select @loginlang = @@language
+    exec sp_addlogin N'DemoData', null, @logindb, @loginlang
+END
+GO
+
+-- Give the user System Admin rights
+exec sp_addsrvrolemember N'DemoData', sysadmin
+GO
+
+-- And access to the DemoData Database
+exec sp_grantdbaccess N'DemoData', N'DemoData'
+GO
+
+/****** ACCOUNT ******/
+CREATE TABLE [dbo].[account] (
+	[iacpk]   [int]      IDENTITY (1, 1) NOT NULL ,
+	[cacref]  [varchar] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[cacname] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+/*** Create the Tables first ***/
+
+-- ACCTLOC
+CREATE TABLE [dbo].[acctloc] (
+	[ilocpk]     [int] IDENTITY (1, 1) NOT NULL ,
+	[iacfk]      [int] NOT NULL ,
+	[iadfk]      [int] NULL ,
+	[iloctypefk] [int] NOT NULL ,
+	[clocperson] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[cloctitle]  [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[clocphone]  [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[clocfax]    [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[clocemail]  [varchar] (80) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[clocurl]    [varchar] (80) COLLATE SQL_Latin1_General_CP1_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+-- ADDRESS
+CREATE TABLE [dbo].[address] (
+	[iaddpk]     [int] IDENTITY (1, 1) NOT NULL ,
+	[iaddtypefk] [int] NOT NULL ,
+	[caddstreet] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[caddcity]   [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[caddregion] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[caddpcode]  [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[caddcntry]  [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+-- LUTYPES
+CREATE TABLE [dbo].[lutypes] (
+	[ilutpk]      [int] IDENTITY (1, 1) NOT NULL ,
+	[clutypedesc] [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
+) ON [PRIMARY]
+GO
+
+-- LUVALUES
+CREATE TABLE [dbo].[luvalues] (
+	[iluvpk]     [int] IDENTITY (1, 1) NOT NULL ,
+	[ilutfk]     [int] NOT NULL ,
+	[cluvcode]   [varchar] (6) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[cluvdesc]   [varchar] (60) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[iluvorder]  [int] NULL ,
+	[iluvactive] [tinyint] NOT NULL 
+) ON [PRIMARY]
+GO
+
+-- ZIPCODES
+CREATE TABLE [dbo].[zipcodes] (
+	[izippk]     [int] IDENTITY (1, 1) NOT NULL ,
+	[czipcode]   [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[czipstate]  [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[czipcity]   [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL ,
+	[cziplatitu] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[cziplongit] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[czipcounty] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[czipareaco] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL ,
+	[cziptimezo] [varchar] (50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL 
+) ON [PRIMARY]
+GO
+
+/*** Now the PKs, Defaults and Indexes ***/
+-- ACCOUNT
+ALTER TABLE [dbo].[account] WITH NOCHECK ADD 
+	CONSTRAINT [IACPK] PRIMARY KEY NONCLUSTERED ([iacpk]) ON [PRIMARY] 
+CREATE  INDEX [cacname] ON [dbo].[account]([cacname]) ON [PRIMARY]
+CREATE  INDEX [cacref] ON [dbo].[account]([cacref]) ON [PRIMARY]
+GO
+
+-- ACCTLOC
+ALTER TABLE [dbo].[acctloc] WITH NOCHECK ADD 
+	CONSTRAINT [PK_acctloc] PRIMARY KEY NONCLUSTERED ([ilocpk]) ON [PRIMARY] 
+CREATE  INDEX [iloctypefk] ON [dbo].[acctloc]([iloctypefk]) ON [PRIMARY]
+CREATE  INDEX [iadfk] ON [dbo].[acctloc]([iadfk]) ON [PRIMARY]
+CREATE  INDEX [iacfk] ON [dbo].[acctloc]([iacfk]) ON [PRIMARY]
+CREATE  INDEX [clocemail] ON [dbo].[acctloc]([clocemail]) ON [PRIMARY]
+CREATE  INDEX [clocperson] ON [dbo].[acctloc]([clocperson]) ON [PRIMARY]
+GO
+
+-- ADDRESS
+ALTER TABLE [dbo].[address] WITH NOCHECK ADD 
+	CONSTRAINT [IADDPK] PRIMARY KEY NONCLUSTERED ([iaddpk]) ON [PRIMARY] 
+CREATE  INDEX [caddcntry] ON [dbo].[address]([caddcntry]) ON [PRIMARY]
+CREATE  INDEX [caddpcode] ON [dbo].[address]([caddpcode]) ON [PRIMARY]
+CREATE  INDEX [caddregion] ON [dbo].[address]([caddregion]) ON [PRIMARY]
+CREATE  INDEX [caddcity] ON [dbo].[address]([caddcity]) ON [PRIMARY]
+CREATE  INDEX [iaddtypefk] ON [dbo].[address]([iaddtypefk]) ON [PRIMARY]
+GO
+
+-- LUTYPES
+ALTER TABLE [dbo].[lutypes] WITH NOCHECK ADD 
+	CONSTRAINT [ILUTPK] PRIMARY KEY NONCLUSTERED ([ilutpk]) ON [PRIMARY] 
+CREATE  INDEX [clutypedes] ON [dbo].[lutypes]([clutypedesc]) ON [PRIMARY]
+GO
+
+-- LUVALUES
+ALTER TABLE [dbo].[luvalues] WITH NOCHECK ADD 
+	CONSTRAINT [DF_luvalues_iluvactive] DEFAULT (1) FOR [iluvactive],
+	CONSTRAINT [PK_luvalues] PRIMARY KEY NONCLUSTERED ([iluvpk]) ON [PRIMARY] 
+CREATE  INDEX [iluvorder] ON [dbo].[luvalues]([iluvorder]) ON [PRIMARY]
+CREATE  INDEX [cluvdesc] ON [dbo].[luvalues]([cluvdesc]) ON [PRIMARY]
+CREATE  INDEX [cluvcode] ON [dbo].[luvalues]([cluvcode]) ON [PRIMARY]
+CREATE  INDEX [ilutfk] ON [dbo].[luvalues]([ilutfk]) ON [PRIMARY]
+GO
+
+-- ZIPCODE
+ALTER TABLE [dbo].[zipcodes] WITH NOCHECK ADD 
+	CONSTRAINT [PK_zipcodes] PRIMARY KEY NONCLUSTERED ([izippk]) ON [PRIMARY] 
+CREATE  INDEX [czipcode] ON [dbo].[zipcodes]([czipcode]) ON [PRIMARY]
+CREATE  INDEX [czipstate] ON [dbo].[zipcodes]([czipstate]) ON [PRIMARY]
+CREATE  INDEX [czipcity] ON [dbo].[zipcodes]([czipcity]) ON [PRIMARY]
+GO
+
+/*** Finally the Constraints ***/
+-- AcctLoc MUST reference a valid ACCOUNT
+ALTER TABLE [dbo].[acctloc] ADD CONSTRAINT [FK_acctloc_account] 
+    FOREIGN KEY ([iacfk]) REFERENCES [dbo].[account] ([iacpk])
+GO
+
+-- Lookup Value MUST reference a valid TYPE
+ALTER TABLE [dbo].[luvalues] ADD CONSTRAINT [fk_ilutfk] 
+    FOREIGN KEY ([ilutfk]) REFERENCES [dbo].[lutypes] ([ilutpk])
+GO
+
