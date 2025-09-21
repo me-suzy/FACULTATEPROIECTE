@@ -1,0 +1,2 @@
+DEFINE BAR 1 OF newitem PROMPT "clienti"  MESSAGE Introduceti/modificati client
+Error in line 43: Command contains unrecognized phrase/keyword.
