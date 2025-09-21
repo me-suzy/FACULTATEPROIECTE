@@ -1,0 +1,67 @@
+			
+				Subiectul 5
+
+1) Ce produse vor fi fabricate in primul trimestru al anului 2004 ?
+	SELECT DenProd
+	From Produse_Finite P, Comenzi C, Descriere_Comenzi DC,
+	Where C NrComanda = DC NrComanda and DC CodProd = P CodProd 
+and DataLansare between 01.01.2004 and 31.03.2004
+
+2) Care sunt materialele necesare pt a onora comanda 234 ?
+	SELECT DenMat
+	From Materiale M, Comenzi C, Descriere_Comenzi DC, Fise_Tehnologice F
+	Where C NrComanda = DC NrComanda and DC CodProd = F CodProd and F CodMat = M CodMat
+and C NrComanda = 234
+
+3) Care sunt produsele ce trebuie fabricate pt a onora comanda 234 ?
+	SELECT DenProd
+	From Produse_Finite P ,Comenzi C, Descriere_Comenzi DC
+	Where C NrComanda = DC NrComanda and DC CodProd = P CodProd
+and C NrComanda = 234
+
+4) Care sunt comenzile in care apar,simultan,produsele "Fotoliu Delia HO546" si "Comoda Ioana" ?
+	SELECT NrComanda
+	From Comenzi C, Produse_Finite P, Descriere_Comenzi DC
+	Where C NrComanda = DC NrComanda and Dc CodProd = P CodProd 
+and P DenProd = "Fotoliu Delia HO546' and P DenProd = "Comoda Ioana"
+
+5) Care sunt comenzile in care apar,simultan,produsele "Fotoliu Delia HO456" si "Comoda Alexandra",nu insa si "Biblioteca Razvan" ?
+	SELECT NrComanda
+	From Comenzi C, Descriere_Comenzi DC, Produse_Finite 
+	Where C NrComanda = DC NrComanda and DC CodProd = P CodProd and DenProd = <>Biblioteca Razvan
+
+6) Ce materiale sunt necesare pt a onora comanda 567 ?
+	SELECT DenMat
+	From Materiale M, Comenzi C,Descriere_Comenzi DC, Fise_Tehnologice F
+	Where C NrComanda = DC NrComanda and DC CodProd = F CodProd and F CodMat = M CodMat
+and C NrComanda = 567
+
+7) Ce materiale sunt necesare pt a anula comenzile aferente lunii aprilie 2004 ?
+	SELECT DenMat
+	From Materiale M, Comenzi C, Descriere_Comenzi DC, Fise_Tehnologice F
+	Where C NrComanda = DC NrComanda and DC CodProd = F CodProd and F CodMat = M CodMat
+and C DataLansare between 01.04.2004 and 30.04.2004
+
+8) In ce zi au fost eliberate din magazie materiale pt toate comenzile ?
+	SELECT 
+
+
+
+9) Care sunt bonurile de consum care contin macar materialele necesare onorarii comenzii 234?
+
+
+
+
+
+10) Care este produsul cel mai complex ?
+
+
+
+
+11) Care comanda necesita cele mai multe materiale ?
+
+
+
+
+12) Care din materiale apartin bunurilor de consum intocmite in feb 2004 ?
+
