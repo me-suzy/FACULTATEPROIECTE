@@ -1,0 +1,6 @@
+CREATE OR REPLACE TRIGGER trg_personal_ins_before_row
+	BEFORE INSERT ON personal
+	FOR EACH ROW
+BEGIN
+	SELECT seq_marca.NextVal INTO :NEW.marca FROM dual ;
+END;
