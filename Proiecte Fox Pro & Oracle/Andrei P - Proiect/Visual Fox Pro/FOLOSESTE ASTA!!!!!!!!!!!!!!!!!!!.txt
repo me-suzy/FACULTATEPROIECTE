@@ -1,0 +1,6 @@
+alter table imobile drop constraint ck_situatie;
+ alter table clienti drop constraint ck_calitate;
+alter table clienti drop constraint fk_clienti_codpost;
+alter table agenti drop constraint ck_zona;
+alter table imobile drop constraint ck_zone;
+alter table clienti drop constraint ck_adresa_clienti;
