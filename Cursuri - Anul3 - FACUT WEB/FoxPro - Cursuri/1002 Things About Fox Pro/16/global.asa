@@ -1,0 +1,14 @@
+<OBJECT RUNAT=SERVER SCOPE=Application ID=error_level PROGID="Scripting.Dictionary"></OBJECT>
+<SCRIPT LANGUAGE=VBScript RUNAT=Server>
+
+' global configuration options go here
+Sub Application_OnStart
+
+  ' initialize the error_level constants
+  error_level("iis_log") = 1
+  error_level("display") = 2
+  error_level("end_response") = 4  
+ End Sub
+
+</SCRIPT>
+
