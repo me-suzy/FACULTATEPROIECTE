@@ -1,0 +1,94 @@
+
+o firma prod 3 prod ptr care sunt necesare 3 tipuri de repere
+fiecare unitate de prod necesita utiliz unei anumite cant din fiecare reper conform tabelului
+
+Cantitate reper pt prod		|Produs1	|Produs2	|Produs3	|
+Reper1				|1              |2		|3		|
+Reper2				|0		|1		|1
+Reper3				|3		|1		|1
+Reper4				|2		|0		|2
+Reper5				|1		|1		|3
+
+
+
+
+	|Cantitate
+
+Reper1	|800
+Reper2	|250
+Reper3	|820
+Reper4	|540
+Reper5	|680
+
+
+deasemenea la momentul actual firma detine i depozit urmat cant din fiecare reper.Profiturile realizate pt fiecare prosdus
+respecta urmatoarele formule:
+
+Profit produs1=60*cantitate produs 1
+Profit produs2=52*cantitate produs 2
+Profit produs3=47*cantitate produs 3
+
+
+
+Sa se afle:
+a) Profitul total maxim ce se poate obtine in conditiile date
+b) Cantitatile din fiecare produs care asigura obtinerea profitului total maxim
+c) Componentele profitului total maxim(profitul realizat pe fiecare produs in parte)
+
+Rezolvare:
+x1+2x2+x3<=800
+0x1+x2+x3<=250
+3x1+x2+x3<=820
+2x1+0x2+2x2<=540
+x1+x2+3x3<=680
+
+Solver
+
+
+
+^
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|_________________________________________________>
+
+
+
+
+Tabele Pivot:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
