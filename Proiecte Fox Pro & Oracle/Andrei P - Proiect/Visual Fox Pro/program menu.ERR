@@ -1,0 +1,14 @@
+ON SELECTION BAR bar 1 OF shortcut do menuoption with 11
+Error in line 8: Syntax error.
+ON SELECTION BAR bar 2 OF shortcut do menuoption with 12
+Error in line 9: Syntax error.
+ON SELECTION BAR bar 1 OF shortcut do menuoption with 21
+Error in line 16: Syntax error.
+ON SELECTION BAR bar 2 OF shortcut do menuoption with 22
+Error in line 17: Syntax error.
+ON SELECTION BAR bar 3 OF shortcut do menuoption with 23
+Error in line 18: Syntax error.
+FOR k=1 to_screen.formcount
+Error in line 47: Syntax error.
+FOR k=1 to_screen.formcount
+Error in line 55: Syntax error.
