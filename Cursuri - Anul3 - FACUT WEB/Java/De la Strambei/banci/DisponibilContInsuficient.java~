@@ -1,0 +1,29 @@
+/*
+ * DisponibilContInsuficient.java
+ *
+ * Created on 07 aprilie 2003, 12:44
+ */
+
+package Templates.Classes;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class Exception extends java.lang.Exception {
+    
+    /**
+     * Creates a new instance of <code>DisponibilContInsuficient</code> without detail message.
+     */
+    public Exception() {
+    }
+    
+    
+    /**
+     * Constructs an instance of <code>DisponibilContInsuficient</code> with the specified detail message.
+     * @param msg the detail message.
+     */
+    public Exception(String msg) {
+        super(msg);
+    }
+}
