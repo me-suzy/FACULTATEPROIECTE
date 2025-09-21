@@ -1,0 +1,46 @@
+<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+<VFPData>
+	<xsd:schema id="VFPDataSet" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="VFPDataSet" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="curCustomers" minOccurs="0" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="customerid">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="5"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="companyname">
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:string">
+											<xsd:maxLength value="40"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+							</xsd:sequence>
+							<xsd:anyAttribute namespace="urn:schemas-microsoft-com:xml-msdata urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax"/>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<diffgr:diffgram xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:diffgr="urn:schemas-microsoft-com:xml-diffgram-v1">
+		<VFPDataSet xmlns="">
+			<curCustomers diffgr:id="curcustomers_4" msdata:rowOrder="4" diffgr:hasChanges="modified">
+				<customerid>AROUT</customerid>
+				<companyname>Around the Corner</companyname>
+			</curCustomers>
+		</VFPDataSet>
+		<diffgr:before>
+			<curCustomers diffgr:id="curcustomers_4" msdata:rowOrder="4" xmlns="">
+				<customerid>AROUT</customerid>
+				<companyname>Around the Horn</companyname>
+			</curCustomers>
+		</diffgr:before>
+	</diffgr:diffgram>
+</VFPData>
