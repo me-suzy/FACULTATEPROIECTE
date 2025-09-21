@@ -1,0 +1,44 @@
+/*
+ * ExcptMultiCatch.java
+ *
+ * Created on 07 aprilie 2003, 12:24
+ */
+
+package exemple.exceptii;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class ExcptMultiCatch {
+    
+    /** Creates a new instance of ExcptMultiCatch */
+    public ExcptMultiCatch() {
+    }
+    public static void testExceptie(int val) throws NumberFormatException,
+    ArrayIndexOutOfBoundsException, NullPointerException{
+        if (val == 1)
+            throw new NumberFormatException("Exceptie pentru format numeric");
+        else if (val == 2)
+            throw new ArrayIndexOutOfBoundsException("Exceptie pentru masive");
+        else if (val == 3)
+            throw new NullPointerException("Exceptie pentru referinte null-e");
+        else
+            System.out.println("OK");
+    }
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        try {
+            testExceptie(3);
+        }catch(NumberFormatException e){
+            System.out.println(e.getMessage());
+        }catch(ArrayIndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
+        }catch(NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+    }
+    
+}
