@@ -1,0 +1,19 @@
+/*
+ * AplicatieBD.java
+ *
+ * Created on 17 martie 2003, 13:06
+ */
+
+package exemple;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class AplicatieBD {
+    
+    /** Creates a new instance of AplicatieBD */
+    public AplicatieBD() {
+    }
+    
+}
