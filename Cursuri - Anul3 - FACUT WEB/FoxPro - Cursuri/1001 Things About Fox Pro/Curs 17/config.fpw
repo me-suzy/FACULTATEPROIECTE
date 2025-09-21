@@ -1,0 +1,5 @@
+* Used if you want the SDI look and feel
+* SCREEN = OFF
+
+* Set up your custom FoxUser for Report toolbars
+RESOURCE = FOXUSER.DBF
