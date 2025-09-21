@@ -1,0 +1,35 @@
+create trigger on judete for delete as trg_del_judete()
+create trigger on judete for update as trg_upd_judete()
+
+create trigger on localitati for delete as trg_del_localitati()
+create trigger on localitati for update as trg_upd_localitati()
+create trigger on localitati for insert as trg_ins_localitati()
+
+create trigger on stadioane for delete as trg_del_stadioane()
+create trigger on stadioane for update as trg_upd_stadioane()
+create trigger on stadioane for insert as trg_ins_stadioane()
+
+create trigger on divizii for delete as trg_del_divizii()
+create trigger on divizii for update as trg_upd_divizii()
+
+create trigger on echipe for delete as trg_del_echipe()
+create trigger on echipe for update as trg_upd_echipe()
+create trigger on echipe for insert as trg_ins_echipe()
+
+create trigger on jucatori for delete as trg_del_jucatori()
+create trigger on jucatori for update as trg_upd_jucatori()
+create trigger on jucatori for insert as trg_ins_jucatori()
+
+create trigger on contract for delete as trg_del_contract()
+create trigger on contract for update as trg_upd_contract()
+create trigger on contract for insert as trg_ins_contract()
+
+create trigger on meciuri for delete as trg_del_meciuri()
+create trigger on meciuri for update as trg_upd_meciuri()
+create trigger on meciuri for insert as trg_ins_meciuri()
+
+
+create trigger on transferuri for update as trg_upd_transferuri()
+create trigger on transferuri for insert as trg_ins_transferuri()
+
+append procedures from proceduri_stocate_campionat.prg overwrite
