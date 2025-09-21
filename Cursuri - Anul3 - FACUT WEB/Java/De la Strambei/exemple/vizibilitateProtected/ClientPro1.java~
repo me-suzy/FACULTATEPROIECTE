@@ -1,0 +1,19 @@
+/*
+ * ClientPro1.java
+ *
+ * Created on 24 martie 2003, 12:45
+ */
+
+package Templates.Classes;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class Class {
+    
+    /** Creates a new instance of ClientPro1 */
+    public Class() {
+    }
+    
+}
