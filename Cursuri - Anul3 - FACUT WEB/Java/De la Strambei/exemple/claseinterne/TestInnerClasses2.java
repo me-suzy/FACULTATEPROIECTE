@@ -1,0 +1,38 @@
+/*
+ * TestInnerClasses2.java
+ *
+ * Created on 31 martie 2003, 12:30
+ */
+
+package exemple.claseinterne;
+
+class ClasaExterna2{
+  // clasa interna inclusa in ClasaExterna
+  class ClasaInterna2 {
+    private String m1 = "Valoare interna 2";
+    // metoda de acces la membrul clasei interne
+    public String getm1() {return m1;}
+  }
+  // metoda pentru instantierea clasei interne
+  public ClasaInterna2 referintaInterna() {
+    return new ClasaInterna2();
+    // sau
+    //return new ClasaExterna.ClasaInterna();
+  }
+  // metoda a clasei externe de acces la membrul clasei interne
+  public String getMembruIntern(ClasaInterna2 obj_int){
+    return obj_int.getm1();
+  }
+}
+
+// Clasa de test prin care va fi accesata clasa interna prin
+// intermediul clasei externe care o include
+public class TestInnerClasses2 {
+  public static void main(String[] args) {
+  // creez o instanta a clasei externe
+    ClasaExterna2 o = new ClasaExterna2();
+  //  creez o instanta a clasei interne
+    ClasaExterna2.ClasaInterna2 obj_intern = o.referintaInterna();
+    System.out.println(obj_intern.getm1());  
+	}
+}
