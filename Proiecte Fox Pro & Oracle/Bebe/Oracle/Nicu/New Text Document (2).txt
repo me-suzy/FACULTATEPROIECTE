@@ -1,0 +1,205 @@
+bebe_sufletel (12:08:27 AM): iar a luat-o razna netul
+buuulibasa (10:07:23 PM): Salut
+bebe_sufletel (10:07:27 PM): sal
+bebe_sufletel (10:07:31 PM): m-ai uitat 
+buuulibasa (10:07:41 PM): Cica a pus Narcis un joc pe un DVD... si cica-l vrei si tu...
+bebe_sufletel (10:07:56 PM): nu neaparat
+bebe_sufletel (10:08:05 PM): vroiam sa stiu ce e
+buuulibasa (10:08:05 PM):  ok
+buuulibasa (10:08:10 PM): tu vezi share-urile mele?
+bebe_sufletel (10:08:11 PM): intru in sesiune si n-am timp
+bebe_sufletel (10:08:32 PM): da
+bebe_sufletel (10:08:52 PM): ai tot serialul ala
+buuulibasa (10:08:58 PM): care?
+buuulibasa (10:09:06 PM): Star Trek?
+bebe_sufletel (10:09:23 PM): enterprise
+buuulibasa (10:09:27 PM): nu
+bebe_sufletel (10:09:28 PM): si voyajeu
+buuulibasa (10:09:42 PM): am doar prima serie din Enterprise... M-am apucat acum de a doua...
+bebe_sufletel (10:09:53 PM): off
+bebe_sufletel (10:09:59 PM): nu se mai temina ??
+bebe_sufletel (10:10:01 PM): 
+buuulibasa (10:10:52 PM): mai, la mine trage cu 4-6 k asa ca la tine ar trebui sa mearga cam la fel..
+buuulibasa (10:10:59 PM): doar nu pap toata banda
+bebe_sufletel (10:11:01 PM): ?
+bebe_sufletel (10:11:04 PM): restul unde e ?
+bebe_sufletel (10:12:01 PM): ..in fine
+bebe_sufletel (10:12:09 PM): lasa,acu am alte prioritati
+bebe_sufletel (10:12:20 PM): ai sa ma poti ajuta la Oracle ?
+buuulibasa (10:12:57 PM): nu stiu... stai asa oleaca...
+bebe_sufletel (10:13:04 PM): 
+bebe_sufletel (10:13:04 PM): k
+buuulibasa (10:15:46 PM): porneste un VNC
+bebe_sufletel (10:15:56 PM): stai un pic
+bebe_sufletel (10:16:01 PM): sa-l instalez
+bebe_sufletel (10:21:57 PM): 1234
+buuulibasa (10:22:54 PM): care-i buba?
+bebe_sufletel (10:22:57 PM): ?
+buuulibasa (10:23:12 PM): Cu Oracle-ul...
+bebe_sufletel (10:23:15 PM): lol
+bebe_sufletel (10:23:20 PM): pai ti-am zis
+buuulibasa (10:23:25 PM): ok
+buuulibasa (10:23:34 PM): hai sa-ti adaptez functia aia, da?
+bebe_sufletel (10:23:37 PM): trebuie sa dau exemplu de alea
+bebe_sufletel (10:23:39 PM): aha
+bebe_sufletel (10:23:46 PM): si sa-mi explici ce face detaliat
+buuulibasa (10:23:51 PM): porneste un client de Oracle
+bebe_sufletel (10:23:58 PM): SQL
+buuulibasa (10:23:59 PM): ai PLSQLDeveloper?
+bebe_sufletel (10:23:59 PM): k?
+bebe_sufletel (10:24:02 PM): n-am
+bebe_sufletel (10:24:04 PM): sql
+buuulibasa (10:24:35 PM): stai asa... sa vedem de ce nu te vad in retea...
+bebe_sufletel (10:24:41 PM): ??
+buuulibasa (10:24:50 PM): io nu te vad...
+bebe_sufletel (10:26:02 PM): inchid ?
+buuulibasa (10:26:07 PM): Folosesti FW de la Microsoft?
+bebe_sufletel (10:26:09 PM): firewall
+bebe_sufletel (10:26:13 PM): lol
+bebe_sufletel (10:26:20 PM): e de la Service pack 2
+buuulibasa (10:26:22 PM): adika te ajuta?
+bebe_sufletel (10:26:24 PM): nu
+buuulibasa (10:26:27 PM): ok
+bebe_sufletel (10:26:49 PM): da imi apare tot timpul iconita asta cu mesaj
+buuulibasa (10:26:55 PM): acu te vad
+bebe_sufletel (10:31:07 PM): stai sa mai deschid unnserviciu
+buuulibasa (10:31:09 PM): ok
+buuulibasa (10:31:51 PM): pune user/passwd
+buuulibasa (10:31:53 PM): ok
+bebe_sufletel (10:33:08 PM): ?
+buuulibasa (10:33:13 PM): ai probleme cu BD?
+bebe_sufletel (10:33:18 PM): nu cred
+bebe_sufletel (10:33:21 PM): stai asa
+bebe_sufletel (10:34:12 PM): nu n-am probleme
+buuulibasa (10:34:17 PM): ok
+buuulibasa (10:39:10 PM): unde-i functia aia care ti-am trimis-o?
+bebe_sufletel (10:39:17 PM): k
+bebe_sufletel (10:39:18 PM): stai
+bebe_sufletel (10:40:00 PM): stai Nicu
+bebe_sufletel (10:40:44 PM): cum se numea ?
+buuulibasa (10:41:11 PM): ???
+buuulibasa (10:41:17 PM): nu mai stiu...
+bebe_sufletel (10:41:39 PM): FUNCTION GET_IDS_FOR_GEN_ID( genID IN NUMBER, sSep IN VARCHAR2) RETURN VARCHAR2 AS L_STR VARCHAR2(2000) DEFAULT NULL; L_SEP VARCHAR2(10) DEFAULT NULL; BEGIN L_SEP := ''; FOR X IN ( SELECT ID FROM BC_HISTORY WHERE GENERATION_ID = genID) LOOP L_STR := L_STR || L_SEP || to_char( X.ID); L_SEP := sSep; END LOOP; RETURN L_STR; END;
+bebe_sufletel (10:41:42 PM): asta nu ?
+buuulibasa (10:41:55 PM): da
+bebe_sufletel (10:42:00 PM): k
+buuulibasa (10:58:25 PM): ok
+buuulibasa (11:00:36 PM): ok
+bebe_sufletel (11:00:41 PM): ?
+buuulibasa (11:00:47 PM): deci, ai vazut ce face functia?
+bebe_sufletel (11:00:48 PM): deci ce-a facut ?
+bebe_sufletel (11:01:22 PM): ca ai luat prea repede si n-am vazut tot
+buuulibasa (11:01:30 PM): te rog sa faci tu un SQL care sa-ti returneze din tablea informatia care a returnat-o SQL-ul meu 
+buuulibasa (11:01:40 PM): si ai sa constatzi ca nu se poate... 
+bebe_sufletel (11:01:51 PM): de ce ai numit TABLBEA ?
+bebe_sufletel (11:01:55 PM): tablea
+buuulibasa (11:02:01 PM): potzi sa-i spui cum vrei... 
+bebe_sufletel (11:02:07 PM): k
+buuulibasa (11:02:07 PM): asta era la indemana...
+buuulibasa (11:02:10 PM): 
+bebe_sufletel (11:02:14 PM): da nu m-am prins
+bebe_sufletel (11:02:22 PM): returneaza niste valori
+buuulibasa (11:02:32 PM): da share te rog la dir cu Oracle
+bebe_sufletel (11:02:44 PM): k
+bebe_sufletel (11:03:25 PM): acu
+bebe_sufletel (11:03:30 PM): tre sa astepti putin
+bebe_sufletel (11:04:06 PM): nu mai stiu
+bebe_sufletel (11:04:16 PM): STR si NVL ce inseamna ?
+bebe_sufletel (11:04:29 PM): nvl parca inlatura valorile nule
+bebe_sufletel (11:04:51 PM): a, uitat exact
+bebe_sufletel (11:05:04 PM): ..se vede ca n-am prea lucrat de mult
+buuulibasa (11:05:36 PM): NVL( coloanax, 'val1') - da valoarea val1 de fiecare data cand coloanax are val null
+bebe_sufletel (11:06:24 PM): deci s-ar putea traduce cam " Not Value" ?
+bebe_sufletel (11:06:27 PM): sau cum ?
+bebe_sufletel (11:06:38 PM): am uitat prea multe
+bebe_sufletel (11:08:04 PM): asa
+bebe_sufletel (11:08:18 PM): deci nu stiu STR si SEP
+bebe_sufletel (11:08:20 PM): ?
+bebe_sufletel (11:09:05 PM): ???
+bebe_sufletel (11:09:31 PM): ??
+buuulibasa (11:09:52 PM): nici io...
+buuulibasa (11:09:58 PM): nu le-am folosit....
+bebe_sufletel (11:09:59 PM): lol
+bebe_sufletel (11:10:17 PM): pai vad in pachet
+buuulibasa (11:10:38 PM): ???
+buuulibasa (11:10:57 PM): Bebe, alea-s variabile
+bebe_sufletel (11:11:10 PM): ?
+bebe_sufletel (11:11:32 PM): ce rol au ?
+buuulibasa (11:11:44 PM): L_SEP VARCHAR2(10) DEFAULT NULL; asta inseamna ca declar variabila L_SEP de tip VARCHAR2(10) care se initializeaza cu NULL
+bebe_sufletel (11:11:57 PM): bine 
+bebe_sufletel (11:12:06 PM): dar ce face o variabila ?
+bebe_sufletel (11:12:11 PM): care e rolul ei ?
+buuulibasa (11:12:28 PM): deci, uite ce face linia asta: L_STR := L_STR || L_SEP || to_char( X.ID);
+bebe_sufletel (11:13:05 PM): ?
+buuulibasa (11:13:29 PM): L_STR primeste valoarea lui anterioara la care se concateneaza L_SEP - adika separatorul - si valoarea lui X.ID
+buuulibasa (11:13:45 PM): si se executa pentru fiecare X.ID
+buuulibasa (11:13:58 PM): care indeplineste conditia din query
+buuulibasa (11:14:10 PM): lipsesc 5 min
+bebe_sufletel (11:14:14 PM): k
+bebe_sufletel (11:14:31 PM): aha
+bebe_sufletel (11:14:33 PM): m-am prins
+bebe_sufletel (11:14:35 PM): 
+bebe_sufletel (11:14:46 PM): dar in conluzie
+bebe_sufletel (11:15:00 PM): programul tau
+bebe_sufletel (11:15:42 PM): returneaza valori intre 10 si 2000
+bebe_sufletel (11:16:00 PM): corect ?
+bebe_sufletel (11:17:49 PM): imi fac un ceai si eu
+bebe_sufletel (11:17:50 PM): 
+buuulibasa (11:18:58 PM):  nuuuuu
+bebe_sufletel (11:19:10 PM): ?
+bebe_sufletel (11:19:17 PM): a da
+bebe_sufletel (11:19:19 PM): stupi
+bebe_sufletel (11:19:21 PM): d
+bebe_sufletel (11:19:26 PM): am vazut acu'
+buuulibasa (11:19:27 PM): of... hai ca-ti dau nu telef
+buuulibasa (11:19:34 PM): altfel stam toata seara...
+bebe_sufletel (11:19:35 PM): te su eu
+bebe_sufletel (11:39:21 PM): unde e folderul share ?
+bebe_sufletel (11:39:34 PM): gata
+bebe_sufletel (11:40:15 PM): nu le pot copia Nicu
+bebe_sufletel (11:40:17 PM): 
+buuulibasa (11:40:23 PM): 
+buuulibasa (11:40:26 PM): stai asa...
+buuulibasa (11:41:16 PM): incearca acum
+bebe_sufletel (11:41:34 PM): ce avea ?
+buuulibasa (11:41:43 PM): era read only
+bebe_sufletel (11:41:44 PM): ti-am pus tot Folderul LIB
+buuulibasa (11:41:44 PM): 
+buuulibasa (11:41:49 PM): ok
+bebe_sufletel (11:41:51 PM): Lib
+bebe_sufletel (11:42:55 PM): k,ma culc Nicu
+bebe_sufletel (11:42:59 PM): ms fain pt tot
+bebe_sufletel (11:43:05 PM): vezi ca am niste filme noi
+buuulibasa (11:43:06 PM): stai asa
+bebe_sufletel (11:43:08 PM): k
+buuulibasa (11:43:17 PM): mai pune si xmlparserv2.jar
+bebe_sufletel (11:43:22 PM): de unde ?
+buuulibasa (11:43:29 PM): este in <orahome>/lib
+bebe_sufletel (11:43:58 PM): am dat search
+bebe_sufletel (11:44:41 PM): aha
+bebe_sufletel (11:44:43 PM): atat?
+buuulibasa (11:44:47 PM): da
+bebe_sufletel (11:45:10 PM): ai vazut Spartacus 2004 ?
+bebe_sufletel (11:45:12 PM): e futere
+buuulibasa (11:45:16 PM): da
+bebe_sufletel (11:45:27 PM): sau vezi Two Can Play The Game
+bebe_sufletel (11:45:30 PM): e fain si asta
+buuulibasa (11:45:30 PM): l-ai pus?
+bebe_sufletel (11:45:33 PM): da
+buuulibasa (11:45:38 PM): unde?
+bebe_sufletel (11:45:48 PM): xmlparserv2.jar
+bebe_sufletel (11:45:51 PM): asta ?
+bebe_sufletel (11:45:58 PM): e pe acolo prin share
+buuulibasa (11:46:03 PM): ok
+bebe_sufletel (11:46:13 PM): atat ?
+buuulibasa (11:46:32 PM): ai oprit serverul de Oracle?
+bebe_sufletel (11:46:50 PM): nu
+bebe_sufletel (11:46:55 PM): merge
+bebe_sufletel (11:47:16 PM): si vezi ca am dat share la Oracle
+bebe_sufletel (11:47:41 PM): eu ma culc Nicu,maine mai tre sa prezint un proiect de la 8
+buuulibasa (11:47:45 PM): ko
+bebe_sufletel (11:47:45 PM): mai vorbim maine,k ?
+buuulibasa (11:47:47 PM): somn usor
+buuulibasa (11:47:49 PM): ok
+bebe_sufletel (11:47:50 PM): aha
+bebe_sufletel (11:48:02 PM): ms pt tot.Sleep well si tie 
