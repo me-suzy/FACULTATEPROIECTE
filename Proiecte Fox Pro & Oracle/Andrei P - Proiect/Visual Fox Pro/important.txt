@@ -1,0 +1,8 @@
+load   formular
+
+public v_....
+v_...=1001
+
+interactive change combo
+v_.....=val(this.value)
+requery('numetabela')
