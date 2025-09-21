@@ -1,0 +1,46 @@
+*!*	alter table contract alter column codc set default vi_contract_codc()
+create trigger on contract for delete as trg_contract_del()
+create trigger on contract for update as trg_contract_upd()
+create trigger on contract for insert as trg_contract_ins()
+
+*!*	alter table divizii alter column coddiv set default vi_divizii_coddiv()
+create trigger on divizii for delete as trg_divizii_del()
+create trigger on divizii for update as trg_divizii_upd()
+create trigger on divizii for insert as trg_divizii_ins()
+
+*!*	alter table echipe alter column idech set default vi_echipe_idech()
+create trigger on echipe for delete as trg_echipe_del()
+create trigger on echipe for update as trg_echipe_upd()
+create trigger on echipe for insert as trg_echipe_ins()
+
+*!*	alter table jucatori alter column codjuc set default vi_jucatori_codjuc()
+create trigger on jucatori for delete as trg_jucatori_del()
+create trigger on jucatori for update as trg_jucatori_upd()
+create trigger on jucatori for insert as trg_jucatori_ins()
+
+*!*	alter table judete alter column jud set default vi_judete_jud()
+create trigger on judete for delete as trg_judete_del()
+create trigger on judete for update as trg_judete_upd()
+
+
+*!*	alter table localitate alter column codpost set default vi_localitate_codpost()
+create trigger on localitate for delete as trg_localitate_del()
+create trigger on localitate for update as trg_localitate_upd()
+create trigger on localitate for insert as trg_localitate_ins()
+
+*!*	alter table meciuri alter column idmeci set default vi_meciuri_idmeci()
+create trigger on meciuri for delete as trg_meciuri_del()
+create trigger on meciuri for update as trg_meciuri_upd()
+create trigger on meciuri for insert as trg_meciuri_ins()
+
+
+*!*	alter table stadioane alter column codstad set default vi_stadioane_codstad()
+create trigger on stadioane for delete as trg_stadioane_del()
+create trigger on stadioane for update as trg_stadioane_upd()
+create trigger on stadioane for insert as trg_stadioane_ins()
+
+*!*	alter table transferuri alter column idtran set default vi_transferuri_idtran()
+create trigger on transferuri for update as trg_transferuri_upd()
+create trigger on transferuri for insert as trg_transferuri_ins()
+
+append procedures from proceduri_stocate_campionat.prg overwrite
