@@ -1,0 +1,36 @@
+
+
+ in casuta produs,putem introduce fie codul fie numele produsului comandat de client
+
+	Bebe
+
+****1)Finante contabilitate/editare documente/factura fiscala interna - primita/selectam partenerul/completam cu produse din Catalog,Tarife,servicii si lucrari/dupa aia f10/primim o eticheta de confirmare/alegem nota contabila pt factura fiscala serie/inregistram plata la group octavia/in numerar/selectam casa/se inregistreaza o chitanta simpla/se inregistreaza o nota contabila pt chitanta simlpa/
+
+*****2)finante contabilitate/editare documente/ chitante/bonuri /chitanta asociata facturii este primita/selectam partenerul/selectam casa/selectam documentul/ne apare chitanta simpla/f10/se face nota contabila/
+
+3)finante contabilitate/raportari/situatie furnizori/clienti /procesare/ne este prezentata situatia furnizorilor/F3 situatie furnizori/apasam balanta stocuri cu furnizorul selectat/ne apare situatie stocuri achizitionate de la furnizorul Metro/apasam distributie stoc/ne apare distributia pe gestiuni pt Marfa/dublu click productie/ne apare Fisa De gestiune/
+
+
+1)putem selecta pt factura fiscala interna din Selectie mijloace fixe si Obiecte de inventar,sau manual
+
+4)Finante contabilitate/editare documente/aviz de insotire a marfii
+
+****5)personal salarizare resurse umane/negociere salariu/putem selecta categoria din care face parte/aptitudinile/daca are cunostinte de utilizare a calc/daca stie limbi straine/ce post solicita/vedem daca a fost sau nu acceptat in urma interviului/din ce compartiment va face parte si ce functie va avea/si stabilim grila de salarii
+Apoi din editare,identificare/recrutare personal
+
+
+****6)personal salarizare/editare identificare/retineri din salariu/putem retine din salariu/ce tip de retinere
+
+
+7)la structura salii,cele ocupate au un cerculos rosu in dreptul ei
+
+****8)Productie si servicii/editare documente/inregistrarea productiei/selectam compartimentul/inregistram productia pe principiul asigurarea calitatii/automat/alegem produsele din codul intern,precizam tipul de calitate/alegem nota contabila pt nota de productie/
+
+****9)Gestiune mijloace fixe/nota receptie si constatare diferente/selectie document de insotire a marfii/selectam compartimentul/comlpetam nota de receptie si constatare diferente/o tiparim din nou(F9)/primim o eticheta de confirmare din nou/facem din nou nota contabila/si o tiparim
+
+
+****10)Personal resurse umane/configurare/sporuri date personal/
+
+11)Productie servicii/restaurant/configurare mese 
+
+12)Productie servicii/managementul productiei/planificarea productiei/test/apasam grafic ,ne apare - incarcarea productieiproductiei
