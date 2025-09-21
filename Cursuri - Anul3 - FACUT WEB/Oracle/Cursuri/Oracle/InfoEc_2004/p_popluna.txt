@@ -1,0 +1,81 @@
+CREATE OR REPLACE PROCEDURE p_popluna (
+	v_an salarii.an%TYPE,
+	v_luna salarii.luna%TYPE
+	)
+IS
+	v_ultimazi NUMBER(2) ;
+	v_zicrt DATE ;
+	-- definirea cursorului explicit
+	CURSOR c_zileco (zi_inceput DATE, zi_sfirsit DATE) IS
+		SELECT * FROM concedii WHERE datainit <= zi_sfirsit AND
+			datafin >= zi_inceput ; 
+	v_zileco c_zileco%ROWTYPE;
+	v_zi_init_co DATE ;
+	v_zi_fin_co DATE ;
+BEGIN
+	DELETE FROM pontaje WHERE EXTRACT (YEAR FROM data)= v_an AND
+		EXTRACT (MONTH FROM data) = v_luna ;
+	v_ultimazi := TO_NUMBER(TO_CHAR(LAST_DAY(TO_DATE('01/'||
+		v_luna||'/'||v_an,'DD/MM/YYYY')), 'DD'),'99') ; 
+	FOR i IN 1..v_ultimazi LOOP
+		v_zicrt := TO_DATE( i||'/'||v_luna||'/'||v_an,
+			'DD/MM/YYYY') ;
+		IF RTRIM(TO_CHAR(v_zicrt, 'DAY')) IN ('SATURDAY',
+			'SUNDAY') THEN
+			-- zi nelucratoare
+			NULL ;
+		ELSE
+			IF RTRIM(TO_CHAR(v_zicrt, 'DAY')) = ('FRIDAY') THEN
+				INSERT INTO pontaje (marca, data, orelucrate)
+				SELECT marca, v_zicrt, 6
+				FROM personal 
+				WHERE colaborator <> 'D';
+			ELSE
+				-- luni - joi
+				INSERT INTO pontaje (marca, data, orelucrate)
+				SELECT marca, v_zicrt, 8
+				FROM personal 
+				WHERE colaborator <> 'D';
+			END IF;
+		END IF ;
+	END LOOP ;
+
+	-- deschiderea cursorului
+	OPEN c_zileco (TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY'), 
+		LAST_DAY(TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY')));
+	FETCH c_zileco INTO v_zileco ;
+	LOOP
+		EXIT WHEN c_zileco%NOTFOUND ;		
+		DBMS_OUTPUT.PUT_LINE('Marca '||v_zileco.marca||', DataIn '
+			|| v_zileco.datainit || ', DataFinala '||
+			v_zileco.datafin) ;	
+
+		-- prima zi din concediu (pentru luna curenta)
+		IF v_zileco.datainit > TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY') THEN
+			v_zi_init_co := v_zileco.datainit ;			
+		ELSE
+			v_zi_init_co := TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY') ;			
+		END IF ;
+		
+		-- ultima zi din concediu (pentru luna curenta)		
+		IF v_zileco.datafin > LAST_DAY(TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY')) THEN
+			v_zi_fin_co := LAST_DAY(TO_DATE('01/'||v_luna||'/'||v_an,'DD/MM/YYYY')) ;
+		ELSE
+			v_zi_fin_co := v_zileco.datafin ;
+		END IF;
+		DBMS_OUTPUT.PUT_LINE('DataInceput '
+			|| v_zi_init_co || ', DataSfirsit '||
+			v_zi_fin_co) ;	
+
+		v_zicrt := v_zi_init_co ;
+		WHILE v_zicrt <= v_zi_fin_co LOOP 
+			UPDATE pontaje SET orelucrate=0, orenoapte=0, 
+				oreabsnem=0, oreco=8
+			WHERE marca=v_zileco.marca AND data=v_zicrt ;
+			v_zicrt := v_zicrt + 1 ;		
+		END LOOP ;
+
+		FETCH c_zileco INTO v_zileco ;
+	END LOOP ;
+
+END ;
