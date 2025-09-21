@@ -1,0 +1,25 @@
+/*
+ * ExcptThrows.java
+ *
+ * Created on 07 aprilie 2003, 12:14
+ */
+
+package exemple.exceptii;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class ExcptThrows {
+    
+    /** Creates a new instance of ExcptThrows */
+    public ExcptThrows() {
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+    }
+    
+}
