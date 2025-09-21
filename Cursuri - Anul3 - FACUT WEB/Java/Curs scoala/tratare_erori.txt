@@ -1,0 +1,24 @@
+ public static void tratareErori(Exception err){
+         if (err instanceof SQLException)
+           {   SQLException errSQL=(SQLException)err;
+                javax.swing.JOptionPane.showMessageDialog(null,
+                        errSQL.getErrorCode()+":"+err.getMessage(),
+                         "Eroare SQL!",javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+         else if (err instanceof NumberFormatException)
+         { javax.swing.JOptionPane.showMessageDialog(null,
+                        "Sirul de char. introdus nu corespunde unui numar zecimal !",
+                         "Acest camp accepta doar valori numerice.",javax.swing.JOptionPane.ERROR_MESSAGE);
+         }
+         else if (err instanceof java.text.ParseException)
+         { javax.swing.JOptionPane.showMessageDialog(null,
+                        "Sirul de char. introdus nu corespunde unei date calend. valide !",
+                         "Acest camp accepta doar valori in format dd/mm/yyyy.",javax.swing.JOptionPane.ERROR_MESSAGE);
+         }
+         else
+            javax.swing.JOptionPane.showMessageDialog(null,err.getMessage(),
+                         "Eroare Non-SQL!",javax.swing.JOptionPane.ERROR_MESSAGE);
+           
+    err.printStackTrace();
+    }
+
