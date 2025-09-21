@@ -1,0 +1,66 @@
+create or replace package pachet_cv as
+
+v_regula_upd_softuri char(1):='c';--implicit UPDATE CASCADE
+
+v_regula_del_useri char(1):='r';--implicit DELETE RESTRICT
+v_regula_del_softuri char(1):='r';
+v_regula_del_studenti char(1):='r';
+
+FUNCTION f_idsoft_in_stud_soft(idsoft_ softuri.idsoft%type) RETURN BOOLEAN;
+FUNCTION f_username_in_studenti(username_ useri.username%type) RETURN BOOLEAN;
+FUNCTION f_username_in_stud_soft(username_ useri.username%type) RETURN BOOLEAN;
+FUNCTION f_username_in_stud_lb_straine(username_ useri.username%type) RETURN BOOLEAN;
+
+END pachet_cv;
+/
+
+CREATE OR REPLACE PACKAGE BODY pachet_cv as
+
+FUNCTION f_idsoft_in_stud_soft(idsoft_ softuri.idsoft%type) RETURN BOOLEAN IS
+v_unu NUMBER(1):=0;
+begin
+select 1 into v_unu from dual where exists
+ (select 1 from stud_soft where idsoft=idsoft_);
+return true;
+exception
+when no_data_found then
+ return false;
+end f_idsoft_in_stud_soft;
+
+
+FUNCTION f_username_in_studenti(username_ useri.username%type) RETURN BOOLEAN IS
+v_unu NUMBER(1):=0;
+begin
+select 1 into v_unu from dual where exists
+ (select 1 from studenti where username=username_);
+return true;
+exception
+when no_data_found then
+ return false;
+end f_username_in_studenti;
+
+FUNCTION f_username_in_stud_soft(username_ useri.username%type) RETURN BOOLEAN IS
+v_unu NUMBER(1):=0;
+begin
+select 1 into v_unu from dual where exists
+ (select 1 from stud_soft where username=username_);
+return true;
+exception
+when no_data_found then
+ return false;
+end f_username_in_stud_soft;
+
+
+FUNCTION f_username_in_stud_lb_straine(username_ useri.username%type) RETURN BOOLEAN IS
+v_unu NUMBER(1):=0;
+begin
+select 1 into v_unu from dual where exists
+ (select 1 from stud_lb_straine where username=username_);
+return true;
+exception
+when no_data_found then
+ return false;
+end f_username_in_stud_lb_straine;
+
+end pachet_cv;
+/
