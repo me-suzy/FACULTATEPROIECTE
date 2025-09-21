@@ -1,0 +1,35 @@
+/*
+ * Sub.java
+ *
+ * Created on 24 martie 2003, 12:56
+ */
+
+package exemple.vizibilitate_protected;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class Sub extends Super{
+	public int public_Sub_Field;
+	protected int protected_Sub_Field;
+	private int private_Sub_Field;
+	public Sub(){
+		public_Sub_Field = 100;
+		protected_Sub_Field = 200;
+		private_Sub_Field = 300;
+	}
+        
+	public void subToSub (Sub anotherSub) {
+		// pentru membrii direcþi
+		int i = anotherSub.public_Sub_Field ;
+		int j = anotherSub.protected_Sub_Field ;
+		int k = anotherSub.private_Sub_Field ;
+		// pentru membrii moºteniþi
+		int l = anotherSub.protected_Super_Field ;
+		int m = anotherSub.public_Super_Field ;
+		// invalid, membri neaccesibili din clasa de bazã
+		//int n = anotherSub.private_Super_Field ;
+	}
+        
+}
