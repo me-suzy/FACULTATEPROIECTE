@@ -1,0 +1,20 @@
+#include foxpro.h
+public idcom_
+idcom_=1001
+Create Sql View vcoml connection connect1 ;
+as select idcom,linie,TO_CHAR(codpr) as codpr,cant,pret from liniicomf where idcom=?idcom_
+
+ 
+=DBSETPROP('vcoml','view','tables','liniicomf')
+
+=DBSETPROP('vcoml.idcom','field','keyfield',.T.)
+=DBSETPROP('vcoml.linie','field','keyfield',.T.)
+
+=DBSETPROP('vcoml.idcom','field','updatable',.T.)
+=DBSETPROP('vcoml.linie','field','updatable',.T.)
+=DBSETPROP('vcoml.cant','field','updatable',.T.)
+=DBSETPROP('vcoml.pret','field','updatable',.T.)
+
+=DBSETPROP('Vcoml','View','updatetype',DB_UPDATE)
+=DBSETPROP('Vcoml','View','WhereType',DB_KEY)
+=DBSETPROP('Vcoml', 'view', 'SendUpdates', .T.)
