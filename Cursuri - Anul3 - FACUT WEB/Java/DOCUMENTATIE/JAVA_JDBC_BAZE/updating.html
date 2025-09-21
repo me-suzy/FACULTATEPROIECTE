@@ -1,0 +1,240 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Updating Tables</title>
+<script language="JavaScript">
+<!-- hide
+function openWin(term) {
+  url="../../information/glossary.html#" + term;
+  myWin= window.open(url, "Glossary",
+              "width=400,height=150,scrollbars=yes,status=no,toolbar=no,menubar=no");
+  myWin.focus();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#ffffff" LINK="#000099">
+<B><FONT SIZE="-1">The Java</font><sup><font size="-2">TM</font></sup> <font size="-1">Tutorial</FONT></B>
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="retrieving.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/retrieving.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="milestone.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/milestone.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+
+<font size="-1">
+<b>Trail</b>: JDBC(TM) Database Access
+<br>
+<b>Lesson</b>: JDBC Basics
+</font>
+
+<h2>
+Updating Tables
+</h2>
+<blockquote>
+Suppose that after a successful first week, the proprietor of The Coffee Break wants to update the <CODE CLASS="Code">
+SALES</CODE>
+ column in the table <CODE CLASS="Code">
+COFFEES</CODE>
+ by entering the number of pounds sold for each type of coffee. The SQL statement to update one row might look like this:</P>
+<blockquote><pre>
+String updateString = &quot;UPDATE COFFEES &quot; +
+	&quot;SET SALES = 75 &quot; + 
+	&quot;WHERE COF_NAME LIKE 'Colombian'&quot;;
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=998696">
+ </A>
+Using the <CODE CLASS="Code">
+Statement</CODE>
+ object <CODE CLASS="Code-Variable1">
+stmt</CODE>
+, this JDBC code executes the SQL statement contained in <CODE CLASS="Code-Variable1">
+updateString</CODE>
+:</P>
+<blockquote><pre>
+stmt.executeUpdate(<CODE CLASS="Code-Variable1">updateString</CODE>);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1001341">
+ </A>
+The table <CODE CLASS="Code">
+COFFEES</CODE>
+ will now look like this:</P>
+<blockquote><pre>
+COF_NAME		SUP_ID	PRICE   SALES	TOTAL
+--------		------ 	-----	-----   -----
+Colombian		101	7.99	75	0
+French_Roast		49	8.99	0	0
+Espresso		150	9.99	0	0
+Colombian_Decaf		101	8.99	0	0
+French_Roast_Decaf	49	9.99	0	0
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1001319">
+ </A>
+Note that we have not yet updated the column <CODE CLASS="Code">
+TOTAL</CODE>
+, so it still has the value <CODE CLASS="Code">
+0</CODE>
+.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1003912">
+ </A>
+Now let's select the row we updated, retrieve the values in the columns <CODE CLASS="Code">
+COF_NAME</CODE>
+ and <CODE CLASS="Code">
+SALES</CODE>
+, and print out those values:</P>
+<blockquote><pre>
+String query = &quot;SELECT COF_NAME, SALES FROM COFFEES &quot; +
+	       &quot;WHERE COF_NAME LIKE 'Colombian'&quot;;
+ResultSet rs = stmt.executeQuery(query);
+while (rs.next()) {
+		String s = rs.getString(&quot;COF_NAME&quot;);
+		int n = rs.getInt(&quot;SALES&quot;);
+		System.out.println(n + &quot; pounds of &quot; + s +
+ 						  &quot; sold this week.&quot;);
+}
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1001407">
+ </A>
+This will print the following:</P>
+<blockquote><pre>
+75 pounds of Colombian sold this week.
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1001423">
+ </A>
+Since the <CODE CLASS="Code">
+WHERE</CODE>
+ clause limited the selection to only one row, there was just one row in the <CODE CLASS="Code">
+ResultSet</CODE>
+ <CODE CLASS="Code-Variable1">
+rs</CODE>
+ and one line printed as output. Accordingly, it is possible to write the code without a <CODE CLASS="Code">
+while</CODE>
+ loop:</P>
+<blockquote><pre>
+rs.next();
+String s = rs.getString(1);
+int n = rs.getInt(2);
+System.out.println(n + &quot; pounds of &quot; + s + &quot; sold this week.&quot;);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1001430">
+ </A>
+Even when there is only one row in a result set, you need to use the method <CODE CLASS="Code">
+next</CODE>
+ to access it. A <CODE CLASS="Code">
+ResultSet</CODE>
+ object is created with a cursor pointing above the first row. The first call to the <CODE CLASS="Code">
+next</CODE>
+ method positions the cursor on the first (and in this case, only) row of <CODE CLASS="Code-Variable1">
+rs</CODE>
+. In this code, <CODE CLASS="Code">
+next</CODE>
+ is called only once, so if there happened to be another row, it would never be accessed. </P>
+<P CLASS="Body">
+<A NAME="pgfId=1003921">
+ </A>
+Now let's update the <CODE CLASS="Code">
+TOTAL</CODE>
+ column by adding the weekly amount sold to the existing total, and then let's print out the number of pounds sold to date:</P>
+<blockquote><pre>
+String updateString = &quot;UPDATE COFFEES &quot; +
+		      &quot;SET TOTAL = TOTAL + 75 &quot; + 
+		      &quot;WHERE COF_NAME LIKE 'Colombian'&quot;;
+stmt.executeUpdate(updateString);
+String query = &quot;SELECT COF_NAME, TOTAL FROM COFFEES &quot; +
+				   &quot;WHERE COF_NAME LIKE 'Colombian'&quot;;
+ResultSet rs = stmt.executeQuery(query);
+while (rs.next()) {
+		String s = rs.getString(1);
+		int n = rs.getInt(2);
+		System.out.println(n + &quot; pounds of &quot; + s + &quot; sold to date.&quot;);
+}
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1008159">
+ </A>
+Note that in this example, we used the column index instead of the column name, supplying the index <CODE CLASS="Code">
+1</CODE>
+ to <CODE CLASS="Code">
+getString</CODE>
+ (the first column of the result set is <CODE CLASS="Code">
+COF_NAME</CODE>
+), and the index <CODE CLASS="Code">
+2</CODE>
+ to <CODE CLASS="Code">
+getInt</CODE>
+ (the second column of the result set is <CODE CLASS="Code">
+TOTAL</CODE>
+). It is important to distinguish between a column's index in the database table as opposed to its index in the result set table. For example, <CODE CLASS="Code">
+TOTAL</CODE>
+ is the fifth column in the table <CODE CLASS="Code">
+COFFEES</CODE>
+ but the second column in the result set generated by the query in the example above.</P>
+
+</blockquote>
+
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="retrieving.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/retrieving.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="milestone.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/milestone.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<p>
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/information/copyright.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/information/copyright.html'" tppabs="http://java.sun.com/docs/books/tutorial/information/copyright.html">Copyright</a>
+1995-2002 Sun Microsystems, Inc.  All rights reserved.
+</font>
+</p>
+</body>
+</html>
