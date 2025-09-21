@@ -1,0 +1,40 @@
+/*
+ * TestInnerPrivateClasses.java
+ *
+ * Created on 31 martie 2003, 12:40
+ */
+
+package exemple.claseinterne;
+
+class ClasaExterna{
+  // clasa interna inclusa in ClasaExterna
+  private class ClasaInterna implements InterfaceInner {
+    private String m1 = "Valoare referinta interna pentru interfata publica";
+    // metoda de acces la membrul clasei interne
+    public String getm1() {return m1;}
+  }
+  // metoda pentru instantierea clasei interne
+  public ClasaInterna referintaInterna() {
+    return new ClasaInterna();
+  }
+  // metoda a clasei externe de acces la membrul clasei interne
+  public String getMembruIntern(ClasaInterna obj_int){
+    return obj_int.getm1();
+  }
+}
+
+public class TestInnerPrivateClasses{
+  public static void main(String[] args) {
+    ClasaExterna o_ext = new ClasaExterna();
+    // Instantierea clasei interne pentru a obtine o referinta tip InterfaceInner
+    // nu este posibila datorita accesului privat
+    // InterfaceInner i_ref1 = o_ext.new ClasaInterna();
+
+    // Se poate obtine o referinta la interfata InterfaceInner prin intermediul
+    // clasei interne folosind o metoda publica din clasa externa a carei
+    // responsabilitate este sa instantieze clasa interna
+    InterfaceInner i_ref = o_ext.referintaInterna();
+    	// apelul metodei getm1 definitã în InterfaceInner ºi implementatã în ClasaInternã
+	System.out.println(i_ref.getm1());
+  }
+}
