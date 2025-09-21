@@ -1,0 +1,29 @@
+package banci;
+
+/*
+ * TestCont.java
+ *
+ * Created on 17 martie 2003, 10:48
+ */
+
+/**
+ *
+ * @author  strimbeic
+ */
+import clienti.Companie;
+public class TestCont {
+  public static void main(String[] args) {
+    Cont c = new Cont(); 
+    c.nrCont = "1111112211";
+    c.titularCont = new Companie("R01", "ABC", null); 
+    c.tipCont = "Credit";
+    c.stabLimitaCreditare(2000000);
+    c.depune(1000000);
+    try{
+        c.retrage(8000000);
+    }catch(Exception e){
+        System.out.println(e.getMessage());
+    }
+  }
+}
+
