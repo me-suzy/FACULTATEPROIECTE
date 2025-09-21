@@ -1,0 +1,169 @@
+
+            ****triggere****
+
+ create or replace trigger trg_personal_ins_befo_row
+ before insert on personal 
+ referencing old as old new as new 
+ for each row 
+ begin
+ select max(marca)+1 into :new.marca from personal;
+ end;
+/
+
+insert into personal values(5555,'Sal Nou','CONTA',SYSDATE,0,0,'D');
+
+create sequence seq_marca
+increment by 1
+minvalue 1100
+maxvalue 9999
+nocycle
+nocache
+order
+/
+
+create or replace trigger trg_personal_ins_befo_row
+ before insert on personal 
+ referencing old as old new as new 
+ for each row 
+ begin
+ select seq_marca.nextval into :new.marca from dual;
+ end;
+/
+insert into personal values(5555,'Sal Nou','CONTA',SYSDATE,0,0,'D');
+select * from personal;
+rollback;
+insert into personal values(5555,'Sal2 Nou','CONTA',SYSDATE,0,0,'D');
+select * from personal;
+ 
+           
+             *** restrictie referentiale ***
+
+
+create or replace trigger trg_personal_upd_aft_row
+after update of marca on personal
+for each row
+begin 
+update pontaje set marca=:new.marca where marca=:old.marca;
+update sporuri set marca=:new.marca where marca=:old.marca;
+update retineri set marca=:new.marca where marca=:old.marca;
+update salarii set marca=:new.marca where marca=:old.marca;
+end;
+/
+update personal set marca=1110 where marca=1001;
+select * from sporuri;
+rollback;
+           
+                      *** variabile globale -pachete***
+
+
+create or replace package pachet_salarizare as
+--v_declansator_pontaje boolean:='false';
+v_regula_personal_upd char(1):='R';
+v_regula_personal_del char(1):='R';
+FUNCTION f_marca_in_pontaje(p_marca pontaje.marca%type)
+return boolean;
+function f_exista_sal_sp_ret(p_tabela varchar,p_marca salarii.marca%type,
+p_an salarii.an%type,p_luna salarii.luna%type) return boolean;
+function f_procent_sv(p_datac date, p_datad date)
+       return transe_sv.procent_sv%type;
+end pachet_salarizare;
+/
+
+
+create or replace package body pachet_salarizare as
+FUNCTION f_marca_in_pontaje(p_marca pontaje.marca%type)
+return boolean is
+rezultat number(1);
+begin
+select distinct 1 into rezultat from pontaje where marca=p_marca;
+return true;
+exception
+when no_data_found then return false;
+end f_marca_in_pontaje;
+
+function f_exista_sal_sp_ret(p_tabela varchar,p_marca salarii.marca%type,
+p_an salarii.an%type,p_luna salarii.luna%type) return boolean is
+rezultat number(1);
+begin
+case
+when upper(p_tabela)='SALARII' then
+   select distinct 1 into rezultat from salarii 
+             where marca=p_marca and an=p_an and luna=p_luna;
+when upper(p_tabela)='SPORURI' then
+   select distinct 1 into rezultat from sporuri 
+             where marca=p_marca and an=p_an and luna=p_luna;
+when upper(p_tabela)='RETINERI' then
+   select distinct 1 into rezultat from retineri
+             where marca=p_marca and an=p_an and luna=p_luna;
+else
+raise_application_error(-20501,'Tabela necunoscuta');
+end case;
+return true;
+exception
+when no_data_found then return false;
+end f_exista_sal_sp_ret;
+
+function f_procent_sv(p_datac date, p_datad date)
+       return transe_sv.procent_sv%type
+     is 
+          v_procent transe_sv.procent_sv%type;
+      begin
+          select procent_sv into v_procent from transe_sv
+             where trunc(months_between(p_datac, p_datad)/12,0)>= ani_lim_inf and
+                   trunc(months_between(p_datac, p_datad)/12,0)< ani_lim_sup;
+         return v_procent;
+      exception
+        when no_data_found then return 0;
+end f_procent_sv;
+end pachet_salarizare;
+/
+--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+create or replace trigger trg_upd_personal_after_row
+after update of marca on personal
+for each row
+begin
+	if pachet_salarizare.v_regula_personal_upd='R' then
+		if pachet_salarizare.f_marca_in_pontaje(:old.marca) then
+			raise_application_error(-20500, 'marca'||:old.marca||'are copii in pontaje!');
+		end if;
+	else
+		update pontaje set marca=:new.marca where marca=:old.marca;
+	end if;
+end;
+--$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+create or replace trigger trg_upd_pontaje
+after insert or update or delete on pontaje
+for each row
+declare
+v_spvech sporuri.spvech%type;
+v_spnoapte sporuri.spnoapte%type;
+v_venitbaza number(16,2);
+type rec_personal is record(datasv personal.datasv%type, salorar personal.salorar%type, salorarco personal.salorarco%type);
+v_personal rec_personal;
+begin
+  if inserting or updating then
+  select datasv, salorar, salorarco into v_personal from personal where marca=:new.marca;
+  v_venitbaza:=:new.orelucrate*v_personal.salorar+:new.oreco*v_personal.salorarco;
+  v_spvech:=v_venitbaza*f_procent_sv(last_day(extract(month from :new.data)-1)+1,v_personal.datasv);
+  v_spnoapte:= v_venitbaza*.10;
+  pachet_salarizare.v_declansator_pontaje:=true;
+  if pachet_salarizare.f_exista_sal_sp_ret('sporuri',:new.marca,extract(year from :new.data),extract(month from :new.data) then
+   update sporuri set spvech=spvech+v_spvech,orenoapte=orenoapte+:new.orenoapte, spnoapte=spnoapte+v_spnoapte where marca=:new.marca and an=extract(year from :new.data) and luna=extract(month from :new.data);
+  else
+   insert into sporuri values(:new.marca, extract(year from :new.data), extract(month from :new.data), v_spvech, :new.orenoapte, v_spnoapte, 0);
+  end if;
+ end if;
+ if updating or deleting then
+ select datasv, salorar, salorarco into v_personal from personal where marca=:new.marca;
+  v_venitbaza:=:old.orelucrate*v_personal.salorar+:old.oreco*v_personal.salorarco;
+  v_spvech:=v_venitbaza*f_procent_sv(last_day(extract(month from :old.data)-1)+1,v_personal.datasv);
+  v_spnoapte:= v_venitbaza*.10;
+  pachet_salarizare.v_declansator_pontaje:=true;
+  if pachet_salarizare.f_exista_sal_sp_ret('sporuri',:old.marca,extract(year from :old.data),extract(month from :old.data) then
+   update sporuri set spvech=spvech-v_spvech,orenoapte=orenoapte-:old.orenoapte, spnoapte=spnoapte-v_spnoapte where marca=:old.marca and an=extract(year from :old.data) and luna=extract(month from :old.data);
+  else
+   insert into sporuri values(:old.marca, extract(year from :old.data), extract(month from :old.data), v_spvech, :old.orenoapte, v_spnoapte, 0);
+  end if;
+ end if;
+end;
+/
