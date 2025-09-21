@@ -1,0 +1,39 @@
+/*
+ * TestCustomException.java
+ *
+ * Created on 07 aprilie 2003, 12:33
+ */
+
+package exemple.exceptii;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class TestCustomException {
+    
+    /** Creates a new instance of TestCustomException */
+    public TestCustomException() {
+    }
+    public static void testExceptie(int val) throws ExceptieProprie{
+        if (val == 2000)
+            throw new ExceptieProprie(val);
+        else
+            System.out.println("OK");
+    }
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        try {
+            testExceptie(99999);
+            testExceptie(2000);
+        }catch(Exception e){
+            System.out.println("Excepti " + e);
+        }finally {
+            System.out.println("Sfirsit Test");
+        }
+        System.out.println("Sfirsit main");
+    }
+    
+}
