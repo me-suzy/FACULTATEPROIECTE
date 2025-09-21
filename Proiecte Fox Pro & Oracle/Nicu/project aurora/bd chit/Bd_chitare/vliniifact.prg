@@ -1,0 +1,25 @@
+nr_fact=111111
+create sql view vliniifact as;
+select nrfact,linie,codchitara as codchitara1,cantitate,pretunit,valcutva from liniifact where nrfact=?nr_fact
+
+
+dbsetprop('vliniifact','view','tables','liniifact')
+
+dbsetprop('vliniifact.nrfact','field','keyfield',.t.)
+dbsetprop('vliniifact.linie','field','keyfield',.t.)
+
+dbsetprop('vliniifact.nrfact','field','updatename','liniifact.nrfact')
+dbsetprop('vliniifact.linie','field','updatename','liniifact.linie')
+dbsetprop('vliniifact.cantitate','field','updatename','liniifact.cantitate')
+dbsetprop('vliniifact.pretunit','field','updatename','liniifact.pretunit')
+
+dbsetprop('vliniifact.cantitate','field','ruleexpression','fvr_cant_pret_vliniifact()')
+dbsetprop('vliniifact.pretunit','field','ruleexpression','fvr_cant_pret_vliniifact()')
+
+dbsetprop('vliniifact.nrfact','field','updatable',.t.)
+dbsetprop('vliniifact.linie','field','updatable',.t.)
+dbsetprop('vliniifact.cantitate','field','updatable',.t.)
+dbsetprop('vliniifact.pretunit','field','updatable',.t.)
+dbsetprop('vliniifact.valcutva','field','updatable',.t.)
+
+dbsetprop('vliniifact','view','sendupdates',.t.)
