@@ -1,0 +1,12 @@
+FormAutentificare = -12, 75, 730, 532, C, 132, 174, 692, 756, C
+FormDatePersonale = 58, 320, 707, 844, C, 80, 37, 640, 619, C
+FormLimbi = 34, 235, 683, 759, C, 88, 116, 648, 698, C
+FormStudii = 64, 88, 624, 670, C, 6, 10, 607, 705, C
+deDBStud = 132, 132, 617, 580, C, 66, 66, 901, 943, C
+DataReport1 = 0, 0, 0, 0, C, 176, 176, 1456, 1136, C
+FormUtilizatorNou = 49, 68, 675, 511, C, 44, 44, 507, 492, C
+Module1 = 22, 22, 547, 462, C
+FormRapoarte = 176, 232, 736, 814, C, 88, 116, 648, 698, C
+Module2 = 0, 0, 0, 0, C
+Formdeproba = 132, 174, 838, 756, C, 198, 261, 904, 843, C
+FormGunoaie = 0, 0, 0, 0, C, 132, 174, 708, 756, C
