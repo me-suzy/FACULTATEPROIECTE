@@ -1,0 +1,37 @@
+/*
+ * TestPolimorfic.java
+ *
+ * Created on 18 martie 2003, 18:43
+ */
+
+package salariati;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class TestPolimorfic {
+    
+    /** Creates a new instance of TestPolimorfic */
+    public TestPolimorfic() {
+    }
+    public static void main(String[] args){
+        Angajat a1 = new Angajat("Primul", "Salariat");
+        Angajat a2 = new AngajatAcord("Al doilea", "Salariat");
+        AngajatAcord a3 = new AngajatAcord("Al treilea", "Salariat");
+        
+        /*
+	System.out.println(a1.nume + ":" + ((double)(Math.round(100*a1.calculSalarii())))/100);
+        System.out.println(a2.nume + ":" + ((double)(Math.round(100*a2.calculSalarii())))/100);
+        System.out.println(a3.nume + ":" + ((double)(Math.round(100*a3.calculSalarii())))/100);
+        */
+        ((AngajatAcord)a2).setProcRealizat(80);
+        a3.setProcRealizat(90);
+        /*
+        System.out.println(a1.nume + ":" + ((double)(Math.round(100*a1.calculSalarii())))/100);
+        System.out.println(a2.nume + ":" + ((double)(Math.round(100*a2.calculSalarii())))/100);
+        System.out.println(a3.nume + ":" + ((double)(Math.round(100*a3.calculSalarii())))/100);
+        */
+        
+    }
+}
