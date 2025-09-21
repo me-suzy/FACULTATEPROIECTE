@@ -1,0 +1,25 @@
+cod_comanda=101
+create sql view vliniicomanda as;
+select codcomanda,liniec,codchitara as codchitara1,cantitate,pretunit,valoare from liniicomanda where codcomanda=?cod_comanda
+
+
+dbsetprop('vliniicomanda','view','tables','liniicomanda')
+
+dbsetprop('vliniicomanda.codcomanda','field','keyfield',.t.)
+dbsetprop('vliniicomanda.liniec','field','keyfield',.t.)
+
+dbsetprop('vliniicomanda.codcomanda','field','updatename','liniicomanda.codcomanda')
+dbsetprop('vliniicomanda.liniec','field','updatename','liniicomanda.liniec')
+dbsetprop('vliniicomanda.cantitate','field','updatename','liniicomanda.cantitate')
+dbsetprop('vliniicomanda.pretunit','field','updatename','liniicomanda.pretunit')
+
+dbsetprop('vliniicomanda.cantitate','field','ruleexpression','fvr_cant_pret_vliniicomenzi()')
+dbsetprop('vliniicomanda.pretunit','field','ruleexpression','fvr_cant_pret_vliniicomenzi()')
+
+dbsetprop('vliniicomanda.codcomanda','field','updatable',.t.)
+dbsetprop('vliniicomanda.liniec','field','updatable',.t.)
+dbsetprop('vliniicomanda.cantitate','field','updatable',.t.)
+dbsetprop('vliniicomanda.pretunit','field','updatable',.t.)
+dbsetprop('vliniicomanda.valoare','field','updatable',.t.)
+
+dbsetprop('vliniicomanda','view','sendupdates',.t.)
