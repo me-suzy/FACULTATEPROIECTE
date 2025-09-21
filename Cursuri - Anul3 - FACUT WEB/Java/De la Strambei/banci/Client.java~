@@ -1,0 +1,15 @@
+/*
+ * Client.java
+ *
+ * Created on 24 martie 2003, 12:24
+ */
+
+package banci;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public interface Client {
+    
+}
