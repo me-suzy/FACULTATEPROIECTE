@@ -1,0 +1,52 @@
+v_fraza_select='select codchitara'
+if !used('clienti')
+use clienti in 0
+endif
+
+select clienti
+
+scan
+v_client=f_inlocuieste(alltrim(clienti.numepren))
+v_cod=clienti.codcl
+
+v_fraza_select=v_fraza_select+",f_calcul_("+alltrim(str(v_cod))+",codchitara)as "+v_client
+v_fraza_union=v_fraza_union+",f_calcul_("+alltrim(str(v_cod))+")
+
+endscan
+
+v_fraza_select=v_fraza_select+'from chitare into cursor c1'
+
+&v_fraza_select
+
+function f_inlocuieste
+
+	parameters p_sir,p_chr
+	v_sir_nou=""
+	for i=1 to len(p_sir)
+		if substr(p_sir,i,1)=''
+		  v_sir_nou=v_sir_nou+'_'
+		else 
+			v_sir_nou=v_sir_nou+substr(p_sir,i,1)
+		endif
+	endfor
+	return v_sir_nou
+end function
+
+function f_calcul_
+
+parameters p_client,p_codchitara
+dime a_total(1)
+a_total(1)=0
+	select sum(cantitate*pretunit*(1+(tva/100)));
+	from liniifact l,facturi f,chitare ch;
+	where l.nrfact=f.nrfact and ch.codchitara=l.codchitara;
+	and f.codcl=ch_client and ch.codchitara=ch_codchitara into array a_total
+	
+return a_total(1)
+end function
+
+	
+	
+	
+	
+
