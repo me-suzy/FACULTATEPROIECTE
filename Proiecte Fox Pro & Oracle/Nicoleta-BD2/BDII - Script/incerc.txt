@@ -1,0 +1,40 @@
+create or replace package variabile_globale
+is
+	v_trg_comenzicl_upd_befo_sta boolean := false;
+	v_trg_comenzicl_upd_befo_row boolean := false;
+	v_trg_comenzicl_upd_after_row boolean := false;
+	v_trg_comenzicl_upd_after_sta boolean := false;
+
+	v_codcl_new clienti.codcl%type;
+	v_codcl_old clienti.codcl%type;
+end;
+/
+
+
+create or replace trigger trg_comenzicl_upd_after_sta
+	after update on comenzicl
+declare
+	v_valcom comenzicl.valcom%type;
+	v_incasari incasfact.valtotala%type;
+begin
+	variabile_globale.v_trg_comenzicl_upd_after_sta :=true;
+	if variabile_globale.v_codcl_old <> variabile_globale.v_codcl_new then
+		select sum(cantonorata*pret) into v_valcom
+			from liniicomcl where  codcl=:variabile_globale.v_codcl_new;
+		select sum(incasari)
+			into v_incasari
+			from incasari where codcl=:variabile_globale.v_codcl_new;
+		if v_valcom - v_incasari > 10000000 then
+			variabile_globale.v_trg_comenzicl_upd_after_sta :=
+				false;
+			raise_application_error(-20502,
+				'Clientul este prea mare datornic !');
+		end if;
+	end if;
+	variabile_globale.v_trg_comenzicl_upd_after_sta :=false;
+end;
+/
+
+
+				
+ 
