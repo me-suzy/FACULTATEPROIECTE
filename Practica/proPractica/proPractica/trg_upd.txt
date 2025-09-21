@@ -1,0 +1,15 @@
+create or replace trigger trg_softuri_upd_after_row
+after update of idsoft on softuri
+referencing old as old new as new
+for each row
+begin
+ if pachet_cv.v_regula_upd_softuri='c' then
+--UPDATE CASCADE
+  update stud_soft set idsoft=:new.idsoft where idsoft=:old.idsoft;
+ else
+  if pachet_cv.f_idsoft_in_stud_soft(:old.idsoft) then
+   raise_application_error(-20524,'IDSoft-ul modificat are copii in tabela Stud_soft !!!');
+  end if;
+ end if;
+end;
+/
