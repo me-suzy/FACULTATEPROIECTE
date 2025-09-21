@@ -1,0 +1,123 @@
+drop table studenti;
+drop table useri;
+drop table stud_lb_straine;
+drop table softuri;
+drop table stud_soft;
+
+CREATE TABLE studenti(
+   username VARCHAR2(20)
+       CONSTRAINT pk_studenti PRIMARY KEY
+       CONSTRAINT nn_studenti_username NOT NULL
+   ,nume VARCHAR2(20)
+       CONSTRAINT nn_studenti_nume NOT NULL
+       CONSTRAINT ck_studenti_nume CHECK(nume=LTRIM(INITCAP(nume)))
+   ,prenume VARCHAR2(20)
+       CONSTRAINT nn_studenti_prenume NOT NULL
+       CONSTRAINT ck_studenti_prenume CHECK(prenume=LTRIM(INITCAP(prenume)))
+   ,annastere NUMBER(4) 
+       CONSTRAINT nn_studenti_annastere NOT NULL
+       CONSTRANINT ck_studenti_annastere CHECK
+             (TO_CHAR(annastere,'YYYY') BETWEEN 1960 AND 2010)
+   ,lunanastere VARCHAR2(10)
+       CONSTRAINT nn_studenti_lunanastere NOT NULL
+       CONSTRAINT ck_studenti_lunanastere CHECK(lunanastere IN('Ianuarie','Februarie','Martie','Aprilie','Mai','Iunie','Iulie','August','Septembrie','Octombrie','Noiembrie','Decembrie'))
+   ,zinastere NUMBER(2)
+      CONSTRAINT nn_studenti_zinastere NOT NULL
+      CONSTRAINT ck_studenti_zinastere CHECK(TO_CHAR(zinastere,'DD') BETWEEN 1 AND 31)
+   ,adrstabila VARCHAR2(40)
+   ,adrflotanta VARCHAR2(40)
+   ,telfix NUMBER(30)
+   ,telmobil NUMBER(30)
+   ,CNP NUMBER(13)
+   ,sex CHAR(1)
+      CONSTRAINT nn_studenti_sex NOT NULL
+      CONSTRAINT ck_studenti_sex CHECK(sex IN ('M','F'))
+   ,starecivila VARCHAR2(11)
+      CONSTRAINT nn_studenti_starecivila NOT NULL
+      CONSTRAINT ck_studenti_starecivila CHECK(starecivila IN('casatorit','necasatorit','divortat'))
+   ,stagiumilitar VARCHAR2(13)
+      CONSTRAINT nn_studenti_stagiumilitar NOT NULL
+      CONSTRAINT ck_studenti_stagiumilitar CHECK(stagiumilitar IN('satisfacut','nesatisfacut','nu e cazul'))
+   ,e_mail VARCHAR2(40)
+   ,hobby VARCHAR2(50)
+   ,salminim NUMBER(5)
+        CONSTRAINT nn_studenti_salminim NOT NULL
+        CONSTRAINT ck_studenti_salminim CHECK(salminim>0)
+  ,permiscat VARCHAR2(15)
+  ,altestudii VARCHAR2(50)
+  ,stagiistrain VARCHAR2(50)
+  ,activitextrasc VARCHAR2(50)
+  ,foto BLOB
+);
+
+CREATE TABLE softuri(
+  idsoft NUMBER(4)
+      CONSTRAINT pk_softuri PRIMARY KEY
+      CONSTRAINT nn_softuri_idsoft NOT NULL
+ ,densoft VARCHAR2(15)
+      CONSTRAINT nn_softuri_densoft NOT NULL
+ ,categorie VARCHAR2(20)
+      CONSTRAINT nn_softuri_categorie NOT NULL
+      CONSTRAINT ck_softuri_categorie CHECK(categorie IN('Baze de date','Medii de dezvoltare','Aplicatii WEB'))
+);
+
+
+CREATE TABLE stud_soft(
+ username VARCHAR2(20)
+     CONSTRAINT nn_stud_soft_username NOT NULL
+     CONSTRAINT fk_stud_soft_studenti REFERENCES studenti(username)
+ ,idsoft NUMBER(4)
+     CONSTRAINT nn_stud_soft_softuri NOT NULL
+     CONSTRAINT fk_stud_soft_softuri REFERENCES softuri(idsoft)
+ ,nivel VARCHAR2(9)
+     CONSTRAINT nn_stud_soft_nivel
+     CONSTRAINT ck_stud_soft_nivel CHECK(nivel IN('avansat','mediu','incepator'))
+ ,CONSTRAINT pk_stud_soft PRIMARY KEY(username, idsoft)
+);
+
+CREATE TABLE stud_lb_straine(
+  numelimba VARCHAR2(15)
+    CONSTRAINT pk_stud_lb_straine PRIMARY KEY
+    CONSTRAINT nn_stud_lb_straine_numelimba NOT NULL
+ ,username VARCHAR2(20)
+     CONSTRAINT nn_stud_lb_straine_username NOT NULL
+     CONSTRAINT fk_stud_lb_straine_studenti REFERENCES studenti(username)
+ ,scris VARCHAR2(9)
+    CONSTRAINT nn_stud_lb_straine_scris NOT NULL
+    CONSTRAINT ck_stud_lb_straine_scris CHECK(scris IN('avansat','mediu','incepator'))
+ ,citit VARCHAR2(9)
+    CONSTRAINT nn_stud_lb_straine_citit NOT NULL
+    CONSTRAINT ck_stud_lb_straine_citit CHECK(citit IN('avansat','mediu','incepator'))
+ ,vorbit VARCHAR2(9)
+    CONSTRAINT nn_stud_lb_straine_vorbit NOT NULL
+    CONSTRAINT ck_stud_lb_straine_vorbit CHECK(vorbit IN('avansat','mediu','incepator'))
+);
+
+CREATE TABLE useri(
+ username VARCHAR2(20)
+       CONSTRAINT pk_useri PRIMARY KEY
+       CONSTRAINT nn_useri_username NOT NULL
+       CONSTRAINT fk_useri_studenti REFERENCES studenti(username)
+ ,grup VARCHAR2(9)
+      CONSTRAINT nn_useri_grup NOT NULL
+      CONSTRAINT ck_useri_grup CHECK (grup IN('Profesori','Studenti'))
+ ,password NUMBER(25)
+);
+
+
+--popularea
+
+insert into studenti values('el010782', 'Chirila ', 'Tudor', 1982, 'Ianuarie', 10, 'str. Vama Veche nr. 10 bis', 'str. Teatrul National', 722515654, 548795555, 1820710226208, 'M', 'casatorit', 'satisfacut', 'tudor.chirila@feaa.uaic.ro','  ', 300 , 'fara', 'fara', 'fara','fara');     
+insert into studenti values('el010783', 'Chirita ', 'Ivan', 1982, 'Ianuarie', 10, 'str. Vama Veche nr. 10 bis', 'str.1 Teatrul National', 722515654, 548795555, 1820710226208, 'M', 'casatorit', 'satisfacut', 'tudor.chirila@feaa.uaic.ro','  ', 300 , 'fara', 'fara', 'fara','fara');
+
+
+insert into softuri values(1, 'VFP', 'Baze de date');
+insert into softuri values(2, 'Oracle', 'Baze de date');
+
+insert into stud_soft values('el010782', 1, 'avansat');
+insert into stud_soft values('el010783', 2, 'avansat');
+
+insert into stud_lb_straine values('engleza', 'el010782', 'avansat', 'avansat', 'avansat');
+
+insert into useri values('el010782', 'Studenti','' );
+insert into useri values('el010783', 'Studenti','' );
