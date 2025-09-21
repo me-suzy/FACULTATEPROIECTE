@@ -1,0 +1,8 @@
+Compiling e:\infoeconomica\lucru\bd_chitare\bd_chitare\vfacturiraport.prg
+v_fraza_union=v_fraza_union+",f_calcul_("+alltrim(str(v_cod))+")
+Error in line 13: Command contains unrecognized phrase/keyword.
+end function
+Error in line 33: Command contains unrecognized phrase/keyword.
+end function
+Error in line 46: Command contains unrecognized phrase/keyword.
+
