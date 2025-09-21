@@ -1,0 +1,29 @@
+CREATE OR REPLACE FUNCTION f_procsv2004 (
+	nr_ani transe_sv.ani_limita_inf%TYPE )
+	RETURN transe_sv.procent_sv%TYPE
+IS
+	v_proc transe_sv.procent_sv%TYPE ;
+	v_nr INTEGER := 0 ;
+BEGIN 
+	SELECT COUNT(*) INTO v_nr FROM transe_sv
+	WHERE nr_ani >= ani_limita_inf AND 
+		nr_ani < ani_limita_sup ;
+
+	IF v_nr > 0 THEN
+		SELECT procent_sv INTO v_proc FROM transe_sv
+		WHERE nr_ani >= ani_limita_inf AND 
+			nr_ani < ani_limita_sup ;
+		RETURN v_proc ;
+	ELSE
+		RETURN 0 ;
+	END IF ;
+
+--	SELECT procent_sv INTO v_proc FROM transe_sv
+--	WHERE nr_ani >= ani_limita_inf AND 
+--		nr_ani < ani_limita_sup ;
+--	RETURN v_proc ;
+--EXCEPTION
+--	WHEN no_data_found THEN
+--		RETURN 0 ;
+END ;
+/ 
