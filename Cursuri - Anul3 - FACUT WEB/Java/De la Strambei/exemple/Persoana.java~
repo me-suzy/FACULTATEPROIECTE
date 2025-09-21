@@ -1,0 +1,22 @@
+/*
+ * Persoana.java
+ *
+ * Created on 10 martie 2003, 12:58
+ */
+
+package Salariati;
+
+/**
+ *
+ * @author  strimbe
+ */
+public class Persoana extends Object{ // definitie clasa Persoana
+// membri-variabile publici
+  public String cnp;
+  public String nume;
+  public String prennume;
+  public String domiciliu;
+
+  protected Persoana(){/*constructorul clasei persoana*/}
+} // sfarsit definitie clasa Persoana
+
