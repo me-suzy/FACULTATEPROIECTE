@@ -1,0 +1,4 @@
+* This comment is stored with the query program code.
+SELECT *;
+ FROM sample01;
+ ORDER BY Sample01.cfield01
