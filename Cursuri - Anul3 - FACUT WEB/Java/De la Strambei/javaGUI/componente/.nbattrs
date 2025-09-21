@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="ExempluJButton.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJButton"/>
+    </fileobject>
+    <fileobject name="ExempluJCheckBox.java">
+        <attr name="class_dependency_java.awt.event.ItemListener" stringvalue="ExempluJCheckBox"/>
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJCheckBox"/>
+    </fileobject>
+    <fileobject name="ExempluJComboBox.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJComboBox"/>
+    </fileobject>
+    <fileobject name="ExempluJComboBoxEditabil.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJComboBoxEditabil"/>
+    </fileobject>
+    <fileobject name="ExempluJComboBoxExtins.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJComboBoxExtins"/>
+    </fileobject>
+    <fileobject name="ExempluJLabel.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJLabel"/>
+    </fileobject>
+    <fileobject name="ExempluJList.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJList"/>
+    </fileobject>
+    <fileobject name="ExempluJListExtins.java">
+        <attr name="class_dependency_javax.swing.DefaultListModel" stringvalue="modelExtins"/>
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJListExtins"/>
+        <attr name="class_dependency_javax.swing.JLabel" stringvalue="renderExtins"/>
+        <attr name="class_dependency_javax.swing.ListCellRenderer" stringvalue="renderExtins"/>
+    </fileobject>
+    <fileobject name="ExempluJRadioButton.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJRadioButton"/>
+    </fileobject>
+    <fileobject name="ExempluJScrollBar.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJScrollBar"/>
+        <attr name="class_dependency_javax.swing.JPanel" stringvalue="JPanelScroll"/>
+    </fileobject>
+    <fileobject name="ExempluJScrollPane.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJScrollPane"/>
+    </fileobject>
+    <fileobject name="ExempluJTextField.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJTextField"/>
+    </fileobject>
+    <fileobject name="ExempluJToggleButton.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ExempluJToggleButton"/>
+    </fileobject>
+</attributes>
