@@ -1,0 +1,21 @@
+/*
+ * SalariatAcord.java
+ *
+ * Created on 24 martie 2003, 11:07
+ */
+
+package exemple.constructori_polimorfism;
+
+import Salariati.Persoana;
+/**
+ *
+ * @author  strimbeic
+ */
+public class SalariatAcord extends Salariat{
+   public double pct_Realizat;
+   // suprascriere
+   public double calculSalariu() {
+    salariu = super.calculSalariu()*pct_Realizat;
+    return salariu;
+   }
+}
