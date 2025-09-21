@@ -1,0 +1,19 @@
+/*
+ * TestInnerAnonim.java
+ *
+ * Created on 31 martie 2003, 12:53
+ */
+
+package Templates.Classes;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class Class {
+    
+    /** Creates a new instance of TestInnerAnonim */
+    public Class() {
+    }
+    
+}
