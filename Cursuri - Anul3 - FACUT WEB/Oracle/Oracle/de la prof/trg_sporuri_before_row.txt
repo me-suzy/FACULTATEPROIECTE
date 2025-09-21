@@ -1,0 +1,47 @@
+CREATE OR REPLACE TRIGGER trg_sporuri_before_row
+	BEFORE INSERT OR UPDATE OR DELETE ON sporuri
+	FOR EACH ROW
+DECLARE
+BEGIN
+	IF un_pachet.v_ult_zi_inchisa IS NULL THEN
+		un_pachet.p_init ;
+	END IF ;
+
+	IF UPDATING THEN
+		IF :NEW.an < un_pachet.v_ult_an_inchis OR
+			:NEW.an = un_pachet.v_ult_an_inchis			
+			AND :NEW.luna <= un_pachet.v_ult_luna_inchisa THEN 
+			RAISE_APPLICATION_ERROR (-20092,
+				'(Noua) luna este <<inchisa>> !') ;
+		END IF;
+	END IF ;
+
+
+
+
+	un_pachet.v_trg_sporuri := TRUE ;
+
+	IF INSERTING OR DELETING THEN
+		IF un_pachet.v_trg_pontaje = FALSE THEN
+			un_pachet.v_trg_sporuri := FALSE ;
+			RAISE_APPLICATION_ERROR (-20090,
+'Nu pot fi inserate sau sterse in mod interactiv inregistrari in SPORURI') ;
+		END IF;
+	END IF ;
+
+	IF UPDATING AND (:NEW.marca <> :OLD.marca OR :NEW.an <> :OLD.an
+		OR :NEW.luna <> :OLD.luna OR :NEW.spvech <> :OLD.spvech
+		OR :NEW.orenoapte <> :OLD.orenoapte) THEN
+		IF un_pachet.v_trg_pontaje = FALSE THEN
+			un_pachet.v_trg_sporuri := FALSE ;
+			RAISE_APPLICATION_ERROR (-20090,
+'Nu pot fi editate in mod interactiv inregistrarile din SPORURI') ;
+		END IF;
+	END IF ;
+
+	IF INSERTING OR UPDATING THEN
+		:NEW.spnoapte := :NEW.orenoapte * 
+			un_pachet.f_salorar (:NEW.marca) * 1.25 ;
+	END IF ;
+	un_pachet.v_trg_sporuri := FALSE ;
+END;
