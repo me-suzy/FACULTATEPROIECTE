@@ -1,0 +1,352 @@
+
+<SCRIPT>
+<!--
+function displayWindow(url, width, height) {
+        var Win = window.open(url,"displayWindow",'width=' + width +
+	',height=' + height + ',resizable=1,scrollbars=yes');
+	}
+	//-->
+	</SCRIPT>
+
+
+
+<FONT FACE="Arial,Helvetica" SIZE="-1">
+To access the contents, click the chapter and section titles.
+</FONT>
+<P>
+<B>Developing Java Enterprise Applications</B>
+<FONT SIZE="-1">
+<BR>
+<I>(Publisher: John Wiley & Sons, Inc.)</I>
+<BR>
+Author(s): Stephen Asbury ; Scott R. Weiner
+<BR>
+ISBN: 0471327565
+<BR>
+Publication Date: 02/01/99
+</FONT>
+<P>
+<Script language="JavaScript">
+function isIE4() 
+{
+    return( navigator.appName.indexOf("Microsoft") != -1 && (navigator.appVersion.charAt(0)=='4') );
+ }
+function bookMarkit()
+{
+        var url="http://www.itknowledge.com/PSUser/EWBookMarks.html?url="+window.location+"&isbn=0";
+	parent.location.href=url;
+        //var win = window.open(url,"myitk");
+        //if(!isIE4())
+        //       win.focus();
+
+}
+</Script>
+<a href="javascript:bookMarkit();"><img src="/images/bookmarkit.gif" border=0 alt="Bookmark It" width=97 height=23></a>
+
+<P>
+<form name="Search" method="GET" action="http://search.earthweb.com/search97/search_redir.cgi">
+
+<INPUT TYPE="hidden" NAME="Action" VALUE="Search">
+<INPUT TYPE="hidden" NAME="SearchPage" VALUE="http://search.earthweb.com/search97/samples/forms/srchdemo.htm">
+<INPUT TYPE="hidden" NAME="Collection" VALUE="ITK">
+<INPUT TYPE="hidden" NAME="ResultTemplate" VALUE="itk-simple-intrabook.hts">
+<INPUT TYPE="hidden" NAME="ViewTemplate" VALUE="view.hts">
+
+<font face="arial, helvetica" size=2><b>Search this book:</b></font><br>
+<INPUT NAME="queryText" size=50 VALUE="">&nbsp;<input type="submit" name="submitbutton" value="Go!">
+<INPUT type=hidden NAME="section_on" VALUE="on">
+<INPUT type=hidden NAME="section" VALUE="http://www.itknowledge.com/reference/standard/0471327565/">
+
+</form>
+
+
+<!-- Empty Reference Subhead -->
+
+<!--ISBN=0471327565//-->
+<!--TITLE=Developing Java Enterprise Applications//-->
+<!--AUTHOR=Stephen Asbury//-->
+<!--AUTHOR=Scott R. Weiner//-->
+<!--PUBLISHER=Wiley Computer Publishing//-->
+<!--CHAPTER=03//-->
+<!--PAGES=059-064//-->
+<!--UNASSIGNED1//-->
+<!--UNASSIGNED2//-->
+
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="03-13.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="03-15.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<P><BR></P>
+<!-- CODE //-->
+<PRE>
+public JDBCTableModel(String url, String driverName,
+ String user, String passwd)
+{
+    data = new Vector();
+    names = new Vector();
+    try
+    {
+        //load the driver
+        Class.forName(driverName);
+        connection = DriverManager.getConnection(url, user, passwd);
+    /*
+      Create a statement for use in all the methods of this object.
+      In general, it would be better to create and close the
+      statement more often. However, keeping it open makes
+      the example shorter.
+    */
+<B>        statement = connection.createStatement();
+</B>
+        // Create a compiled statement for executing deletes.
+<B>        delStatement =
+         connection.prepareStatement(&#147;DELETE FROM &#148;
+                &#43; &#147;Inventory WHERE ProductId = ?&#148;);
+</B> 
+        // Initialize the table.
+<B>        this.executeQuery();
+</B>    }
+    catch (Exception exp)
+    {
+        System.out.println(&#147;Error connecting: &#148;&#43;exp);
+    }
+}
+</PRE>
+<!-- END CODE //-->
+<P><FONT SIZE="+1"><B>executeQuery</B></FONT></P>
+<P>The executeQuery method queries the database and returns ResultSet containing Inventory items. These records have some calculated fields. The product id and the calculated fields are not editable, but the rest of the fields are. ResultSet is loaded into a set of internal vectors that represent the data in the JTable. Calling fireTableChanged() notifies the table that the data has changed, and it reloads the data from these vectors.
+</P>
+<!-- CODE //-->
+<PRE>
+public void executeQuery()
+ {
+    int i,max;
+    Vector rowData;
+    int curType;
+    try
+    {
+        data = new Vector();
+        names = new Vector();
+        resultSet = statement.executeQuery(queryStr);
+        metaData = resultSet.getMetaData();
+        max =  metaData.getColumnCount();
+        //get the column names
+        for(i=0;i&ltmax;i&#43;&#43;)
+        {
+            //adjust for meta data index start at 1
+            names.addElement(metaData.getColumnLabel(i&#43;1));
+        }
+        //load the data
+        while (resultSet.next())
+        {
+            rowData = new Vector();
+            for (i=0;i&ltmax;i&#43;&#43;)
+            {
+                rowData.addElement(resultSet.getObject(i&#43;1));
+            }
+            data.addElement(rowData);
+        }
+        fireTableChanged(null);
+    }
+    catch (Exception exp)
+    {
+        System.out.println(&#147;Error performing query: &#148;&#43;exp);
+        exp.printStackTrace();
+    }
+}
+</PRE>
+<!-- END CODE //-->
+<P><FONT SIZE="+1"><B>executeInsert</B></FONT></P>
+<P>When the Insert button is pressed, a record is inserted in the underlying database. The UI is updated to reflect the change. This could be made more efficient by not actually fetching the data again, instead keeping track of the inserted records manually until the next fresh query.
+</P>
+<BLOCKQUOTE>
+<P><FONT SIZE="-1"><HR><B>NOTE:&nbsp;&nbsp;</B>JDBC 2.0 contains methods for directly manipulating ResultSet. This would more elegantly solve the problem of refetching values.</FONT><HR>
+</BLOCKQUOTE>
+<!-- CODE //-->
+<PRE>
+public void executeInsert()
+ {
+    if(statement != null)
+    {
+        try
+        {
+            statement.executeUpdate(insertStr);
+            // refresh
+            this.executeQuery();
+        }catch(SQLException e)
+        {
+            System.out.println(e);
+            return;
+        }
+    }
+}
+</PRE>
+<!-- END CODE //-->
+<P><FONT SIZE="+1"><B>executeDelete</B></FONT></P>
+<P>When the Delete Current Row button is pressed, the executeDelete method takes the row id and deletes that row by using a prepared statement that takes one parameter, the product id. Because the index for the JTable starts at 0, you need to offset to 1. This is because JDBC index also starts at 1.
+</P>
+<!-- CODE //-->
+<PRE>
+public void executeDelete(int row)
+ {
+    if(row &gt &#150;1)
+    {
+        // Get the product ID.
+        Object id = this.getValueAt(row,0);
+        if(statement != null)
+        {
+            try
+            {
+            /*
+              Set the value of the first paramter in
+              this compiled delete statement.
+            */
+                delStatement.setObject(1,id);
+                // Execute the statement.
+                delStatement.executeUpdate();
+                //Refresh. In JDBC 2.0, there is a refresh method.
+                this.executeQuery();
+            }catch(SQLException e)
+            {
+                System.out.println(e);
+                return;
+            }
+        }
+    }
+}
+</PRE>
+<!-- END CODE //-->
+<P><FONT SIZE="+1"><B>setValueAt</B></FONT></P>
+<P>When a user types in an editable table field, the setValueAt method is called. The text the user typed in and the position of the cell are passed in. If the value has changed, determine the type of field in the database, then use the appropriate syntax to store it.
+</P>
+<!-- CODE //-->
+<PRE>
+public void setValueAt(Object value, int row, int col)
+ {
+    Vector rowData = (Vector)data.elementAt(row); 
+    Object o = rowData.elementAt(col);
+
+    if(o != value)
+    {
+
+        try
+        {
+            String s = &#147;UPDATE INVENTORY SET &#148; &#43;
+                       metaData.getColumnName(col&#43;1) &#43; &#147;=&#148;;
+            int curType = metaData.getColumnType(col&#43;1);
+
+            switch(curType)
+            {
+                case Types.CHAR:
+                case Types.VARCHAR:
+                case Types.LONGVARCHAR:
+                case Types.DATE:
+                    s &#43;= &#147;&#145;&#148;&#43;value.toString()&#43;&#147;&#146;&#148;;
+                    break;
+                case Types.TINYINT:
+                case Types.SMALLINT:
+                case Types.INTEGER:
+                case Types.BIGINT:
+                case Types.FLOAT:
+                case Types.DOUBLE:
+                    s &#43;= value.toString();
+                break;
+                    default:
+                    s &#43;= &#147;&#145;&#148;&#43;value.toString()&#43;&#147;&#146;&#148;;
+            }
+
+            s &#43;= &#147; WHERE PRODUCTID = &#148; &#43; rowData.elementAt(0)&#43;&#147;;&#148;;
+            statement.executeUpdate(s);
+            // refresh
+            this.executeQuery();
+
+        } catch(SQLException e) { System.out.println(e);}
+    }
+}
+</PRE>
+<!-- END CODE //-->
+<P><FONT SIZE="+1"><B>startTransaction</B></FONT></P>
+<P>When the Start Transaction button is pressed, the startTransaction method is called. In order to start a transaction, turn auto commit off. You cannot do this on some drivers if you have an open ResultSet. So, close ResultSet, then reestablish the query after turning on the transaction.
+</P>
+<!-- CODE //-->
+<PRE>
+public void startTransaction()
+ {
+/*
+  Turn off AutoCommit; this makes all commands fall
+  into same transaction.
+*/
+
+    try
+    {
+    /*
+       Must close existing result set before
+       changing transaction state.
+    */
+        if(resultSet != null)
+            resultSet.close();
+        connection.setAutoCommit(false);
+        // refresh
+        this.executeQuery();
+    }catch(SQLException e)
+    {
+        System.out.println(e);
+    }
+}
+</PRE>
+<!-- END CODE //-->
+<P><FONT SIZE="+1"><B>commitTransaction</B></FONT></P>
+<P>When a transaction is committed, it saves all current statements to the database. The commitTransaction method in JDBCTableModel handles the case in which a commit may fail, as in the case of no current transaction or if a database error occurs&#151;for example, if someone else locks the record we are trying to change.
+</P>
+<!-- CODE //-->
+<PRE>
+public boolean commitTransaction()
+ {
+    boolean commitIsOk = false;
+
+    try
+    {
+    /*
+        Check if autocommit is on.
+        If it is, don&#146;t commit manually.
+    */
+        commitIsOk = !connection.getAutoCommit();
+
+        if(commitIsOk)
+        {
+            // Commit transaction
+            connection.commit();
+
+            // Turn on AutoCommit; this is default.
+            connection.setAutoCommit(true);
+        }
+    }catch(SQLException e)
+    {
+        System.out.println(e);
+        commitIsOk = false;
+    }
+
+    //refresh
+    if(commitIsOk)
+        this.executeQuery();
+    return commitIsOk;
+}
+</PRE>
+<!-- END CODE //-->
+<P><BR></P>
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="03-13.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="03-15.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+
+<!-- 
