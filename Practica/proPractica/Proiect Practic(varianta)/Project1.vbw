@@ -1,0 +1,6 @@
+FormUtilizatorNou = 44, 58, 750, 640, C, 22, 22, 547, 462, C
+FormAutentificare = 44, 44, 608, 484, C, 44, 44, 518, 484, C
+FormDatePersonale = 192, 117, 629, 557, C, 64, 93, 670, 590, C
+FormLimbi = 154, 154, 695, 559, C, 22, 22, 605, 488, C
+FormStudii = 66, 87, 795, 669, C, 0, 0, 827, 729, C
+frmSplash = 66, 87, 795, 669, C, 44, 58, 773, 640, C
