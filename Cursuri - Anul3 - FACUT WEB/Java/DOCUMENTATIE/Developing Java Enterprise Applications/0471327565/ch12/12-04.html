@@ -1,0 +1,155 @@
+
+<SCRIPT>
+<!--
+function displayWindow(url, width, height) {
+        var Win = window.open(url,"displayWindow",'width=' + width +
+	',height=' + height + ',resizable=1,scrollbars=yes');
+	}
+	//-->
+	</SCRIPT>
+
+
+
+<FONT FACE="Arial,Helvetica" SIZE="-1">
+To access the contents, click the chapter and section titles.
+</FONT>
+<P>
+<B>Developing Java Enterprise Applications</B>
+<FONT SIZE="-1">
+<BR>
+<I>(Publisher: John Wiley & Sons, Inc.)</I>
+<BR>
+Author(s): Stephen Asbury ; Scott R. Weiner
+<BR>
+ISBN: 0471327565
+<BR>
+Publication Date: 02/01/99
+</FONT>
+<P>
+<Script language="JavaScript">
+function isIE4() 
+{
+    return( navigator.appName.indexOf("Microsoft") != -1 && (navigator.appVersion.charAt(0)=='4') );
+ }
+function bookMarkit()
+{
+        var url="http://www.itknowledge.com/PSUser/EWBookMarks.html?url="+window.location+"&isbn=0";
+	parent.location.href=url;
+        //var win = window.open(url,"myitk");
+        //if(!isIE4())
+        //       win.focus();
+
+}
+</Script>
+<a href="javascript:bookMarkit();"><img src="/images/bookmarkit.gif" border=0 alt="Bookmark It" width=97 height=23></a>
+
+<P>
+<form name="Search" method="GET" action="http://search.earthweb.com/search97/search_redir.cgi">
+
+<INPUT TYPE="hidden" NAME="Action" VALUE="Search">
+<INPUT TYPE="hidden" NAME="SearchPage" VALUE="http://search.earthweb.com/search97/samples/forms/srchdemo.htm">
+<INPUT TYPE="hidden" NAME="Collection" VALUE="ITK">
+<INPUT TYPE="hidden" NAME="ResultTemplate" VALUE="itk-simple-intrabook.hts">
+<INPUT TYPE="hidden" NAME="ViewTemplate" VALUE="view.hts">
+
+<font face="arial, helvetica" size=2><b>Search this book:</b></font><br>
+<INPUT NAME="queryText" size=50 VALUE="">&nbsp;<input type="submit" name="submitbutton" value="Go!">
+<INPUT type=hidden NAME="section_on" VALUE="on">
+<INPUT type=hidden NAME="section" VALUE="http://www.itknowledge.com/reference/standard/0471327565/">
+
+</form>
+
+
+<!-- Empty Reference Subhead -->
+
+<!--ISBN=0471327565//-->
+<!--TITLE=Developing Java Enterprise Applications//-->
+<!--AUTHOR=Stephen Asbury//-->
+<!--AUTHOR=Scott R. Weiner//-->
+<!--PUBLISHER=Wiley Computer Publishing//-->
+<!--CHAPTER=12//-->
+<!--PAGES=322-324//-->
+<!--UNASSIGNED1//-->
+<!--UNASSIGNED2//-->
+
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="12-03.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="../ch13/13-01.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<P><BR></P>
+<P>If you want a seamless, powerful solution that is Java-centric, RMI is your best bet today. Developed by Sun, RMI is a Java solution for distributed objects. The model illustrated in Figure 12.5 has been influenced by other vendors and is widely becoming accepted as a standard way for remote Java applications to communicate. Versions of RMI that support IIOP will be coming soon as well. Once this happens, true interoperability between objects using RMI and objects using CORBA will be possible. In addition, any application that supports IIOP will be accessible to RMI objects.
+</P>
+<P>The goals for RMI include:</P>
+<DL>
+<DD><B>&#149;</B>&nbsp;&nbsp;Capability to use multiple transports such as IIOP
+<DD><B>&#149;</B>&nbsp;&nbsp;Distributed garbage collection for active objects
+<DD><B>&#149;</B>&nbsp;&nbsp;Ease of use
+<DD><B>&#149;</B>&nbsp;&nbsp;Integrate the distributed object model into the Java language in a natural way while retaining most of the Java language&#146;s object semantics
+<DD><B>&#149;</B>&nbsp;&nbsp;Make apparent the differences between the distributed object model and local Java object model
+<DD><B>&#149;</B>&nbsp;&nbsp;Make writing reliable distributed applications as simple as possible while maintaining the Java security and safety features
+<P><A NAME="Fig5"></A><A HREF="javascript:displayWindow('images/12-05.jpg',500,392 )"><IMG SRC="images/12-05t.jpg"></A>
+<BR><A HREF="javascript:displayWindow('images/12-05.jpg',500,392)"><FONT COLOR="#000077"><B>Figure 12.5</B></FONT></A>&nbsp;&nbsp;RMI model.</P>
+<DD><B>&#149;</B>&nbsp;&nbsp;Support for non-persistent, persistent, and lazy activated objects&#151;that is, objects that are instantiated when first called
+<DD><B>&#149;</B>&nbsp;&nbsp;Support seamless remote invocation on objects in different virtual machines
+</DL>
+<P>RMI&#146;s distributed object scheme is comprised of the following:
+</P>
+<DL>
+<DD><B>&#149;</B>&nbsp;&nbsp;An interface (called a stub) that represents your remote object in your local address space:
+<!-- CODE SNIP //-->
+<PRE>
+public interface CreditCardVerifyer extends sr <B>java.rmi.Remote</B>
+</PRE>
+<!-- END CODE SNIP //-->
+<DD><B>&#149;</B>&nbsp;&nbsp;A set of classes that you can subclass to create your remote object:
+<!-- CODE SNIP //-->
+<PRE>
+   public class CreditCardVerifyerImpl
+           extends <B>UnicastRemoteObject</B>
+           implements CreditCardVerifyer
+</PRE>
+<!-- END CODE SNIP //-->
+<DD><B>&#149;</B>&nbsp;&nbsp;A server called rmiregistry that tracks registered objects by name. To register your object, you would call the bind method of java.rmi.Naming. This method binds the instantiated object into rmiregistry with the associated name:
+<!-- CODE SNIP //-->
+<PRE>
+   CreditCardVerifyerImpl ccv = new CreditCardVerifyerImpl();
+ java.rmi.Naming.bind(&#147;rmi://myserver.com/<B>creditcard</B>&#148;, obj);
+</PRE>
+<!-- END CODE SNIP //-->
+</DL>
+<P>To access a remote object, call the lookup () method of a class called java.rmi.Naming. In this method, specify the URL for the object you want to access. For example:
+</P>
+<!-- CODE SNIP //-->
+<PRE>
+CreditCardVerifyer ccv = new CreditCardVerifyerImpl();
+ String url = &#147;rmi://myserver.com/<B>creditcard</B>&#148;;
+// bind url to remote object
+java.rmi.Naming.bind(url, ccv);
+        ...
+// lookup account
+ccv = (CreditCardVerifyer)java.rmi.Naming.lookup(url);
+</PRE>
+<!-- END CODE SNIP //-->
+<P>As shown in Figure 12.5, RMI consists of three layers. One layer is the stub/skeleton layer, which acts as a stand-in used for communicating with the remote object. Another is the remote reference layer, which handles the strategy for connecting to the remote object, including point-to-point connection, object replication, reconnection strategies if the object becomes unavailable, and so on. The final layer is the transport layer, which initializes a connection with the remote object&#146;s address space and manages remote object tracking.
+</P>
+<H3><A NAME="Heading6"></A><FONT COLOR="#000077">Summary</FONT></H3>
+<P>Distributed object programming is a valuable tool for enterprise developers. The scheme you use depends on the tools and applications with which you plan to communicate. If you are planning to connect with legacy systems, CORBA should be considered because it is supported by the greatest number of vendors. If you need a Microsoft-centric solution, DCOM seems like an obvious choice. In general, if you are planning to implement a new system in Java, you should consider RMI the most logical choice. It takes advantage of features of Java such as the object model, security, and garbage collection. With the addition of multiple transport support, such as IIOP, you can integrate with systems that implement CORBA as well. RMI seems like the best of both worlds for the Java programmer.
+</P>
+<P>The next chapter explores the entire RMI API and builds a small, distributed example. Chapter 14, &#147;A Network File-Locking Server,&#148; provides a more extensive example of using RMI.</P><P><BR></P>
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="12-03.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="../ch13/13-01.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+
+<!-- 
