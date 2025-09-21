@@ -1,0 +1,161 @@
+SET SAFETY ON
+close all data
+CLOSE DATA
+CLOSE TABLE ALL
+
+CREATE DATABASE CAMPIONAT
+
+		
+CREATE TABLE judete (;
+	jud CHAR(2);
+		PRIMARY KEY ;
+		CHECK(jud=LTRIM(UPPER(jud)));
+		ERROR 'Indicativul judetului se scrie cu majuscule!',;
+	judet CHAR(25);
+		NOT NULL;
+		CHECK (judet=LTRIM(PROPER(judet)));
+		ERROR 'Prima litera din fiecare cuvant al' + CHR(13) + ;
+		'denumirii judetului este cu majuscula' + CHR(13) + ;
+		'restul literelor sunt mici!',;
+	regiune CHAR(15);
+		DEFAULT 'MOLODOVA';
+		)
+
+CREATE TABLE localitati (;
+	codpost CHAR(5);
+		PRIMARY KEY;
+		CHECK (codpost=LTRIM(codpost));
+		ERROR 'Codul postal se scrie fara spatiu la inceput!',;
+	loc CHAR(25);
+		NOT NULL;
+		CHECK (loc=LTRIM(PROPER(loc)));
+		ERROR 'Prima litera din fiecare cuvant al' + CHR(13) + ;
+		'denumirii localitatii este majucula' + CHR(13) + ;
+		'restul literelor sunt mici!',;
+	jud CHAR (2);
+		DEFAULT 'IS',;
+		CHECK(jud=LTRIM(UPPER(jud)));
+		ERROR 'Indicativul judetului se scrie cu majuscule!',;
+		FOREIGN KEY jud TAG jud REFER judete TAG jud;
+		)
+
+CREATE TABLE stadioane (;
+	codstad NUMBER(5) check(between(codstad,100,900)) error "Codul stadionului este cuprins intre 100 si 900" primary key,;
+	numestad CHAR(20)CHECK (numestad=PROPER(LTRIM(numestad))) ERROR "Numele stadionului se scrie fara spatii la inceput si cu initialele litere mari",;
+	capacitate NUMBER(10),;
+	codpost CHAR(5),;
+	FOREIGN KEY codpost TAG codpost REFERENCES localitati TAG codpost;
+	)
+	
+CREATE TABLE divizii (;
+	coddiv CHAR(1);
+		PRIMARY KEY,;
+	numediv CHAR(10)CHECK (numediv=PROPER(LTRIM(numediv))) ERROR "Numele diviziei se scrie fara spatii la inceput si cu initialele litere mari";
+		)
+
+CREATE TABLE echipe (;
+	idech NUMBER(2);
+		PRIMARY KEY,;
+	numeech CHAR(20);
+		CHECK(numeech=LTRIM(PROPER(numeech)));
+		ERROR 'Prima litera din fiecare cuvant al' + CHAR(20) +;
+		'numeechipa este majuscula' + CHAR(20) +;
+		'restul literelor sunt mici!',;
+	culori CHAR(20),;
+	telefon CHAR(10),;
+	nrjuc NUMBER(2),;
+	codpost CHAR(5),;
+	coddiv CHAR(1),;
+		FOREIGN KEY codpost TAG codpost REFER localitati TAG codpost,;
+		FOREIGN KEY coddiv TAG coddiv REFER divizii TAG coddiv;
+		)	
+	
+
+CREATE TABLE jucatori (;
+	codjuc CHAR(5);
+		PRIMARY KEY,;
+	nume CHAR(20)CHECK (nume=PROPER(LTRIM(nume))) ERROR "Numele jucatorului se scrie fara spatii la inceput si cu initialele litere mari",;
+	prenume CHAR(20)CHECK (prenume=PROPER(LTRIM(prenume))) ERROR "Prenumele jucatorului se scrie fara spatii la inceput si cu initialele litere mari",;
+	adresa CHAR(40),;
+	idech NUMBER(2),;
+	postjuc CHAR(10),;
+	cnp CHAR(14),;
+	telmobil CHAR(10),;
+	telacasa CHAR(10),;
+	email CHAR(20),;
+	FOREIGN KEY idech TAG idech REFER echipe TAG idech;
+	)
+
+CREATE TABLE contract (;
+	codc NUMBER(10);
+		PRIMARY KEY,;
+	codjuc CHAR(5),;
+	datainc_c DATE,;
+	datarez_c DATE,;
+	sumac NUMBER(7),;
+	clauzec CHAR(40),;
+	FOREIGN KEY codjuc TAG codjuc REFER jucatori TAG codjuc;
+	)
+	
+CREATE TABLE meciuri (;
+	idmeci CHAR(20);
+		PRIMARY KEY,;
+	datameci DATE,;
+	codstad NUMBER(10),;
+	etapa NUMBER(2),;
+	campionat CHAR(10)CHECK (campionat=PROPER(LTRIM(campionat))) ERROR "Numele campionatului se scrie fara spatii la inceput si cu initialele litere mari",;
+	nrgolec1 NUMBER(2),;
+	nrgolec2 NUMBER(2),;
+	orainceput CHAR(5),;
+	orasfarsit CHAR(5),;
+	nrfault NUMBER(2),;
+	cartRosu number(1),;
+	cartGalb number(1),;
+	nreliminari number(1),;
+	nrjucschimb NUMBER(2),;
+	idech1 NUMBER(2),;
+	idech2 NUMBER(2),;
+	FOREIGN KEY codstad TAG codstad REFERENCES stadioane TAG codstad,;
+	FOREIGN KEY idech1 TAG idech1 REFERENCES echipe TAG idech,;
+		FOREIGN KEY idech2 TAG idech2 REFERENCES echipe TAG idech;
+		)
+		
+*!*	CREATE TABLE prime (;
+*!*		codjuc CHAR(5),;
+*!*		codc number(10),;
+*!*		primac NUMBER(7),;
+*!*		primaex_c NUMBER(7),;
+*!*		primaob NUMBER(7),;
+*!*		primary key str(codc,10)+Codjuc tag pk_prime,;
+*!*		FOREIGN KEY codjuc TAG codjuc REFERENCES jucatori TAG codjuc;
+*!*			)
+
+CREATE TABLE transferuri (;
+	idtran CHAR(15);
+		PRIMARY KEY,;
+	codjuc CHAR(5),;
+	idechp NUMBER(2),;
+	idechn NUMBER(2),;
+	pretachiz NUMBER(7),;
+	datatran DATE,;
+		FOREIGN KEY codjuc TAG codjuc REFERENCES jucatori TAG codjuc,;
+			FOREIGN KEY idechp TAG idechp REFERENCES echipe TAG idech,;
+				FOREIGN KEY idechn TAG idechn REFERENCES echipe TAG idech;
+		)
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
