@@ -1,0 +1,1475 @@
+*****************************************************************
+*------------------------REGULA DE VALIDARE---------------------*
+*----CALCULARE PRETREPARATIE------------------------------------*
+*****************************************************************
+procedure pret_reparatie
+ dime pretco(1),proc2(1)
+    pretco(1)=-1
+    proc2=-1
+	select pretcompo from componente c where c.codcompo=reparatii.codcompo into array pretco
+	if pretco(1)=-1
+		return
+	endif
+	select proc_defect from grad_defectiune g where  g.grad_defect=reparatii.grad_defect into array proc2
+	
+if _triggerlevel<>1	
+if (reparatii.pretreparatie#pretco*(proc2/100)) and (grad_defect=1)
+messagebox('Nu puteti modifica interactiv Pretul reparatiei!!!')
+return .f.
+endif
+
+if (reparatii.pretreparatie#pretco*(proc2/100)) and (grad_defect=2)
+messagebox('Nu puteti modifica interactiv Pretul reparatiei!!!')
+return .f.
+endif
+
+if (reparatii.pretreparatie#pretco) and (grad_defect=3)
+messagebox('Nu puteti modifica interactiv Pretul reparatiei!!!')
+return .f.
+endif
+
+endif
+
+return .t.
+endproc
+*****************************************************************
+procedure pret_repar_codcompo
+   dime pretco(1),proc2(1)
+    pretco(1)=-1
+    proc2(1)=-1
+	select pretcompo from componente c where c.codcompo=reparatii.codcompo into array pretco
+	if pretco(1)=-1
+		return
+	endif
+	select proc_defect from grad_defectiune g where  g.grad_defect=reparatii.grad_defect into array proc2
+	
+	if reparatii.grad_defect=1
+	replace reparatii.pretreparatie with pretco*(proc2/100)
+	endif
+	if reparatii.grad_defect=2
+	replace reparatii.pretreparatie with pretco*(proc2/100)
+	endif
+	if reparatii.grad_defect=3
+		replace reparatii.pretreparatie with pretco
+	endif
+	
+endproc
+***************************************************************
+procedure pret_repar_grad_defect
+    dime pretco(1),proc2(1)
+    pretco(1)=-1
+    proc2(1)=-1
+	select pretcompo from componente c where c.codcompo=reparatii.codcompo into array pretco
+	if pretco(1)=-1
+		return
+	endif
+	select proc_defect from grad_defectiune g where  g.grad_defect=reparatii.grad_defect into array proc2
+	
+	if reparatii.grad_defect=1
+	replace reparatii.pretreparatie with pretco*(proc2/100)
+	endif
+	if reparatii.grad_defect=2
+	replace reparatii.pretreparatie with pretco*(proc2/100)
+	endif
+	if reparatii.grad_defect=3
+		replace reparatii.pretreparatie with pretco
+	endif
+	
+endproc
+
+***************************************************************
+*---CALCUL VALFARATVA,VALCUTVA
+***************************************************************
+procedure fvr_cant_pret_vliniifact
+replace vliniifact.valcutva with vliniifact.cantitate*vliniifact.pretunit*(1+0.19)
+return .t.
+endproc
+***************************************************************
+procedure fvr_cant_pret_vliniicomenzi
+replace vliniicomanda.valoare with vliniicomanda.cantitate*vliniicomanda.pretunit
+return .t.
+endproc
+
+***************************************************************
+procedure pret_vreparatii()
+   dime pretco(1),proc2(1)
+    pretco(1)=-1
+    proc2(1)=-1
+	select pretcompo from componente c where c.codcompo=vreparatii.codcompo into array pretco
+	if pretco(1)=-1
+		return
+	endif
+	select proc_defect from grad_defectiune g where  g.grad_defect=vreparatii.grad_defect into array proc2
+	
+	if vreparatii.grad_defect=1
+	replace vreparatii.pretreparatie with pretco*(proc2/100)
+	endif
+	if vreparatii.grad_defect=2
+	replace vreparatii.pretreparatie with pretco*(proc2/100)
+	endif
+	if vreparatii.grad_defect=3
+		replace vreparatii.pretreparatie with pretco
+	endif
+	
+
+endproc
+***************************************************************
+procedure cantitate_pretunit_valfaratva_valcutva
+ replace liniifact.valfaratva with liniifact.cantitate*liniifact.pretunit
+ replace liniifact.valcutva with (liniifact.cantitate*liniifact.pretunit)*(1+(liniifact.tva/100))
+endproc
+***************************************************************
+procedure cantitate_pretunit_valoare
+ replace liniicomanda.valoare with liniicomanda.cantitate*liniicomanda.pretunit
+endproc
+***************************************************************
+procedure valoare
+if liniicomanda.valoare#liniicomanda.cantitate*liniicomanda.pretunit
+messagebox('Nu puteti modifica interactiv Valoarea comenzii!!!')
+return .f.
+endif
+
+return .t.
+endproc
+***************************************************************
+procedure valfaratva
+if liniifact.valfaratva#liniifact.cantitate*liniifact.pretunit
+messagebox('Nu puteti modifica interactiv Valoare Fara TVA!!!')
+return .f.
+endif
+
+return .t.
+endproc
+***************************************************************
+procedure tva_liniifact
+replace liniifact.valcutva with (liniifact.cantitate*liniifact.pretunit)*(1+(liniifact.tva/100))
+return .t.		
+endproc
+***************************************************************
+procedure valcutva
+if _triggerlevel<>1
+if liniifact.valcutva#((liniifact.cantitate*liniifact.pretunit)*(1+(liniifact.tva/100)))
+messagebox('Nu puteti modifica interactiv Valoare Cu TVA!!!')
+return .f.
+endif
+endif
+
+return .t.
+endproc
+
+***************************************************************
+*--------------------VALORI IMPLICITE--------------------------
+***************************************************************
+procedure def_datafact_vreparatii
+return.date()
+endproc
+***************************************************************
+procedure def_datafact_vfacturi
+if indexseek(vfacturi.nrfact,.t.,'facturi','nrfact')
+return facturi.datafact
+endif
+endproc
+***************************************************************
+procedure calcul_val_lnfact
+if !empty(vfacturi.cantitate) and !empty(vfacturi.pretunit)
+replace vfacturi.valfaratva with vfacturi.cantitate*vfacturi.pretunit
+replace vfacturi.valcutva with vfacturi.cantitate*vfacturi.pretunit*vfacturi.tva
+replace vfacturi.valtotala with vfacturi.cantitate*vfacturi.pretunit*(1+vfacturi.tva)
+endif
+endproc
+***************************************************************
+procedure calcul_val_lncomenzi
+if !empty(vcomenzi.cantitate) and !empty(vcomenzi.pretunit)
+replace vcomenzi.valoare with vcomenzi.cantitate*vcomenzi.pretunit
+endif
+endproc
+
+***************************************************************
+procedure seek_codchitara
+parameter codchitara_
+if indexseek(codchitara_,.t.,'chitare','codchitara')
+replace vfacturi.codchitara with chitare.codchitara
+replace vfacturi.tva with faturi.tva
+replace vfacturi.cantitate with 0
+replace vfacturi.pretunit with 0
+replace vfacturi.valfaratva with 0
+replace vfacturi.valcutva with 0
+replace vfacturi.valtotala with 0
+else 
+meessagebox('Atentie!!!Nu exista nici o chitara avand codul'+codchitara_+'!!!')
+return .f.
+endif
+
+endproc
+
+***************************************************************
+procedure def_codcl_clienti
+local val_max
+Dimension val_max(1)
+val_max(1)=10000
+Select max(codcl) from clienti into array val_max
+Return val_max(1)+1
+endproc
+***************************************************************
+procedure def_nrfact_facturi
+local val_max
+Dimension val_max(1)
+val_max(1)=111110
+Select max(nrfact) from facturi into array val_max
+Return val_max(1)+1
+endproc
+***************************************************************
+procedure def_nrfact_liniifact
+local lfnrfact
+dimension lfnrfact(1,1)
+lfnrfact=0
+select max(nrfact) from liniifact into array lfnrfact
+
+if lfnrfact(1,1)=0
+messagebox('Mai intai trebuie sa introduceti o factura!!!')
+return .f.
+else 
+return lfnrfact(1,1)
+endif
+endproc
+***************************************************************
+procedure def_linie_liniifact
+local lflinie,lfnrfact
+dimension lflinie(1,1)
+lflinie=0
+lfnrfact=liniifact.nrfact
+select max(linie) from liniifact into array lflinie;
+where nrfact=lfnrfact
+
+if lflinie(1,1)=0
+return 1
+else 
+return lflinie(1,1)+1
+endif
+endproc
+***************************************************************
+procedure def_linie_liniicomenzi
+local lclinie,lccodcomanda
+dimension lclinie(1,1)
+lclinie=0
+lccodcomanda=liniicomanda.codcomanda
+select max(liniec) from liniicomanda into array lclinie;
+where codcomanda=lccodcomanda
+
+if lclinie(1,1)=0
+return 1
+else 
+return lclinie(1,1)+1
+endif
+endproc
+
+***************************************************************
+&&Valoare implicita pentru atributul codcl (cel mai "fidel " client)
+*************************
+procedure def_codcl_facturi
+local fcodcl
+dimension fcodcl(1,2)
+fcodcl=0
+select top 1 codcl,count(*) as nr from facturi;
+into array fcodcl group by codcl;
+order by nr descending
+if fcodcl(1,1)=0
+messagebox('Nu se pot introduce facturi'+chr(13)+;
+'cata vrem nu exista nici un client')
+return .f.
+else
+return fcodcl(1,1)
+endif
+endproc
+***************************************************************
+procedure def_codinc_incasari
+Dimension val_max(1)
+val_max(1)=10
+Select max(codinc) from incasari into array val_max
+Return val_max(1)+1
+endproc
+***************************************************************
+procedure def_codcomanda_comanda
+local val_max
+Dimension val_max(1)
+val_max(1)=100
+Select max(codcomanda) from comanda into array val_max
+Return val_max(1)+1
+endproc
+***************************************************************
+procedure def_codcl_comanda
+local ccodcl
+dimension ccodcl(1,1)
+ccodcl=0
+select top 1 codcl,count(*) as nr;
+from comanda into array ccodcl;
+group by codcl;
+order by nr desc
+
+if ccodcl(1,1)=0
+messagebox('Nu se pot introduce comenzi'+chr(13)+;
+'cata vreme nu exista nici un client')
+return .f.
+else
+return ccodcl(1,1)
+endif
+endproc
+***************************************************************
+procedure def_codcomanda_liniicomanda
+local comanda
+dimension comanda(1,1)
+comanda=0
+select max(codcomanda)from liniicomanda into array comanda
+
+if comanda(1,1)=0
+messagebox('Mai intai trebuie sa introduceti codul comenzii!!!')
+return .f.
+else
+return comanda(1,1)
+endif
+endproc 
+***************************************************************
+procedure def_linie_comanda
+local clinie,lcodcomanda
+dimension clinie(1,1)
+clinie=0
+lcodcomanda=liniicomanda.codcomanda
+
+select max(liniec) from liniicomanda;
+into array clinie;
+where lcodcomanda=codcomanda
+
+if clinie(1,1)=0
+return 1
+else 
+return clinie(1,1)+1
+endif
+endproc
+***************************************************************
+procedure def_codcompo_componente
+local val_max
+Dimension val_max(1)
+val_max(1)=100
+Select max(codcompo) from componente into array val_max
+Return val_max(1)+1
+endproc
+***************************************************************
+procedure def_codcompo_reparatii
+local compo2
+dime compo2(1,1)
+compo2=0
+select max(codcompo) from reparatii into array compo2
+
+if compo2(1,1)=0
+messagebox('Introduceti si codul componentei!!!')
+return .f.
+else 
+return compo2(1,1)
+endif
+endproc
+***************************************************************
+Procedure def_codrepar_reparatii
+local val_max
+Dimension val_max(1)
+val_max(1)=0
+Select max(codrepar) from reparatii into array val_max
+Return val_max(1)+1
+Endproc
+***************************************************************
+procedure def_nr
+local nr,codcl2
+dime nr(1,1)
+nr=0
+codcl2=reparatii.codcl
+select max(nr_reparatii) from reparatii into array nr;
+where codcl=codcl2
+
+if nr(1,1)=0
+return 1
+else 
+return nr(1,1)+1 
+endif
+endproc
+*****************************************************************
+&&Valoarea totala a incasarilor si vanzarilor pentru fiecare client 
+****************************************************************
+procedure total_vanzari_client
+param codcl2
+dimension total(1,1)
+total=0
+sele sum(valtotala) into array total from facturi where codcl=codcl2
+return total(1,1)
+endproc
+**************************************************************
+procedure total_incasari_client
+param codcl2
+dime total(1,1)
+total=0
+sele sum(transa) into array total from facturi inner join incasfact on;
+facturi.nrfact=incasfact.nrfact where codcl=codcl2
+return total(1,1)
+endproc
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+******************************************************************************************************
+*-----------------------------------------------TRIGGERE----------------------------------------------
+******************************************************************************************************
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+procedure trg_del_judete
+local jud2,set_delete
+jud2=judete.jud
+set_delete=set('delete')
+set delete on
+if !used('localitati')
+use localitati in 0 
+endif
+if indexseek(jud2,.f.,'localitati','jud')
+set delete &set_delete
+messagebox('Exista inregistrari in Localitati!!!')
+return .f.
+endif
+set delete &set_delete
+ENDPROC 
+***************************************************************
+procedure trg_upd_judete
+local jud_old,jud_new
+jud_new=judete.jud
+jud_old=oldval('jud','judete')
+if jud_new#jud_old
+update localitati set jud=jud_new where jud=jud_old
+endif
+endproc
+****************************************************************
+procedure trg_upd_localitati
+local jud_old,jud_new,codpost_old,codpost_new,vector
+dimension vector(1,1)
+jud_new=localitati.jud
+jud_old=oldval('jud','localitati')
+if jud_new#jud_old 
+	if _triggerlevel=1 
+sele jud from judete into array vector where jud=jud_new
+		if _tally=0 
+messagebox('Noua valoare a atributului Jud'+jud_new+chr(13)+;
+'nu se regaseste in tabela parinte Judete!!!')
+		return .f.
+		endif
+	endif
+endif
+
+codpost_new=localitati.codpost
+codpost_old=oldval('codpost','localitati')
+if codpost_new#codpost_old
+update clienti set codpost=codpost_new where codpost=codpost_old
+endif
+endproc
+*******************************************************************
+procedure trg_del_localitati
+
+local codpost2,set_delete
+codpost2=localitati.codpost
+set_delete=set('delete')
+set delete on
+if indexseek(codpost2,.f.,'clienti','codpost')
+set delete &set_delete
+messagebox('Exista inregistrari in clienti!!!')
+return .f.
+endif
+set delete &set_delete
+endproc
+*******************************************************************
+procedure trg_ins_localitati
+if localitati.jud#judete.jud and !indexseek(localitati.jud,.f.,'judete';
+,'jud')
+Messagebox('Noua valoare a atributului Jud-'+ltrim(localitati.jud)+chr(13)+;
+'nu exista in tabela parinte Judete!')
+return .f.
+endif
+endproc
+*******************************************************************
+Procedure trg_ins_liniifact
+
+if !used ('facturi')
+use facturi in 0
+endif
+
+if liniifact.nrfact#facturi.nrfact and !indexseek(liniifact.nrfact,;
+.f.,'facturi','nrfact')
+Messagebox('Noua valoare a atributului Nrfact-'+Ltrim(str(liniifact.nrfact,8));
++chr(13)+'nu exista in tabela parinte Facturi!')
+return .f.
+endif
+
+if !used('chitare')
+use chitare in 0 
+endif
+
+*if liniifact.codchitara#chitare.codchitara and !INDEXSEEK(liniifact.codchitara,;
+*.f.,'chitare','codchitara')
+*messagebox('Noua valoare a atributului Codchitara:'+ltrim(liniifact.codchitara);
+*+chr(13)+'nu se regaseste in tabela parinte Chitare!')
+*return .f.
+*endif
+
+update facturi;
+set valtotala=valtotala+liniifact.valcutva;
+where nrfact=liniifact.nrfact
+endproc
+****************************************************************
+procedure trg_upd_liniifact
+local nrfact_old,nrfact_new,codchitara_old,codchitara_new,vector,;
+valcutva_new,valcutva_old,valfaratva_new
+***
+valcutva_old=oldval('valcutva','liniifact')
+valcutva_new=liniifact.valcutva
+dimension vector(1,1)
+
+set_deleted=set('delete')
+set deleted on
+***
+nrfact_new=liniifact.nrfact
+nrfact_old=oldval('nrfact','liniifact')
+
+if nrfact_new#nrfact_old
+if _triggerlevel<=1 
+	if !used ('facturi')
+	use facturi in 0
+	endif
+if nrfact_new#facturi.nrfact and !indexseek(nrfact_new,.f.,'facturi','nrfact')
+messagebox ('Noua valoare a nrfact-'+ltrim(str(nrfact_new,8))+chr(13)+;
+'nu exista in tabele parinte facturi!')
+set delete &set_deleted
+return .f.
+endif
+endif
+endif
+***
+codchitara_new=liniifact.codchitara
+codchitara_old=oldval('codchitara','liniifact')
+
+if codchitara_new#codchitara_old
+if _triggerlevel<=1
+	if !used('chitare') 
+	use chitare in 0
+	endif
+if codchitara_new#chitare.codchitara and !indexseek(codchitara_new,.f.,'chitare','codchitara')
+messagebox('Noua valoare a atributului codchitara-nu exista in tabela parinte Chitare!')
+set delete &set_deleted
+return .f.
+endif
+endif
+endif
+***
+if nrfact_new#nrfact_old and(_triggerlevel<=1)
+
+update facturi;
+set valtotala=valtotala-valcutva_old;
+where nrfact=nrfact_old
+
+update facturi;
+set valtotala=valtotala+valcutva_new;
+where nrfact=nrfact_new
+
+else
+
+if valcutva_old#valcutva_new
+update facturi;
+set valtotala=valtotala-valcutva_old+valcutva_new;
+where nrfact=nrfact_old
+endif
+endif
+set delete &set_deleted
+endproc
+*********************************************************************************************
+procedure trg_del_liniifact
+local i,nrfact2,linie2
+dimension i(1,1),linie2(1,1)
+i=0
+linie2=0
+nrfact2=liniifact.nrfact
+
+select max(linie) into array linie2 from liniifact;
+where nrfact2=nrfact and !deleted()
+
+select liniifact
+
+if linie2(1,1)#liniifact.linie
+messagebox('Puteti sterge doar ultima linie din factura!')
+return .f.
+endif
+
+select count(*) into array i from liniifact;
+where nrfact2=nrfact and !deleted()
+
+if i(1,1)=1
+messagebox('Ultima linie din factura!')
+if seek(nrfact2,'facturi','nrfact')
+select facturi
+delete
+endif
+
+else
+update facturi;
+set valtotala=valtotala-liniifact.valcutva;
+where nrfact=nrfact2
+
+endif
+select liniifact
+return .t.
+endproc
+
+******************************************************************
+procedure trg_upd_facturi
+local codcl_old,codcl_new,valtotala_old,valtotala_new,;
+nrfact_old,nrfact_new,valincasata_new,valincasata_old
+
+set_delete=set('delete')
+set delete on
+
+***
+codcl_new=facturi.codcl
+codcl_old=oldval('codcl','facturi')
+
+if codcl_new#codcl_old
+if _triggerlevel<=1
+if !used('clienti')
+use clienti in 0 
+endif
+if codcl_new#clienti.codcl and !indexseek(codcl_new,.f.,'clienti','codcl')
+messagebox('Noua valoare a atributului'+ltrim(str(codcl_new,6))+chr(13)+;
+'nu exista in tabela parinte Clienti!!!')
+set delete&set_delete
+return .f.
+endif
+endif
+endif
+***
+valtotala_new=facturi.valtotala
+valtotala_old=oldval('valtotala','facturi')
+if valtotala_new#valtotala_old 
+if _triggerlevel=1 
+messagebox('Nu se poate modifica interactiv valoarea totala!!! ')
+set delete&set_delete
+return .f.
+endif
+endif
+***
+valincasata_new=facturi.valincasata
+valincasata_old=oldval('valincasata','facturi')
+if valincasata_new#valincasata_old 
+if _triggerlevel=1 
+messagebox('Nu se poate modifica interactiv valoarea incasata!!! ')
+set delete&set_delete
+return .f.
+endif
+endif
+***
+nrfact_new=facturi.nrfact
+nrfact_old=oldval('nrfact','facturi')
+if nrfact_new#nrfact_old
+update liniifact set nrfact=nrfact_new where nrfact=nrfact_old
+update incasfact set nrfact=nrfact_new where nrfact=nrfact_old
+endif
+
+endproc
+***********************************************************************
+procedure trg_ins_facturi
+local codcl_old,codcl_new
+set_delete=set('delete')
+set delete on
+
+codcl_new=facturi.codcl
+if !used('clienti')
+use clienti in 0
+endif
+if codcl_new#clienti.codcl and !indexseek(codcl_new,.f.,'clienti','codcl')
+messagebox('Noua valoare a atributului codcl-'+ltrim(str(codcl_new,6))+;
+chr(13)+'nu exista in tabela parinte Clienti!!!')
+set delete &set_delete
+return .f.
+endif
+****
+if facturi.valtotala#0
+messagebox('O factura noua are initial valoarea 0!!! ')
+set delete &set_delete
+return .f.
+endif
+if facturi.valincasata#0
+messagebox('O factura noua are initial valoarea incasata 0!!! ')
+set delete &set_delete
+return .f.
+endif
+
+set delete &set_delete
+endproc
+
+***********************************************************************
+procedure trg_del_facturi
+local nrfact2,set_delete
+nrfact2=facturi.nrfact
+set_delete=set('delete')
+set delete on
+if !used('liniifact')
+use liniifact in 0 
+endif
+***----Liniifact
+if indexseek(nrfact2,.f.,'liniifact','nrfact')
+set delete &set_delete
+messagebox('Exista inregistrari in Liniifact!!!')
+return .f.
+endif
+if !used('incasfact')
+use incasfact in 0
+endif
+***----Incasfact
+if indexseek(nrfact2,.f.,'incasfact','nrfact')
+set delete &set_delete
+messagebox('Exista inregistrari in Incasfact!!!')
+return .f.
+endif
+
+set delete &set_delete
+ENDPROC
+***********************************************************************
+Procedure trg_ins_liniicomanda
+
+if !used ('comanda')
+use comanda in 0
+endif
+
+if liniicomanda.codcomanda#comanda.codcomanda and !indexseek(liniicomanda.codcomanda,;
+.f.,'comanda','codcomanda')
+Messagebox('Noua valoare a atributului codcomanda-'+Ltrim(str(liniicomanda.codcomanda,8));
++chr(13)+'nu exista in tabela parinte Comanda!')
+return .f.
+endif
+
+if !used('chitare')
+use chitare in 0 
+endif
+
+*if liniicomanda.codchitara#chitare.codchitara and !INDEXSEEK(liniicomanda.codchitara,;
+*.f.,'chitare','codchitara')
+*messagebox('Noua valoare a atributului Codchitara:'+ltrim(liniicomanda.codchitara);
+*+chr(13)+'nu se regaseste in tabela parinte Chitare!')
+*return .f.
+*endif
+
+update comanda;
+set valtotala=valtotala+liniicomanda.valoare;
+where codcomanda=liniicomanda.codcomanda
+endproc
+****************************************************************
+procedure trg_upd_liniicomanda
+local codcomanda_old,codcomanda_new,codchitara_old,codchitara_new,vector,;
+val_new,val_old
+***
+val_old=oldval('valoare','liniicomanda')
+val_new=liniicomanda.valoare
+dimension vector(1,1)
+
+set_deleted=set('delete')
+set deleted on
+***
+codcomanda_new=liniicomanda.codcomanda
+nrfact_old=oldval('codcomanda','liniicomanda')
+
+if codcomanda_new#codcomanda_old
+if _triggerlevel<=1 
+	if !used ('comanda')
+	use comanda in 0
+	endif
+if codcomanda_new#comanda.codcomanda and !indexseek(codcomanda_new,.f.,'comanda','codcomanda')
+messagebox ('Noua valoare a codcomanda-'+ltrim(str(codcomanda_new,8))+chr(13)+;
+'nu exista in tabele parinte comanda!')
+set delete &set_deleted
+return .f.
+endif
+endif
+endif
+***
+codchitara_new=liniicomanda.codchitara
+codchitara_old=oldval('codchitara','liniicomanda')
+
+if codchitara_new#codchitara_old
+if _triggerlevel<=1
+	if !used('chitare') 
+	use chitare in 0
+	endif
+if codchitara_new#chitare.codchitara and !indexseek(codchitara_new,.f.,'chitare','codchitara')
+messagebox('Noua valoare a atributului codchitara-nu exista in tabela parinte Chitare!')
+set delete &set_deleted
+return .f.
+endif
+endif
+endif
+***
+if codcomanda_new#codcomanda_old and(_triggerlevel<=1)
+
+update comanda;
+set valtotala=valtotala-valcutva_old;
+where codcomanda=codcomanda_old
+
+update comanda;
+set valtotala=valtotala+valcutva_new;
+where codcomanda=codcomanda_new
+
+else
+
+if valcutva_old#valcutva_new
+update comanda;
+set valtotala=valtotala-valcutva_old+valcutva_new;
+where codcomanda=codcomanda_old
+endif
+endif
+set delete &set_deleted
+endproc
+*********************************************************************************************
+procedure trg_del_liniicomanda
+local i,codcomanda2,linie2
+dimension i(1,1),linie2(1,1)
+i=0
+linie2=0
+codcomanda2=liniicomanda.codcomanda
+
+select max(liniec) into array linie2 from liniicomanda;
+where codcomanda2=codcomanda and !deleted()
+
+select liniicomanda
+
+if linie2(1,1)#liniicomanda.liniec
+messagebox('Puteti sterge doar ultima linie din comanda!')
+return .f.
+endif
+
+select count(*) into array i from liniicomanda;
+where codcomanda2=codcomanda and !deleted()
+
+if i(1,1)=1
+messagebox('Ultima linie din comanda!')
+if seek(codcomanda2,'comanda','codcomanda')
+select comanda
+delete
+endif
+
+else
+update comanda;
+set valtotala=valtotala-liniicomanda.valoare;
+where codcomanda=codcomanda2
+
+endif
+select liniicomanda
+return .t.
+endproc
+
+******************************************************************
+procedure trg_upd_comanda
+local codcl_old,codcl_new,valtotala_old,valtotala_new,;
+codcomanda_old,codcomanda_new
+
+set_delete=set('delete')
+set delete on
+
+***
+codcl_new=comanda.codcl
+codcl_old=oldval('codcl','comanda')
+
+if codcl_new#codcl_old
+if _triggerlevel<=1
+if !used('clienti')
+use clienti in 0 
+endif
+if codcl_new#clienti.codcl and !indexseek(codcl_new,.f.,'clienti','codcl')
+messagebox('Noua valoare a atributului'+ltrim(str(codcl_new,6))+chr(13)+;
+'nu exista in tabela parinte Clienti!!!')
+set delete&set_delete
+return .f.
+endif
+endif
+endif
+***
+valtotala_new=comanda.valtotala
+valtotala_old=oldval('valtotala','comanda')
+if valtotala_new#valtotala_old 
+if _triggerlevel=1 
+messagebox('Nu se poate modifica interactiv valoarea totala!!! ')
+set delete&set_delete
+return .f.
+endif
+endif
+***
+codcomanda_new=comanda.codcomanda
+codcomanda_old=oldval('codcomanda','comanda')
+if codcomanda_new#codcomanda_old
+update liniicomanda set codcomanda=codcomanda_new where codcomanda=codcomanda_old
+endif
+
+endproc
+***********************************************************************
+procedure trg_ins_comanda
+local codcl_old,codcl_new
+set_delete=set('delete')
+set delete on
+
+codcl_new=comanda.codcl
+if !used('clienti')
+use clienti in 0
+endif
+if codcl_new#clienti.codcl and !indexseek(codcl_new,.f.,'clienti','codcl')
+messagebox('Noua valoare a atributului codcl-'+ltrim(str(codcl_new,6))+;
+chr(13)+'nu exista in tabela parinte Clienti!!!')
+set delete &set_delete
+return .f.
+endif
+****
+if comanda.valtotala#0
+messagebox('O comanda noua are initial valoarea 0!!! ')
+set delete &set_delete
+return .f.
+endif
+
+set delete &set_delete
+endproc
+
+*************************************************************************************
+procedure trg_upd_clienti
+local new_codpost,old_codpost,new_codcl,old_codcl
+
+if !used ('localitati')
+use localitati in 0 
+endif
+
+new_codpost=clienti.codpost
+old_codpost=oldval('codpost','clienti')
+if _triggerlevel=1
+	if new_codpost#old_codpost and !indexseek(new_codpost,.f.,'localitati','codpost')
+	 		messagebox('Acest cod postal nu se gaseste in tabela parinte Localitati !')
+			return .f.
+		endif
+	endif
+
+new_codcl = clienti.codcl
+old_codcl = oldval('codcl','clienti')
+if new_codcl#old_codcl
+	update facturi set codcl = new_codcl where codcl = old_codcl
+	Update comanda set codcl = new_codcl where codcl = old_codcl
+	update reparatii set codcl=new_codcl where codcl = old_codcl
+endif
+endproc
+************************************************************************************************
+procedure trg_del_clienti
+local codcl2,set_delete
+codcl2=clienti.codcl
+set_delete=set('delete')
+set delete on
+if !used('facturi')
+use facturi in 0
+endif
+if indexseek(codcl2,.f.,'facturi','codcl')
+set delete &set_delete
+messagebox('Exista inregistrari in Facturi!!!')
+return .f.
+endif
+
+if !used('comanda')
+use comanda in 0
+endif
+
+if indexseek(codcl2,.f.,'comanda','codcl')
+set delete &set_delete
+messagebox('Exista inregistrari in Comanda!!!')
+return .f.
+endif
+
+if !used('reparatii')
+use reparatii in 0
+endif
+
+if indexseek(codcl2,.f.,'reparatii','codcl')
+set delete &set_delete
+messagebox('Exista inregistrari in Reparatii!!!')
+return .f.
+endif
+set delete &set_delete
+endproc
+************************************************************************************************
+procedure trg_ins_clienti
+*verificare cod postal
+local codpost_
+codpost_=clienti.codpost
+if _triggerlevel=1
+	if !indexseek(codpost_,.f.,'localitati','codpost')
+			messagebox('Acest cod postal nu se gaseste in tabela Localitati !')
+			return .f.
+	endif
+endif
+endproc
+************************************************************************************************
+procedure trg_upd_chitare
+local new_codchitara,old_codchitara,new_codsign,old_codsign
+
+if !used ('chitare_celebre')
+use chitare_celebre in 0 
+endif
+
+new_codsign=chitare.codsign
+old_codsign=oldval('codsign','chitare')
+if _triggerlevel=1
+	if new_codsign#old_codsign and !indexseek(new_codsign,.f.,'chitare_celebre','codsign')
+	 		messagebox('Acest cod sign nu se gaseste in tabela parinte Chitare-celebre !')
+			return .f.
+		endif
+	endif
+
+new_codchitara=chitare.codchitara
+old_codchitara=oldval('codchitara','chitare')
+if new_codchitara<>old_codchitara
+	update liniifact set codchitara=new_codchitara where codchitara=old_codchitara
+	update liniicomanda set codchitara=new_codchitara where codchitara=old_codchitara
+	update reparatii set codchitara=new_codchitara where codchitara=old_codchitara
+	update premii set codchitara=new_codchitara where codchitara=old_codchitara
+endif
+endproc
+************************************************************************************************
+procedure trg_del_chitare
+local codchitara2,set_delete
+codchitara2=chitare.codchitara
+set_delete=set('delete')
+set delete on
+****----Pentru tabela Liniifact
+if !used ('liniifact')
+use liniifact in 0 
+endif
+
+if indexseek(codchitara2,.f.,'liniifact','codchitara')
+set delete &set_delete
+messagebox('Exista inregistrari in Liniifact!!!')
+return .f.
+endif
+set delete &set_delete
+****----Pentru tabela Liniicomanda
+if !used ('liniicomanda')
+use liniicomanda in 0 
+endif
+
+if indexseek(codchitara2,.f.,'liniicomanda','codchitara')
+set delete &set_delete
+messagebox('Exista inregistrari in Liniicomanda!!!')
+return .f.
+endif
+set delete &set_delete
+****----Pentru tabela Reparatii
+if !used ('reparatii')
+use reparatii in 0 
+endif
+
+if indexseek(codchitara2,.f.,'reparatii','codchitara')
+set delete &set_delete
+messagebox('Exista inregistrari in Reparatii!!!')
+return .f.
+endif
+set delete &set_delete
+****----Pentru tabela Premii
+if !used ('premii')
+use premii in 0 
+endif
+
+if indexseek(codchitara2,.f.,'premii','codchitara')
+set delete &set_delete
+messagebox('Exista inregistrari in Premii!!!')
+return .f.
+endif
+ 
+set delete &set_delete
+
+ENDPROC 
+************************************************************************************************
+procedure trg_ins_chitare
+*verificare cod signature
+
+if !used('chitare_celebre')
+use chitare_celebre in 0
+endif
+
+local codsign_
+codsign_=chitare.codsign
+if _triggerlevel=1  
+	if !indexseek(codsign_,.f.,'chitare_celebre','codsign')
+			messagebox('Acest cod signature nu se gaseste in tabela Chitare_celebre !')
+			return .f.
+	endif
+endif
+endproc
+************************************************************************************************
+procedure trg_upd_incasfact
+local nrfact_new,nrfact_old,new_transa,old_transa
+new_transa=incasfact.transa
+old_transa=oldval('transa','incasfact')
+dimension vector(1,1)
+
+set_deleted=set('delete')
+set deleted on
+***
+nrfact_new=incasfact.nrfact
+nrfact_old=oldval('nrfact','incasfact')
+
+if nrfact_new#nrfact_old
+if _triggerlevel<=1 
+	if !used ('facturi')
+	use facturi in 0
+	endif
+if nrfact_new#facturi.nrfact and !indexseek(nrfact_new,.f.,'facturi','nrfact')
+messagebox ('Noua valoare a nrfact-'+ltrim(str(nrfact_new,8))+chr(13)+;
+'nu exista in tabele parinte facturi!')
+set delete &set_deleted
+return .f.
+endif
+endif
+endif
+***
+if nrfact_new#nrfact_old and(_triggerlevel<=1)
+
+update facturi;
+set valincasata=valincasata-old_transa;
+where nrfact=nrfact_old
+
+update facturi;
+set valincasata=valincasata+new_transa;
+where nrfact=nrfact_new
+
+else
+
+if old_transa#new_transa
+update facturi;
+set valincasata=valincasata-old_transa+new_transa;
+where nrfact=nrfact_old
+endif
+endif
+set delete &set_deleted
+
+endproc
+************************************************************************************************
+procedure trg_ins_incasfact
+
+if !used ('facturi')
+use facturi in 0
+endif
+
+if incasfact.nrfact#facturi.nrfact and !indexseek(incasfact.nrfact,;
+.f.,'facturi','nrfact')
+Messagebox('Noua valoare a atributului Nrfact-'+Ltrim(str(liniifact.nrfact,8));
++chr(13)+'nu exista in tabela parinte Facturi!')
+return .f.
+endif
+
+update facturi;
+set valincasata=valincasata+incasfact.transa;
+where nrfact=incasfact.nrfact
+endproc
+************************************************************************************************
+procedure trg_del_incasfact
+local nrfact2
+nrfact2=incasfact.nrfact
+update facturi;
+set valincasata=valincasata-incasfact.transa;
+where nrfact=nrfact2
+
+
+endproc
+************************************************************************************************
+procedure trg_upd_premii
+
+local codchitara_old,codchitara_new
+dimension vector(1,1)
+codchitara_new=premii.codchitara
+codchitara_old=oldval('codchitara','premii')
+if codchitara_new#codchitara_old 
+	if _triggerlevel=1 
+sele codchitara from chitare into array vector where codchitara=codchitara_new
+		if _tally=0 
+messagebox('Noua valoare a atributului Chitara '+codchitara_new+chr(13)+;
+'nu se regaseste in tabela parinte Chitare!!!')
+		return .f.
+		endif
+	endif
+endif
+endproc
+*************************************************************************************************
+procedure trg_ins_premii
+if premii.codchitara#chitare.codchitara and !indexseek(premii.codchitara,.f.,'chitare';
+,'codchitara')
+Messagebox('Noua valoare a atributului Codchitara-'+ltrim(premii.codchitara)+chr(13)+;
+'nu exista in tabela parinte Chitare!')
+return .f.
+endif
+endproc
+*************************************************************************************************
+procedure trg_upd_chitare_celebre
+local codsign_old,codsign_new
+codsign_new=chitare_celebre.codsign
+codsign_old=oldval('codsign','chitare_celebre')
+
+if !used('chitare')
+use chitare in 0 
+endif
+
+if codsign_new#codsign_old
+update chitare set codsign=codsign_new where codsign=codsign_old
+endif
+endproc
+*************************************************************************************************
+procedure trg_del_chitare_celebre
+local codsign2,set_delete
+codsign2=chitare_celebre.codsign
+set_delete=set('delete')
+set delete on
+if !used('chitare')
+use chitare in 0
+endif
+
+if indexseek(codsign2,.f.,'chitare','codsign')
+set delete &set_delete
+messagebox('Exista inregistrari in Chitare!!!')
+return .f.
+endif
+set delete &set_delete
+ENDPROC 
+*************************************************************************************************
+procedure trg_upd_componente
+local codcompo_old,codcompo_new,pret_new,pret_pret_old
+codcompo_new=componente.codcompo
+codcompo_old=oldval('codcompo','componente')
+
+if !used('reparatii')
+use reparatii in 0 
+endif
+
+if codcompo_new#codcompo_old
+update reparatii set codcompo=codcompo_new where codcompo=codcompo_old
+do pretreparcomponente.prg
+endif
+
+pret_new=componente.pretcompo
+pret_old=oldval('pretcompo','componente')
+
+if pret_new#pret_old and _triggerlevel=1 
+do pretreparcomponente.prg
+endif
+endproc
+*************************************************************************************************
+procedure trg_del_componente
+local codcompo2,set_delete
+codcompo2=componente.codcompo
+set_delete=set('delete')
+set delete on
+
+if !used('reparatii')
+use reparatii in 0
+endif
+
+if indexseek(codcompo2,.f.,'reparatii','codcompo')
+set delete &set_delete
+messagebox('Exista inregistrari in Reparatii!!!')
+return .f.
+endif
+set delete &set_delete
+ENDPROC 
+*************************************************************************************************
+procedure trg_upd_grad_defectiune
+local grad_defect_old,grad_defect_new,proc_defect_new,proc_defect_old
+***
+grad_defect_new=grad_defectiune.grad_defect
+grad_defect_old=oldval('grad_defect','grad_defectiune')
+
+if (grad_defect_new#grad_defect_old) and (_triggerlevel<=1)
+update reparatii set grad_defect=grad_defect_new where grad_defect=grad_defect_old
+endif
+***
+proc_defect_new=grad_defectiune.proc_defect
+proc_defect_old=oldval('proc_defect','grad_defectiune')
+
+if proc_defect_new#proc_defect_old and (_triggerlevel<=1)
+update reparatii set pretreparatie=pretreparatie/(proc_defect_old/100) where grad_defect=grad_defectiune.grad_defect
+update reparatii set pretreparatie=pretreparatie*(proc_defect_new)/100 where grad_defect=grad_defectiune.grad_defect
+endif
+***
+
+endproc
+*************************************************************************************************
+procedure trg_del_grad_defectiune 
+local grad_defect2,set_delete
+grad_defect2=grad_defectiune.grad_defect
+set_delete=set('delete')
+set delete on
+if !used('reparatii')
+use reparatii in 0
+endif
+
+if indexseek(grad_defect2,.f.,'reparatii','grad_def')
+set delete &set_delete
+messagebox('Exista inregistrari in Reparatii!!!')
+return .f.
+endif
+set delete &set_delete
+endproc
+*************************************************************************************************
+procedure trg_upd_incasari
+local codinc_old,codinc_new
+codinc_new=incasari.codinc
+codinc_old=oldval('codinc','incasari')
+if codinc_new#codinc_old
+update incasfact set codinc=codinc_new where codinc=codinc_old
+endif
+endproc
+*************************************************************************************************
+procedure trg_del_incasari
+local codinc2,set_delete
+codinc2=incasari.codinc
+set_delete=set('delete')
+set delete on
+if !used('incasfact')
+use incasfact in 0
+endif
+
+if indexseek(codinc2,.f.,'incasfact','codinc')
+set delete &set_delete
+messagebox('Exista inregistrari in Incasfact!!!')
+return .f.
+endif
+set delete &set_delete
+ENDPROC 
+*************************************************************************************************
+procedure trg_upd_reparatii
+local codcl_old,codcl_new,pretreparatii_old,pretreparatii_new,;
+codchitara_old,codchitara_new,codcompo_new,codcompo_old,grad_defect_new,grad_defect_old,set_delete
+
+set_delete=set('delete')
+set delete on
+
+***
+codcl_new=reparatii.codcl
+codcl_old=oldval('codcl','reparatii')
+
+if codcl_new#codcl_old
+if _triggerlevel<=1
+if !used('clienti')
+use clienti in 0 
+endif
+if codcl_new#clienti.codcl and !indexseek(codcl_new,.f.,'clienti','codcl')
+messagebox('Noua valoare a atributului'+ltrim(str(codcl_new,6))+chr(13)+;
+'nu exista in tabela parinte Clienti!!!')
+return .f.
+endif
+endif
+endif
+
+***
+codchitara_new=reparatii.codchitara
+codchitara_old=oldval('codchitara','reparatii')
+
+if codchitara_new#codchitara_old
+if _triggerlevel<=1
+if !used('chitare')
+use chitare in 0 
+endif
+if codchitara_new#chitare.codchitara and !indexseek(codchitara_new,.f.,'chitare','codchitara')
+messagebox('Noua valoare a atributului '+ltrim(codchitara_new)+chr(13)+;
+'nu exista in tabela parinte Chitare!!!')
+return .f.
+endif
+endif
+endif
+
+***
+codcompo_new=reparatii.codcompo
+codcompo_old=oldval('codcompo','reparatii')
+
+if codcompo_new#codcompo_old
+if _triggerlevel<=1
+if !used('componente')
+use componente in 0 
+endif
+if codcompo_new#componente.codcompo and !indexseek(codcompo_new,.f.,'componente','codcompo')
+messagebox('Noua valoare a atributului'+ltrim(str(codcompo_new,6))+chr(13)+;
+'nu exista in tabela parinte Componente!!!')
+return .f.
+endif
+endif
+endif
+
+***
+grad_defect_new=reparatii.grad_defect
+grad_defect_old=oldval('grad_defect','reparatii')
+
+if grad_defect_new#grad_defect_old
+if _triggerlevel<=1
+if !used('grad_defectiune')
+use grad_defectiune in 0 
+endif
+****modifica pretul
+if grad_defect_new#grad_defectiune.grad_defect and !indexseek(grad_defect_new,.f.,'grad_defectiune','grad_def')
+messagebox('Noua valoare a atributului'+ltrim(str(grad_defect_new,1))+chr(13)+;
+'nu exista in tabela parinte Grad_defectiune!!!')
+return .f.
+endif
+endif
+endif
+***
+endproc
+*************************************************************************************************
+procedure trg_ins_reparatii
+local codcl_new,codchitara_new,codcompo_new,grad_defect_new
+***
+codcl_new=reparatii.codcl
+if _triggerlevel<=1
+if !used('clienti')
+use clienti in 0 
+endif
+
+if codcl_new#clienti.codcl and !indexseek(codcl_new,.f.,'clienti','codcl')
+messagebox('Noua valoare a atributului'+ltrim(str(codcl_new,6))+chr(13)+;
+'nu exista in tabela parinte Clienti!!!')
+return .f.
+endif
+endif
+***
+codchitara_new=reparatii.codchitara
+if _triggerlevel<=1
+if !used('chitare')
+use chitare in 0 
+endif
+
+if codchitara_new#chitare.codchitara and !indexseek(codchitara_new,.f.,'chitare','codchitara')
+messagebox('Noua valoare a atributului codchitara '+Ltrim(codchitara_new)+chr(13)+;
+'nu exista in tabela parinte Chitare!!!')
+return .f.
+endif
+endif
+***
+codcompo_new=reparatii.codcompo
+if _triggerlevel<=1
+if !used('componente')
+use componente in 0 
+endif
+
+if codcompo_new#componente.codcompo and !indexseek(codcompo_new,.f.,'componente','codcompo')
+messagebox('Noua valoare a atributului'+ltrim(str(codcompo_new,6))+chr(13)+;
+'nu exista in tabela parinte Componente!!!')
+return .f.
+endif
+endif
+***
+grad_defect_new=reparatii.grad_defect
+
+if _triggerlevel<=1
+if !used('grad_defectiune')
+use grad_defectiune in 0 
+endif
+if grad_defect_new#grad_defectiune.grad_defect and !indexseek(grad_defect_new,.f.,'grad_defectiune','grad_def')
+messagebox('Noua valoare a atributului'+ltrim(str(grad_defect_new,1))+chr(13)+;
+'nu exista in tabela parinte Grad_defectiune!!!')
+return .f.
+endif
+endif
+***
+
+endproc
+*************************************************************************************************
