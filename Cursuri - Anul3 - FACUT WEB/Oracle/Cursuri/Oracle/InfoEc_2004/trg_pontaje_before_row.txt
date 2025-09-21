@@ -1,0 +1,23 @@
+CREATE OR REPLACE TRIGGER trg_pontaje_before_row
+	BEFORE INSERT OR UPDATE OR DELETE ON pontaje
+	FOR EACH ROW
+BEGIN
+	IF un_pachet.v_ult_zi_inchisa IS NULL THEN
+		un_pachet.p_init ;
+	END IF ;
+
+	IF INSERTING OR UPDATING THEN
+		IF :NEW.data <= un_pachet.v_ult_zi_inchisa THEN
+			RAISE_APPLICATION_ERROR (-20092,
+				'(Noua) luna este <<inchisa>> !') ;
+		END IF;
+	END IF ;
+
+	IF DELETING OR UPDATING THEN
+		IF :OLD.data <= un_pachet.v_ult_zi_inchisa THEN
+			RAISE_APPLICATION_ERROR (-20092,
+				'(Vechea) luna este <<inchisa>> !') ;
+		END IF;
+	END IF ;
+
+END;
