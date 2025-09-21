@@ -1,0 +1,18 @@
+#include foxpro.h
+create SQL view vclienti connection connect1;
+as select * from clienti
+=dbsetprop('vclienti','View','Tables','Clienti')
+=dbsetprop('vclienti.codcl','field','keyfield',.T.)
+=dbsetprop('vclienti.codcl','field','Updatable',.T.)
+
+=dbsetprop('vclienti.dencl','field','updatable',.T.)
+=dbsetprop('vclienti.adresa','field','updatable',.T.)
+=dbsetprop('vclienti.telefon','field','updatable',.T.)
+=dbsetprop('vclienti.email','field','updatable',.T.)
+=dbsetprop('vclienti.observatii','field','updatable',.T.)
+=dbsetprop('vclienti.vinzari','field','updatable',.T.)
+=dbsetprop('vclienti.incasari','field','updatable',.T.)
+
+=dbsetprop('vclienti','View','UpdateType',DB_UPDATE)
+=dbsetprop('vclienti','View','WhereType',DB_KEYANDMODIFIED)
+=dbsetprop('vclienti','View','SendUpdates',.T.)
