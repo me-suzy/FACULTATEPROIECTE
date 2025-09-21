@@ -1,0 +1,176 @@
+CREATE OR REPLACE TRIGGER trg_clienti_after_upd_row
+	AFTER UPDATE OF codcl ON clienti 
+	REFERENCING NEW AS nou OLD AS vechi
+	FOR EACH ROW
+BEGIN
+	UPDATE comenzif SET codcl=:nou.codcl
+		WHERE codcl=:vechi.codcl;
+	UPDATE comenzicl SET codcl=:nou.codcl
+		WHERE codcl=:vechi.codcl;
+	update incasari set codcl=:nou.codcl
+		WHERE codcl=:vechi.codcl;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER trg_comenzicl_after_upd_row
+	AFTER UPDATE OF codcom ON comenzicl 
+	REFERENCING NEW AS nou OLD AS vechi
+	FOR EACH ROW
+BEGIN
+	UPDATE liniicomcl SET codcom=:nou.codcom
+		WHERE codcom=:vechi.codcom;
+END;
+/
+
+
+  create or replace trigger trg_liniicomcl_upd_after_row
+  after update  on liniicomcl
+  referencing old as old new as new
+  for each row
+begin
+if :new.cantonorata<>:old.cantonorata then
+  update comenzicl set valcom=valcom-:old.cantonorata*:old.pret where codcom=:old.codcom;
+  update comenzicl set valcom=valcom+:new.cantonorata*:new.pret where codcom=:new.codcom;
+else
+  update comenzicl set valcom=valcom-:new.cantonorata*:old.pret+:new.cantonorata*:new.pret where codcom=:new.codcom;
+end if;
+end;
+/
+
+
+create or replace trigger trg_liniicomcl_ins_after_row
+  after insert  on liniicomcl
+  for each row
+begin
+  update comenzicl set valcom=valcom+:new.cantonorata*:new.pret where codcom=:new.codcom;
+end;
+/
+
+ create or replace trigger trg_comenzicl_upd_after_row
+  after update on comenzicl
+  referencing old as old new as new
+  for each row
+begin
+if :new.codcl<>:old.codcl then 
+ update clienti set vinzari=vinzari-:old.valcom where codcl=:old.codcl;
+ update clienti set vinzari=vinzari+:new.valcom where codcl=:new.codcl;
+else
+ update clienti set vinzari=vinzari-:old.valcom+:new.valcom where codcl=:new.codcl;
+end if;
+end;
+/
+
+
+CREATE OR REPLACE TRIGGER trg_comenzif_aur
+	AFTER UPDATE OF idcom ON comenzif 
+	REFERENCING NEW AS nou OLD AS vechi
+	FOR EACH ROW
+BEGIN
+	UPDATE liniicomf SET idcom=:nou.idcom
+		WHERE idcom=:vechi.idcom;
+END;
+/
+
+
+ create or replace trigger trg_liniicomf_upd_after_row
+  after update  on liniicomf
+  referencing old as old new as new
+  for each row
+begin
+if :new.cant<>:old.cant then
+  update comenzif set valcom=valcom-:old.cant*:old.pret where idcom=:old.idcom;
+  update comenzif set valcom=valcom+:new.cant*:new.pret where idcom=:new.idcom;
+else
+  update comenzif set valcom=valcom-:new.cant*:old.pret+:new.cant*:new.pret where idcom=:new.idcom;
+end if;
+end;
+/
+
+
+create or replace trigger trg_liniicomf_ins_after_row
+  after insert  on liniicomf
+  for each row
+begin
+  update comenzif set valcom=valcom+:new.cant*:new.pret where idcom=:new.idcom;
+end;
+/
+
+
+CREATE OR REPLACE TRIGGER trg_facturi_after_upd_row
+	AFTER UPDATE OF nrfact ON facturi 
+	REFERENCING NEW AS nou OLD AS vechi
+	FOR EACH ROW
+BEGIN
+	UPDATE liniifact SET nrfact=:nou.nrfact
+		WHERE nrfact=:vechi.nrfact;
+       UPDATE plata SET nrfact=:nou.nrfact
+		WHERE nrfact=:vechi.nrfact;
+END;
+/
+
+
+CREATE OR REPLACE TRIGGER trg_produse_after_upd_row
+	AFTER UPDATE OF codpr ON produse 
+	REFERENCING NEW AS nou OLD AS vechi
+	FOR EACH ROW
+BEGIN
+	UPDATE liniicomf SET codpr=:nou.codpr
+		WHERE codpr=:vechi.codpr;
+	UPDATE liniicomcl SET codpr=:nou.codpr
+		WHERE codpr=:vechi.codpr;
+	update liniifact set codpr=:nou.codpr
+		WHERE codpr=:vechi.codpr;
+END;
+/
+
+
+
+ create or replace trigger trg_incasari_upd_after_row
+  after update on incasari
+  referencing old as old new as new
+  for each row
+begin
+if :new.codcl<>:old.codcl then 
+ update clienti set incasari=incasari-:old.suma where codcl=:old.codcl;
+ update clienti set incasari=incasari+:new.suma where codcl=:new.codcl;
+else
+ update clienti set incasari=incasari-:old.suma+:new.suma where codcl=:new.codcl;
+end if;
+end;
+/
+
+CREATE OR REPLACE TRIGGER trg_incasari_insert
+	AFTER insert on incasari
+	REFERENCING NEW AS nou OLD AS vechi
+	FOR EACH ROW
+BEGIN
+	UPDATE clienti SET incasari=incasari+:nou.suma
+		WHERE codcl=:nou.codcl;
+END;
+/
+
+
+create or replace procedure P_valcomcl (pcodcom in number,codcl_ in number)
+as
+	valcom_ number;
+begin
+	select sum(cantonorata *pret) into valcom_ from liniicomcl lc where
+		codcom = pcodcom;
+	update comenzicl set valcom= valcom_ where codcom = pcodcom;
+        update clienti set vinzari=valcom_ where codcl=codcl_;
+end;
+/
+
+
+create or replace procedure P_valcomf(idcom_ in number,codcl_ in number)
+as
+	valcom_ number;
+begin
+	select sum(cant *pret) into valcom_ from liniicomf lc where
+		idcom = idcom_;
+	update comenzif set valcom= valcom_ where idcom = idcom_;
+end;
+/
+
+
