@@ -1,0 +1,40 @@
+Private Sub cmdOk_Click()
+
+If txtCod.Text = "" Or txtParola.Text = "" Then
+    MsgBox ("Introduceti contul si parola")
+    Exit Sub
+Else
+    codop = frmLogUser.txtCod.Text
+    parola = frmLogUser.txtParola.Text
+    codop = Trim(codop)
+    MsgBox (codop)
+End If
+    frmLogUser.AdoLog.Recordset.MoveFirst
+    AdoLog.RecordSource = "Select * from operatori where trim(numeoperator)='" & codop & "'"
+    'AdoLog.Recordset.Find ("numeoperator= '&codop&'")
+If AdoLog.Recordset.BOF Or AdoLog.Recordset.EOF Then
+    MsgBox "Contul Utilizatorului este gresit!"
+    Exit Sub
+Else
+    If parola <> AdoLog.Recordset![parola] Then
+        MsgBox "Parola Gresita!"
+        Exit Sub
+    End If
+End If
+    Editari.coddrept = AdoLog.Recordset![coddrept]
+    'MsgBox Editari.coddrept
+If coddrept = 2 Then
+    Editari.drepturi_operator
+    
+End If
+If coddrept = 3 Then
+    Editari.drepturi_student
+    
+End If
+
+    Me.Visible = False
+
+ 
+ FrmMeniu.Show
+
+End Sub
