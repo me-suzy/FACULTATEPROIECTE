@@ -1,0 +1,38 @@
+/*
+ * TestInnerAnonim2.java
+ *
+ * Created on 31 martie 2003, 12:57
+ */
+
+package exemple.claseinterne;
+
+/**
+ *
+ * @author  strimbeic
+ */
+abstract class ClasaAbstracta2{
+  private String m1 = "Valoare membru clasa interna";
+  public abstract String getm1();
+}
+class ClasaExterna4 {
+    class XClasaInterna extends ClasaAbstracta2 {
+          private String m1 = "Valoare membru clasa interna anonima";
+          // metoda de acces la membrul clasei interne
+          public String getm1() {return m1;}
+          public XClasaInterna(){
+              m1 = "Valoare membru clasa interna anonima preluata din constructor X";
+          }
+    }
+    
+    public ClasaAbstracta2 referintaInterna(){
+        return new XClasaInterna()
+    }
+}
+
+public class TestInnerAnonim2 {
+  public static void main(String[] args) {
+    ClasaExterna4 obj_ext = new ClasaExterna4();
+    ClasaAbstracta2 obj_abs = obj_ext.referintaInterna();
+    System.out.println(obj_abs.getm1());
+  }
+}
