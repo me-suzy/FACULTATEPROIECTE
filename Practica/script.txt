@@ -1,0 +1,104 @@
+drop table stud_lb_straine;
+drop table stud_soft;
+drop table categorii;
+drop table studenti;
+drop table useri;
+
+CREATE TABLE useri(
+ username VARCHAR2(20)
+       CONSTRAINT pk_useri PRIMARY KEY
+       CONSTRAINT nn_useri_username NOT NULL
+,grup VARCHAR2(9)
+      CONSTRAINT nn_useri_grup NOT NULL
+      CONSTRAINT ck_useri_grup CHECK (grup IN('Profesori','Studenti'))
+ ,password VARCHAR2(25)
+);
+
+CREATE TABLE studenti(
+   username VARCHAR2(20)
+       CONSTRAINT pk_studenti PRIMARY KEY
+       CONSTRAINT nn_studenti_username NOT NULL
+       CONSTRAINT fk_studenti_useri REFERENCES useri(username)
+   ,nume VARCHAR2(20)
+       CONSTRAINT nn_studenti_nume NOT NULL
+       CONSTRAINT ck_studenti_nume CHECK(nume=LTRIM(INITCAP(nume)))
+   ,prenume VARCHAR2(20)
+       CONSTRAINT nn_studenti_prenume NOT NULL
+       CONSTRAINT ck_studenti_prenume CHECK(prenume=LTRIM(INITCAP(prenume)))
+   ,annastere NUMBER(4) 
+       CONSTRAINT nn_studenti_annastere NOT NULL
+       CONSTRAINT ck_studenti_annastere CHECK
+             (annastere BETWEEN 1960 AND 2010)
+   ,lunanastere VARCHAR2(10)
+       CONSTRAINT nn_studenti_lunanastere NOT NULL
+       CONSTRAINT ck_studenti_lunanastere CHECK(lunanastere IN('Ianuarie','Februarie','Martie','Aprilie','Mai','Iunie','Iulie','August','Septembrie','Octombrie','Noiembrie','Decembrie'))
+   ,zinastere NUMBER(2)
+      CONSTRAINT nn_studenti_zinastere NOT NULL
+      CONSTRAINT ck_studenti_zinastere CHECK(zinastere BETWEEN 1 AND 31)
+   ,adrstabila VARCHAR2(40)
+   ,adrflotanta VARCHAR2(40)
+   ,telfix NUMBER(30)
+   ,telmobil NUMBER(30)
+   ,CNP NUMBER(13)
+       CONSTRAINT nn_studenti_CNP NOT NULL
+   ,sex CHAR(1)
+      CONSTRAINT nn_studenti_sex NOT NULL
+      CONSTRAINT ck_studenti_sex CHECK(sex IN ('M','F'))
+   ,starecivila VARCHAR2(11)
+      CONSTRAINT nn_studenti_starecivila NOT NULL
+      CONSTRAINT ck_studenti_starecivila CHECK(starecivila IN('casatorit','necasatorit','divortat'))
+   ,stagiumilitar VARCHAR2(13)
+      CONSTRAINT nn_studenti_stagiumilitar NOT NULL
+      CONSTRAINT ck_studenti_stagiumilitar CHECK(stagiumilitar IN('satisfacut','nesatisfacut','nu e cazul'))
+   ,e_mail VARCHAR2(40)
+   ,hobby VARCHAR2(50)
+   ,salminim NUMBER(5)
+        CONSTRAINT nn_studenti_salminim NOT NULL
+        CONSTRAINT ck_studenti_salminim CHECK(salminim>0)
+  ,permiscat VARCHAR2(15)
+  ,altestudii VARCHAR2(50)
+  ,stagiistrain VARCHAR2(50)
+  ,activitextrasc VARCHAR2(50)
+  --,foto BLOB
+);
+
+
+CREATE TABLE stud_soft(
+ username VARCHAR2(20)
+     CONSTRAINT pk_soft primary key
+     CONSTRAINT nn_stud_soft_username NOT NULL
+     CONSTRAINT fk_stud_soft_studenti REFERENCES studenti(username)
+ ,Oraclenivel VARCHAR2(15)
+ ,VFPnivel VARCHAR2(15)
+ ,VBnivel VARCHAR2(15)
+ ,Javanivel VARCHAR2(15)
+ ,Macronivel VARCHAR2(15)
+ ,Flashnivel VARCHAR2(15)
+ ,Frontnivel VARCHAR2(15)
+ ,altesofturi VARCHAR2(40)  
+);
+
+CREATE TABLE stud_lb_straine(
+  username VARCHAR2(20)
+     CONSTRAINT pk_stud_lb_straine PRIMARY KEY
+     CONSTRAINT nn_stud_lb_straine_username NOT NULL
+     CONSTRAINT fk_stud_lb_straine_studenti REFERENCES studenti(username)
+ ,engleza VARCHAR2(9)
+       CONSTRAINT ck_stud_lb_straine_engleza CHECK(engleza IN('avansat','mediu','incepator'))
+ ,franceza VARCHAR2(9)
+        CONSTRAINT ck_stud_lb_straine_franceza CHECK(franceza IN('avansat','mediu','incepator'))
+ ,germana VARCHAR2(9)
+       CONSTRAINT ck_stud_lb_straine_germana CHECK(germana IN('avansat','mediu','incepator'))
+ ,spaniola VARCHAR2(9)
+       CONSTRAINT ck_stud_lb_straine_spaniola CHECK(spaniola IN('avansat','mediu','incepator'))
+ ,rusa VARCHAR2(9)
+       CONSTRAINT ck_stud_lb_straine_rusa CHECK(rusa IN('avansat','mediu','incepator'))
+ ,portugheza VARCHAR2(9)
+       CONSTRAINT ck_stud_lb_straine_portugheza CHECK(portugheza IN('avansat','mediu','incepator'))
+ ,italiana VARCHAR2(9)
+       CONSTRAINT ck_stud_lb_straine_italiana CHECK(italiana IN('avansat','mediu','incepator'))
+ ,altelimbi VARCHAR2(20)
+);
+
+
+
