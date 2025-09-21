@@ -1,0 +1,52 @@
+CREATE TRIGGER ON JUDETE FOR DELETE AS trg_del_judete()
+create trigger on judete for update as trg_upd_judete()
+
+create trigger on localitati for update as trg_upd_localitati()
+create trigger on localitati for delete as trg_del_localitati()
+create trigger on localitati for insert as trg_ins_localitati()
+
+create trigger on clienti for update as trg_upd_clienti()
+create trigger on clienti for delete as trg_del_clienti()
+create trigger on clienti for insert as trg_ins_clienti()
+
+create trigger on liniifact for insert as trg_ins_liniifact()
+create trigger on liniifact for update as trg_upd_liniifact()
+create trigger on liniifact for delete as trg_del_liniifact()
+
+create trigger on facturi for update as trg_upd_facturi() 
+create trigger on facturi for insert as trg_ins_facturi()
+
+
+create trigger on liniicomanda for insert as trg_ins_liniicomanda()
+create trigger on liniicomanda for update as trg_upd_liniicomanda()
+create trigger on liniicomanda for delete as trg_del_liniicomanda() 
+
+create trigger on comanda for insert as trg_ins_comanda()
+create trigger on comanda for update as trg_upd_comanda() 
+
+
+create trigger on chitare for update as trg_upd_chitare()
+create trigger on chitare for delete as trg_del_chitare()
+create trigger on chitare for insert as trg_ins_chitare()
+
+create trigger on premii for update as trg_upd_premii()
+create trigger on premii for insert as trg_ins_premii()
+
+create trigger on chitare_celebre for update as trg_upd_chitare_celebre()
+create trigger on chitare_celebre for delete as trg_del_chitare_celebre()
+
+create trigger on componente for update as trg_upd_componente() 
+create trigger on componente for delete as trg_del_componente()
+
+create trigger on grad_defectiune for update as trg_upd_grad_defectiune()&&& Nu merge de updatat valoare Pretrep(procdef) Triggerlevel<=1?
+create trigger on grad_defectiune for delete as trg_del_grad_defectiune()
+
+create trigger on incasfact for update as trg_upd_incasfact()
+create trigger on incasfact for insert as trg_ins_incasfact()
+create trigger on incasfact for delete as trg_del_incasfact()
+
+create trigger on incasari for update as trg_upd_incasari()
+create trigger on incasari for delete as trg_del_incasari()
+
+create trigger on reparatii for update as trg_upd_reparatii()&&& Nu merge update la pret rep 
+create trigger on reparatii for insert as trg_ins_reparatii()
