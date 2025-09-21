@@ -1,0 +1,30 @@
+cod_repar=1
+create sql view vreparatii as ;
+select codrepar,codcl as codcl2,codchitara as codchitara2,codcompo as codcompo2,datarepar,grad_defect as grad2,nr_reparatii,pretreparatie from reparatii where codrepar=?cod_repar
+
+dbsetprop('vreparatii','view','tables','reparatii')
+
+dbsetprop('vreparatii.codrepar','field','keyfield',.t.)
+
+dbsetprop('vreparatii.codrepar','field','updatename','reparatii.codrepar')
+
+
+
+dbsetprop('vreparatii.datarepar','field','updatename','reparatii.datarepar')
+
+dbsetprop('vreparatii.nr_reparatii','field','updatename','reparatii.nr_reparatii')
+
+dbsetprop('vreparatii.codrepar','field','defaultvalue','def_codrepar_reparatii()')
+dbsetprop('vreparatii.nr_reparatii','field','defaultvalue','def_nr()')
+dbsetprop('vreparatii.codcompo2','field','ruleexpression','pret_vreparatii()')
+dbsetprop('vreparatii.grad2','field','ruleexpression','pret_vreparatii()')
+
+dbsetprop('vreparatii.codrepar','field','updatable',.t.)
+
+
+
+dbsetprop('vreparatii.datarepar','field','updatable',.t.)
+dbsetprop('vreparatii.nr_reparatii','field','updatable',.t.)
+dbsetprop('vreparatii.pretreparatie','field','updatable',.t.)
+
+dbsetprop('vreparatii','view','sendupdates',.t.)
