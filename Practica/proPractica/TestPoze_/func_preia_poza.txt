@@ -1,0 +1,30 @@
+create or replace function get_poza(pNume in varchar2) return blob is
+vpoza blob;
+begin
+select poza into vpoza from test where nume=pnume;
+return vpoza;
+exception
+	when no_data_found then
+	return 'Nu exista Poza';
+end;
+/
+
+nrConexiune=SQLCONNECT('conex')
+if nrconexiune<1
+	=messagebox("connexiune esuata",0,"Rezultat tentativa")
+	return
+endif
+ppoza=''
+pNume='prima'
+sir_="declare"+;
+	"poz general;"+;
+	"begin"+;
+	"?@ppoza:=get_poza(?pNume);"+"end;"
+nRezultat=SQLEXEC(NrConnexiune,sir_)
+if nRezultat<0
+	messagebox('eRR')
+	dime vEroare(1,1)
+	=aerror(vEroare)
+else
+	messagebox(ppoza)
+end if
