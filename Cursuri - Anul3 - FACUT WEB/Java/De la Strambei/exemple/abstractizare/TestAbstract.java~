@@ -1,0 +1,28 @@
+/*
+ * TestAbstract.java
+ *
+ * Created on 24 martie 2003, 10:33
+ */
+
+package exemple.abstractizare;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class TestAbstract {
+    
+    /** Creates a new instance of TestAbstract */
+    public TestAbstract() {
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        BusinessUnit b;
+        //b = new BusinessUnit();
+        b = new Departament();
+    }
+    
+}
