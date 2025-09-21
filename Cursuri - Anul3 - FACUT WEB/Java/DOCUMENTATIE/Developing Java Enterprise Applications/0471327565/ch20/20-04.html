@@ -1,0 +1,185 @@
+
+<SCRIPT>
+<!--
+function displayWindow(url, width, height) {
+        var Win = window.open(url,"displayWindow",'width=' + width +
+	',height=' + height + ',resizable=1,scrollbars=yes');
+	}
+	//-->
+	</SCRIPT>
+
+
+
+<FONT FACE="Arial,Helvetica" SIZE="-1">
+To access the contents, click the chapter and section titles.
+</FONT>
+<P>
+<B>Developing Java Enterprise Applications</B>
+<FONT SIZE="-1">
+<BR>
+<I>(Publisher: John Wiley & Sons, Inc.)</I>
+<BR>
+Author(s): Stephen Asbury ; Scott R. Weiner
+<BR>
+ISBN: 0471327565
+<BR>
+Publication Date: 02/01/99
+</FONT>
+<P>
+<Script language="JavaScript">
+function isIE4() 
+{
+    return( navigator.appName.indexOf("Microsoft") != -1 && (navigator.appVersion.charAt(0)=='4') );
+ }
+function bookMarkit()
+{
+        var url="http://www.itknowledge.com/PSUser/EWBookMarks.html?url="+window.location+"&isbn=0";
+	parent.location.href=url;
+        //var win = window.open(url,"myitk");
+        //if(!isIE4())
+        //       win.focus();
+
+}
+</Script>
+<a href="javascript:bookMarkit();"><img src="/images/bookmarkit.gif" border=0 alt="Bookmark It" width=97 height=23></a>
+
+<P>
+<form name="Search" method="GET" action="http://search.earthweb.com/search97/search_redir.cgi">
+
+<INPUT TYPE="hidden" NAME="Action" VALUE="Search">
+<INPUT TYPE="hidden" NAME="SearchPage" VALUE="http://search.earthweb.com/search97/samples/forms/srchdemo.htm">
+<INPUT TYPE="hidden" NAME="Collection" VALUE="ITK">
+<INPUT TYPE="hidden" NAME="ResultTemplate" VALUE="itk-simple-intrabook.hts">
+<INPUT TYPE="hidden" NAME="ViewTemplate" VALUE="view.hts">
+
+<font face="arial, helvetica" size=2><b>Search this book:</b></font><br>
+<INPUT NAME="queryText" size=50 VALUE="">&nbsp;<input type="submit" name="submitbutton" value="Go!">
+<INPUT type=hidden NAME="section_on" VALUE="on">
+<INPUT type=hidden NAME="section" VALUE="http://www.itknowledge.com/reference/standard/0471327565/">
+
+</form>
+
+
+<!-- Empty Reference Subhead -->
+
+<!--ISBN=0471327565//-->
+<!--TITLE=Developing Java Enterprise Applications//-->
+<!--AUTHOR=Stephen Asbury//-->
+<!--AUTHOR=Scott R. Weiner//-->
+<!--PUBLISHER=Wiley Computer Publishing//-->
+<!--CHAPTER=20//-->
+<!--PAGES=506-507//-->
+<!--UNASSIGNED1//-->
+<!--UNASSIGNED2//-->
+
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="20-03.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="20-05.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+<P><BR></P>
+<P>
+</P>
+<TABLE WIDTH="100%"><TR>
+<TD CAPTION ALIGN="LEFT" COLSPAN="2"><B>Table 20.3</B> Session Methods
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TH VALIGN="TOP" WIDTH="25%" ALIGN="LEFT">METHOD
+<TH VALIGN="TOP" ALIGN="LEFT">DESCRIPTION
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public BytesMessage createBytesMessage() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Creates a message that represents a collection of bytes. This type of message is often used to &#147;talk&#148; to systems using non-JMS messaging code.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public MapMessage createMapMessage() JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Creates a message that stores key-value throws pairs.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public Message createMessage() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Creates a default message that contains no body information.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public ObjectMessage createObjectMessage() JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Creates a message containing a single, throws serializable object.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public ObjectMessage createObjectMessage(Serializable object) throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Creates a message containing a single, serializable object and specifies the object.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public StreamMessage createStreamMessage() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Creates a message that contains a stream of self-defining data. Like the BytesMessage, this type of message is often used to interact with non-JMS clients.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public TextMessage createTextMessage() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Creates a message containing a string.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public TextMessage createTextMessage(StringBuffer stringBuffer) throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Creates a message containing a string and defines the string.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public boolean getTransacted() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Returns true if the session is transacted; returns false if the session is not using transactions.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public void commit() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">If the session is transacted, commit sends any waiting messages and acknowledges receipt of any received messages.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public void rollback() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">If the session is transacted, rollback removes any messages that were sent from being sent and will cause messages that were received to be redelivered.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public void close() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Closes the session, freeing any resources that it used.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public void recover() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Tells the session to redeliver unacknowledged messages, after marking them as such. New messages will continue to be delivered normally.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public MessageListener getMessageListener() throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Returns the session&#146;s message listener, if one is assigned.
+<TR>
+<TD COLSPAN="2"><HR>
+<TR>
+<TD VALIGN="TOP" ALIGN="LEFT"><SMALL>public void setMessageListener(MessageListener listener) throws JMSException</SMALL>
+<TD VALIGN="TOP" ALIGN="LEFT">Assigns a message listener to the session.
+<TR>
+<TD COLSPAN="2"><HR>
+</TABLE>
+<P>When appropriate, the listener is sent this message with a real JMS message as the argument. The JMS specification makes two statements about these listeners. First, they will not have onMessage called by two threads at the same time. Second, onMessage should not throw any exceptions. Message listeners are discussed more in a moment.
+</P><P><BR></P>
+<CENTER>
+<TABLE BORDER>
+<TR>
+<TD><A HREF="20-03.html">Previous</A></TD>
+<TD><A HREF="../ewtoc.html">Table of Contents</A></TD>
+<TD><A HREF="20-05.html">Next</A></TD>
+</TR>
+</TABLE>
+</CENTER>
+
+
+<!-- 
