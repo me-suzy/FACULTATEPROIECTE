@@ -1,0 +1,25 @@
+package banci;
+
+/*
+ * Banca.java
+ *
+ * Created on 17 martie 2003, 11:37
+ */
+import clienti.Companie;
+import salariati.Departament;
+import clienti.Persoana;
+/**
+ *
+ * @author  strimbeic
+ */
+public class Banca extends Companie{
+  public String abreviereNume;
+  public Companie [] clientiPJuridice;
+  public Persoana [] clientiPFizice;
+
+  public Banca(String pCod, String pNume, String pIndicativ){
+    super(pCod, pNume, "");
+    abreviereNume = pIndicativ;
+  }
+}
+
