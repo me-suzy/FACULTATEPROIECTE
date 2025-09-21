@@ -1,0 +1,31 @@
+Structure For: C:\BOOK PROJECT\REVIEWING\CH07\SAMPLE FILES\JUNK.DBF
+===================================================================
+DBC  : CH07.DBC
+CDX  : JUNK.CDX
+Memo : No Memo File
+
+
+Associated Indexes
+==================
+	F02REG: THISISALONGFIELDNAMETHATISDIFFERENT
+	ISDEL: DELETED()
+	(Candidate): F03CAN: THISISALONGFIELDNAME+THISISALONGFIELDNAMETHATISDIFFERENT
+	*** PRIMARY KEY: F01PRIME: THISISALONGFIELDNAME
+
+Table Information
+=================
+Long Name: A LONG TABLE NAME CAN BE USED HERE
+Comment: This is a junk table to illustrate the use of Long Field Names
+No Table Rule
+	On Insert: on_insert()
+	On Update: on_update()
+	On Delete: on_delete()
+
+Field Details
+=============
+	THISISALONGFIELDNAME               	C ( 10,0 )	NOT NULL
+		Default: "something"
+		(Error Message: VFP Default)
+		Valid: .NOT.EMPTY(thisisalongfieldname)
+		(Error Message: "This field may not be left empty")
+	THISISALONGFIELDNAMETHATISDIFFERENT	C ( 10,0 )	NOT NULL
