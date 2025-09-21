@@ -1,0 +1,57 @@
+create sequence seq_codcl
+increment by 1
+minvalue  1000
+maxvalue 9999
+nocycle
+order
+/
+
+create sequence seq_codcom
+increment by 1
+minvalue  1000
+maxvalue 9999
+nocycle
+order
+/
+
+create sequence seq_idcom
+increment by 1
+minvalue  1000
+maxvalue 9999
+nocycle
+order
+/
+
+
+create sequence seq_codinc
+increment by 1
+minvalue  1000
+maxvalue 9999
+nocycle
+order
+/
+
+create sequence seq_nrfact
+increment by 1
+minvalue  100000
+maxvalue 999999
+nocycle
+order
+/
+
+create sequence seq_codpl
+increment by 1
+minvalue  1000
+maxvalue 9999
+nocycle
+order
+/
+
+create sequence seq_codpr
+increment by 1
+minvalue  1000
+maxvalue 9999
+nocycle
+order
+/
+
