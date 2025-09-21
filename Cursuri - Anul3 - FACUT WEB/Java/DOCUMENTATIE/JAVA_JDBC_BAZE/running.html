@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Running the Sample Applications</title>
+<script language="JavaScript">
+<!-- hide
+function openWin(term) {
+  url="../../information/glossary.html#" + term;
+  myWin= window.open(url, "Glossary",
+              "width=400,height=150,scrollbars=yes,status=no,toolbar=no,menubar=no");
+  myWin.focus();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#ffffff" LINK="#000099">
+<B><FONT SIZE="-1">The Java</font><sup><font size="-2">TM</font></sup> <font size="-1">Tutorial</FONT></B>
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="complete.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/complete.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="applet.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/applet.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+
+<font size="-1">
+<b>Trail</b>: JDBC(TM) Database Access
+<br>
+<b>Lesson</b>: JDBC Basics
+</font>
+
+<h2>
+Running the Sample Applications
+</h2>
+<blockquote>
+You are now ready to actually try out some sample code. The directory <CODE CLASS="Code">
+book.html</CODE>
+ contains complete, runnable applications that illustrate concepts presented in this chapter and the next. You can download this sample code from the JDBC web site located at:</P>
+<blockquote><pre>
+
+<a target="other" href="javascript:if(confirm('http://www.javasoft.com/products/jdbc/book.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.javasoft.com/products/jdbc/book.html'" tppabs="http://www.javasoft.com/products/jdbc/book.html"><font color="#009bbb">http://www.javasoft.com/products/jdbc/book.html</font></a><a href="javascript:if(confirm('http://www.javasoft.com/products/jdbc/book.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.javasoft.com/products/jdbc/book.html'" tppabs="http://www.javasoft.com/products/jdbc/book.html"><img src="otherIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/otherIcon.gif" width=11 height=11 border=0 align="ABSMIDDLE" alt="(outside of the tutorial)"></a> </pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=1001591">
+ </A>
+Before you can run one of these applications, you will need to edit the file by substituting the appropriate information for the following variables: </P>
+<dl>
+<DT CLASS="UNL-Head">
+<A NAME="pgfId=1009861">
+ </A>
+<strong>
+<CODE CLASS="Code">
+url</CODE></strong>
+</DT>
+<DD CLASS="UNL">
+<A NAME="pgfId=1023462">
+ </A>
+the JDBC URL; parts one and two are supplied by your driver, and the third part specifies your data source</DD>
+<DT CLASS="UNL-Head">
+<A NAME="pgfId=1009862">
+ </A>
+<strong>
+<CODE CLASS="Code">
+myLogin</CODE></strong>
+</DT>
+<DD CLASS="UNL">
+<A NAME="pgfId=1023457">
+ </A>
+your login name or user name</DD>
+<DT CLASS="UNL-Head">
+<A NAME="pgfId=1009863">
+ </A>
+<strong>
+<CODE CLASS="Code">
+myPassword</CODE></strong>
+</DT>
+<DD CLASS="UNL">
+<A NAME="pgfId=1023458">
+ </A>
+your password for the DBMS</DD>
+<DT CLASS="UNL-Head">
+<A NAME="pgfId=1009864">
+ </A>
+<strong>
+<CODE CLASS="Code">
+myDriver.ClassName</CODE></strong>
+</DT>
+<DD CLASS="UNL1">
+<A NAME="pgfId=1023459">
+ </A>
+the class name supplied with your driver</DD>
+</dl>
+<P CLASS="Body">
+<A NAME="pgfId=1002398">
+ </A>
+The first example application is the class <CODE CLASS="Code">
+CreateCoffees</CODE>
+, which is in a file named
+
+<a target="source" href="CreateCoffees.java" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/example-1dot2/CreateCoffees.java"><font color="#bb000f"><code><CODE>CreateCoffees.java</CODE></code></font></a><a href="CreateCoffees.java" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/example-1dot2/CreateCoffees.java"><img src="sourceIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/sourceIcon.gif" width=11 height=11 border=0 align="ABSMIDDLE" alt="(in a .java source file)"></a>.
+Below are instructions for running <CODE CLASS="Code">
+CreateCoffees.java</CODE>
+ on the three major platforms.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1002459">
+ </A>
+The first line in the instructions below compiles the code in the file <CODE CLASS="Code">
+CreateCoffees.java</CODE>
+. If the compilation is successful, it will produce a file named <CODE CLASS="Code">
+CreateCoffees.class</CODE>
+, which contains the bytecodes translated from the file <CODE CLASS="Code">
+CreateCoffees.java</CODE>
+. These bytecodes will be interpreted by the Java Virtual Machine, which is what makes it possible for Java code to run on any machine with a Java Virtual Machine installed on it.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1002460">
+ </A>
+The second line of code is what actually makes the code run. Note that you use the name of the class, <CODE CLASS="Code">
+CreateCoffees</CODE>
+, not the name of the file, <CODE CLASS="Code">
+CreateCoffees.class</CODE>
+.</P>
+<dl>
+<DT CLASS="UNL-Head1">
+<A NAME="pgfId=1002406">
+ </A>
+<strong>
+<CODE CLASS="Code">
+UNIX</CODE></strong>
+</DT>
+<DD CLASS="UNL">
+<blockquote><pre>
+javac CreateCoffees.java
+java CreateCoffees
+</pre></blockquote>
+</CODE>
+</DD>
+<DT CLASS="UNL-Head2">
+<A NAME="pgfId=1002427">
+ </A>
+<strong><CODE CLASS="Code">
+Windows 95/NT</CODE></strong>
+</DT>
+<DD CLASS="UNL">
+<A NAME="pgfId=1002435">
+ </A>
+<blockquote><pre>
+javac CreateCoffees.java
+java CreateCoffees
+</pre></blockquote>
+</DD>
+</DL>
+
+</blockquote>
+
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="complete.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/complete.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="applet.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/applet.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<p>
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/information/copyright.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/information/copyright.html'" tppabs="http://java.sun.com/docs/books/tutorial/information/copyright.html">Copyright</a>
+1995-2002 Sun Microsystems, Inc.  All rights reserved.
+</font>
+</p>
+</body>
+</html>
