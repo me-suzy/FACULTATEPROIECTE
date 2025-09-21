@@ -1,0 +1,25 @@
+/*
+ * Test.java
+ *
+ * Created on 24 martie 2003, 11:20
+ */
+
+package exemple.constructori_polimorfism;
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class Test {
+    
+    /** Creates a new instance of Test */
+    public Test() {
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+    }
+    
+}
