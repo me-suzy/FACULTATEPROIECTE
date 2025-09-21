@@ -1,0 +1,488 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Use of ResultSet.getXXX: Table-Free Versions</title>
+<script language="JavaScript">
+<!-- hide
+function openWin(term) {
+  url="../../information/glossary.html#" + term;
+  myWin= window.open(url, "Glossary",
+              "width=400,height=150,scrollbars=yes,status=no,toolbar=no,menubar=no");
+  myWin.focus();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#ffffff" LINK="#000099">
+<B><FONT SIZE="-1">The Java</font><sup><font size="-2">TM</font></sup> <font size="-1">Tutorial</FONT></B>
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="retrieving.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/retrieving.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+</td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+<font size="-1">
+<b>Trail</b>: JDBC(TM) Database Access
+<br>
+<b>Lesson</b>: JDBC Basics 
+</font>
+
+<h2>
+Use of ResultSet.getXXX: Table-Free Versions
+</h2>
+<blockquote>
+Because the large table in 
+<a target="_top" href="retrieving.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/retrieving.html">Retrieving Values from Result Sets</a><a target="_top" href="retrieving.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/retrieving.html"><img src="tutorialIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/tutorialIcon.gif" width=11 height=11 border=0 align="ABSMIDDLE" alt="(in the JDBC(TM) Database Access trail)"></a> can be hard to read (especially with screen readers),
+this page presents two alternate versions of the table's data.
+The first version displays the information you can get
+by looking down each column of the table.
+The second displays the information
+for each row of the table.
+
+<ul>
+<li> <a href="#table1">Version 1:
+     How to read each JDBC type
+     </a>
+<li> <a href="#table2">Version 2:
+     Which types each ResultSet.getXXX method can read
+     </a>
+
+</ul>
+
+If you have any suggestions for improving this page,
+please <a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html" target="_top">tell us</a>.
+
+
+
+<a name="table1">
+<h3>
+Version 1: How to read each JDBC type
+</h3>
+</a>
+
+This section lists the ResultSet.getXXX methods
+recommended and allowed for retrieving data of each JDBC type.
+
+<dl>
+<dt>
+TINYINT: getByte (recommended)
+</dt>
+<dd>
+   Can also be read using getShort, getInt, getLong,
+   getFloat, getDouble, getBigDecimal, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+SMALLINT: getShort (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getInt, getLong,
+   getFloat, getDouble, getBigDecimal, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+INTEGER: getInt (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getLong,
+   getFloat, getDouble, getBigDecimal, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+BIGINT: getLong (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getFloat, getDouble, getBigDecimal, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+REAL: getFloat (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getDouble, getBigDecimal, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+FLOAT: getDouble (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getFloat, getBigDecimal, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+DOUBLE: getDouble (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getFloat, getBigDecimal, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+DECIMAL: getBigDecimal (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getFloat, getDouble, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+NUMERIC: getBigDecimal (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getFloat, getDouble, getBoolean,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+BIT: getBoolean (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getFloat, getDouble, getBigDecimal,
+   getString, getObject
+</dd>
+
+<p>
+<dt>
+CHAR: getString (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getFloat, getDouble, getBigDecimal,
+   getBoolean, getDate, getTime, getTimestamp,
+   getAsciiStream, getUnicodeStream, getObject
+</dd>
+
+<p>
+<dt>
+VARCHAR: getString (recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getFloat, getDouble, getBigDecimal,
+   getBoolean, getDate, getTime, getTimestamp,
+   getAsciiStream, getUnicodeStream, getObject
+</dd>
+
+<p>
+<dt>
+LONGVARCHAR: getAsciiStream, getUnicodeStream (both recommended)
+</dt>
+<dd>
+   Can also be read using getByte, getShort, getInt,
+   getLong, getFloat, getDouble, getBigDecimal,
+   getBoolean, getString, getDate, getTime, getTimestamp,
+   getObject
+</dd>
+
+<p>
+<dt>
+BINARY: getBytes (recommended)
+</dt>
+<dd>
+   Can also be read using getString, getAsciiStream, 
+   getUnicodeStream, getBinaryStream, getObject
+</dd>
+
+<p>
+<dt>
+VARBINARY: getBytes (recommended)
+</dt>
+<dd>
+   Can also be read using getString, getAsciiStream, 
+   getUnicodeStream, getBinaryStream, getObject
+</dd>
+
+<p>
+<dt>
+LONGVARBINARY: getBinaryStream (recommended)
+</dt>
+<dd>
+   Can also be read using getString, getBytes, 
+   getAsciiStream, getUnicodeStream, getObject
+</dd>
+
+<p>
+<dt>
+DATE: getDate (recommended)
+</dt>
+<dd>
+   Can also be read using getString, getTimestamp, 
+   getObject
+</dd>
+
+<p>
+<dt>
+TIME: getTime (recommended)
+</dt>
+<dd>
+   Can also be read using getString, getTimestamp, 
+   getObject
+</dd>
+
+<p>
+<dt>
+TIMESTAMP: getTimestamp (recommended)
+</dt>
+<dd>
+   Can also be read using getString, getDate, getTime, 
+   getObject
+</dl>
+
+
+
+<a name="table2">
+<h3>
+Version 2: Which types each ResultSet.getXXX method can read
+</h3>
+</a>
+
+This section lists the JDBC types
+that each ResultSet.getXXX method supports.
+
+<dl>
+<dt>
+getByte: TINYINT (recommended)
+</dt>
+<dd>
+   Can also read SMALLINT, INTEGER, BIGINT, 
+   REAL, FLOAT, DOUBLE, DECIMAL, NUMERIC, BIT, CHAR,
+   VARCHAR, LONGVARCHAR
+</dd>
+
+<p>
+<dt>
+getShort: SMALLINT (recommended)
+</dt>
+<dd>
+   Can also read TINYINT, INTEGER, BIGINT, 
+   REAL, FLOAT, DOUBLE, DECIMAL, NUMERIC, BIT, CHAR,
+   VARCHAR, LONGVARCHAR
+</dd>
+
+<p>
+<dt>
+getInt: INTEGER (recommended)
+</dt>
+<dd>
+   Can also read TINYINT, SMALLINT, BIGINT, 
+   REAL, FLOAT, DOUBLE, DECIMAL, NUMERIC, BIT, CHAR,
+   VARCHAR, LONGVARCHAR
+</dd>
+
+<p>
+<dt>
+getLong: BIGINT (recommended)
+</dt>
+<dd>
+   Can also read TINYINT, SMALLINT, INTEGER, 
+   REAL, FLOAT, DOUBLE, DECIMAL, NUMERIC, BIT, CHAR,
+   VARCHAR, LONGVARCHAR
+</dd>
+
+<p>
+<dt>
+getFloat: REAL (recommended)
+</dt>
+<dd>
+   Can also read TINYINT, SMALLINT, INTEGER, 
+   BIGINT, FLOAT, DOUBLE, DECIMAL, NUMERIC, BIT, CHAR,
+   VARCHAR, LONGVARCHAR
+</dd>
+
+<p>
+<dt>
+getDouble: FLOAT, DOUBLE (both recommended)
+</dt>
+<dd>
+   Can also read TINYINT, SMALLINT, INTEGER, 
+   BIGINT, REAL, DECIMAL, NUMERIC, BIT, CHAR,
+   VARCHAR, LONGVARCHAR
+</dd>
+
+<p>
+<dt>
+getBigDecimal: DECIMAL, NUMERIC (both recommended)
+</dt>
+<dd>
+   Can also read TINYINT, SMALLINT, INTEGER, 
+   BIGINT, REAL, FLOAT, DOUBLE, BIT, CHAR,
+   VARCHAR, LONGVARCHAR
+</dd>
+
+<p>
+<dt>
+getBoolean: BIT (recommended)
+</dt>
+<dd>
+   Can also read TINYINT, SMALLINT, INTEGER, 
+   BIGINT, REAL, FLOAT, DOUBLE, DECIMAL, NUMERIC, CHAR,
+   VARCHAR, LONGVARCHAR
+</dd>
+
+<p>
+<dt>
+getString: CHAR, VARCHAR (both recommended)
+</dt>
+<dd>
+   Can also read TINYINT, SMALLINT, INTEGER, 
+   BIGINT, REAL, FLOAT, DOUBLE, DECIMAL, NUMERIC, BIT, 
+   LONGVARCHAR, BINARY, VARBINARY, LONGVARBINARY, DATE,
+   TIME, TIMESTAMP
+</dd>
+
+<p>
+<dt>
+getBytes: BINARY, VARBINARY (both recommended)
+</dt>
+<dd>
+   Can also read LONGVARBINARY
+</dd>
+
+<p>
+<dt>
+getDate: DATE (recommended)
+</dt>
+<dd>
+   Can also read CHAR, VARCHAR, LONGVARCHAR, 
+   TIMESTAMP
+</dd>
+
+<p>
+<dt>
+getTime: TIME (recommended)
+</dt>
+<dd>
+   Can also read CHAR, VARCHAR, LONGVARCHAR,
+   TIMESTAMP
+</dd>
+
+<p>
+<dt>
+getTimestamp: TIMESTAMP (recommended)
+</dt>
+<dd>
+   Can also read CHAR, VARCHAR, LONGVARCHAR, 
+   DATE, TIME 
+</dd>
+
+<p>
+<dt>
+getAsciiStream: LONGVARCHAR (recommended)
+</dt>
+<dd>
+   Can also read CHAR, VARCHAR, BINARY, 
+   VARBINARY, LONGVARBINARY
+</dd>
+
+<p>
+<dt>
+getUnicodeStream: LONGVARCHAR (recommended)
+</dt>
+<dd>
+   Can also read CHAR, VARCHAR, BINARY, 
+   VARBINARY, LONGVARBINARY
+</dd>
+
+<p>
+<dt>
+getBinaryStream: LONGVARBINARY (recommended)
+</dt>
+<dd>
+   Can also read BINARY, VARBINARY
+</dd>
+   
+<p>
+<dt>
+getObject: (no recommended type) 
+</dt>
+<dd>
+   Can read TINYINT, SMALLINT, INTEGER, 
+   BIGINT, REAL, FLOAT, DOUBLE, DECIMAL, NUMERIC, BIT, 
+   CHAR, VARCHAR, LONGVARCHAR, BINARY, VARBINARY, 
+   LONGVARBINARY, DATE, TIME, TIMESTAMP
+</dd>
+</dl>
+</blockquote>
+
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="retrieving.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/retrieving.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+</td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<p>
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/information/copyright.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/information/copyright.html'" tppabs="http://java.sun.com/docs/books/tutorial/information/copyright.html">Copyright</a>
+1995-2002 Sun Microsystems, Inc.  All rights reserved.
+</font>
+</p>
+</body>
+</html>
