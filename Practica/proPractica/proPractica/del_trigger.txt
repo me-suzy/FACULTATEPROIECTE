@@ -1,0 +1,66 @@
+ 
+------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER trg_useri_del_before_row
+ BEFORE DELETE ON useri
+ REFERENCING OLD AS OLD NEW AS NEW
+ FOR EACH ROW 
+BEGIN 
+    IF pachet_cv.v_regula_del_useri = 'C' THEN 
+       -- delete  CASCADA !
+       delete from studenti where username = :old.username ;
+       DBMS_OUTPUT.PUT_LINE ('Din tabela Studenti s-au sters ' || SQL%ROWCOUNT || ' linii ');
+    ELSE
+       --delete RESTRICT !
+       IF pachet_cv.f_username_in_studenti(:OLD.username) THEN 
+         RAISE_APPLICATION_ERROR (-20510, 'Acest username nu poate fi sters pentru ca are copii in Studenti!!!');
+       END IF ;
+     END IF;
+END ;
+/
+
+-------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER trg_softuri_del_before_row
+ BEFORE DELETE ON softuri
+ REFERENCING OLD AS OLD NEW AS NEW
+ FOR EACH ROW 
+BEGIN 
+    IF pachet_cv.v_regula_del_softuri = 'C' THEN 
+       -- delete  CASCADA !
+       delete from stud_soft where idsoft = :old.idsoft ;
+       DBMS_OUTPUT.PUT_LINE ('Din tabela StudSoft s-au sters ' || SQL%ROWCOUNT || ' linii ');
+    ELSE
+       --delete RESTRICT !
+       IF pachet_cv.f_idsoft_in_stud_soft(:OLD.idsoft) THEN 
+         RAISE_APPLICATION_ERROR (-20511, 'Acest username nu poate fi sters pentru ca are copii in StudSoft!!!');
+       END IF ;
+     END IF;
+END ;
+/
+
+--------------------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER trg_studenti_del_before_row
+ BEFORE DELETE ON studenti
+ REFERENCING OLD AS OLD NEW AS NEW
+ FOR EACH ROW 
+BEGIN 
+    IF pachet_cv.v_regula_del_studenti = 'C' THEN 
+       -- delete  CASCADA !
+       delete from stud_soft where username = :old.username ;
+       DBMS_OUTPUT.PUT_LINE ('Din tabela StudSoft s-au sters ' || SQL%ROWCOUNT || ' linii ');
+       delete from stud_lb_straine where username = :old.username ;
+       DBMS_OUTPUT.PUT_LINE ('Din tabela Stud_lb_straine s-au sters ' || SQL%ROWCOUNT || ' linii ');
+    ELSE
+       --delete RESTRICT !
+       IF pachet_cv.f_username_in_stud_soft(:OLD.username) THEN 
+         RAISE_APPLICATION_ERROR (-20511, 'Acest username nu poate fi sters pentru ca are copii in StudSoft!!!');
+       END IF ;
+       IF pachet_cv.f_username_in_stud_lb_straine(:OLD.username) THEN 
+         RAISE_APPLICATION_ERROR (-20511, 'Acest username nu poate fi sters pentru ca are copii in Stud_lb_straine!!!');
+       END IF ;
+     END IF;
+END ;
+/
+
