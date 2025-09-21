@@ -1,0 +1,5 @@
+This is a word processing document sample that can be opened from the VFP Project Manager if it is included in the project.
+
+This was created in Microsoft Word 2000. So it is also saved in Rich Text Format (RTF), HTML, and DOC as well so those non Office 2000 users can also see the benefit of this cool feature. <g>
+
+Visual FoxPro Rocks!
