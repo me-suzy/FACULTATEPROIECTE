@@ -1,0 +1,131 @@
+drop table incasari;
+drop table plata;
+drop table liniifact;
+drop table facturi;
+drop table liniicomcl;
+drop table comenzicl;
+drop table liniicomf;
+drop table comenzif;
+drop table produse;
+drop table clienti;
+
+
+create table clienti(
+      codcl number(6)
+         constraint pk_clienti primary key,
+      dencl varchar2(30)
+         constraint ck_dencl check(substr(dencl,1,1)=upper(substr(dencl,1,1))),
+      adresa varchar2(40)
+         constraint  ck_adresa_clienti check (substr(adresa,1,1)=upper(substr(adresa,1,1))), 
+      telefon varchar2(10),
+      email varchar2(30),
+      observatii varchar2(40),
+      vinzari number(10),
+      incasari number(10)
+     );
+create table produse(
+      codpr number(6)
+        constraint pk_produse primary key,
+      denpr varchar2(40)
+         constraint ck_denpr check(substr(denpr,1,1)=upper(substr(denpr,1,1)))
+);
+create table comenzif(
+    idcom number(8)
+       constraint pk_comenzif primary key,
+    codcl number(8)
+       constraint fk_comenzif_clienti references clienti(codcl),
+    datacomf date default sysdate
+        constraint ck_datacomf check(datacomf>=
+               to_date('01/01/2002','dd/mm/yyyy')
+        and datacomf<=to_date('31/12/2010','dd/mm/yyyy')),
+    valcom number(12)
+); 
+create table liniicomf(
+     idcom number(8)
+        constraint fk_liniicomf_comenzif references comenzif(idcom),
+      linie number(2)
+         constraint ck_linie check(linie>0),
+      codpr number(5)
+         constraint fk_liniicomf_produse references produse(codpr),
+      cant number(10),
+      pret number(14),
+         constraint pk_liniicomf primary key(idcom,linie)
+);
+
+
+ create table comenzicl(
+    codcom number(8)
+       constraint pk_comenzicl primary key,
+    codcl number(8)
+       constraint fk_comenzicl_clienti references clienti(codcl),
+    datacom date default sysdate
+        constraint ck_datacom check(datacom>=
+               to_date('01/01/2002','dd/mm/yyyy')
+        and datacom<=to_date('31/12/2010','dd/mm/yyyy')),
+    datalivr date default sysdate
+        constraint ck_datalivr check(datalivr>=
+               to_date('01/01/2002','dd/mm/yyyy')
+        and datalivr<=to_date('31/12/2010','dd/mm/yyyy')),
+    valcom number(12)
+);      
+ create table liniicomcl(
+     codcom number(8)
+        constraint fk_liniicomcl_comenzicl references comenzicl(codcom),
+      liniecl number(2)
+         constraint ck_liniecl check(liniecl>0),
+      codpr number(5)
+         constraint fk_liniicomcl_produse references produse(codpr),
+      cantcom number(10),
+      cantonorata number(10), 
+      pret number(14),
+         constraint pk_liniicomcl primary key(codcom,liniecl)
+);        
+create table facturi(
+    nrfact number(8)
+       constraint pk_facturi primary key,
+    datafact date default sysdate
+        constraint ck_datafact check(datafact>=
+               to_date('01/01/2002','dd/mm/yyyy')
+        and datafact<=to_date('31/12/2010','dd/mm/yyyy')),
+    valfact number(12)
+);         
+create table liniifact(
+     nrfact number(8)
+        constraint fk_liniifact_facturi references facturi(nrfact),
+      linief number(2)
+         constraint ck_linief check(linief>0),
+      codpr number(5)
+         constraint fk_liniifact_produse references produse(codpr),
+      cantfact number(10),
+      pret number(14),
+         constraint pk_liniifact primary key(nrfact,linief)
+);        
+create table incasari(
+      codinc number(8)
+            constraint pk_incasari primary key,
+      datainc date default sysdate
+         constraint ck_datainc check(datainc>=
+               to_date('01/01/2002','dd/mm/yyyy')
+         and datainc<=to_date('31/12/2010','dd/mm/yyyy')),
+      codcl number(8)
+         constraint fk_incasari_clienti references clienti(codcl),
+      suma number(10)
+);
+create table plata(
+  codpl number(8)
+        constraint pk_plata primary key,
+  datapl date default sysdate
+         constraint ck_datapl check(datapl>=
+               to_date('01/01/2002','dd/mm/yyyy')
+         and datapl<=to_date('31/12/2010','dd/mm/yyyy')),
+  suma number(8),
+  nrfact number(8)
+        constraint  fk_plata_facturi references facturi(nrfact)
+);
+ @C:/bdII_proc/trig.txt;
+@c:/BDII_proc/populare.txt;
+
+
+
+
+       
