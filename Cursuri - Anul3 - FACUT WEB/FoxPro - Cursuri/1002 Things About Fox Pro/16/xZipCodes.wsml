@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+ <!-- Generated 06/23/02 by Microsoft SOAP Toolkit WSDL File Generator, Version 1.02.813.0 --> 
+<servicemapping name='xZipCodes'>
+  <service name='xZipCodes'>
+    <using PROGID='wszip.xZipCodes' cachable='0' ID='xZipCodesObject' />
+    <port name='xZipCodesSoapPort'>
+      <operation name='GetErrors'>
+        <execute uses='xZipCodesObject' method='GetErrors' dispID='5'>
+          <parameter callIndex='-1' name='retval' elementName='Result' />
+        </execute>
+      </operation>
+      <operation name='GetZipForCity'>
+        <execute uses='xZipCodesObject' method='GetZipForCity' dispID='4'>
+          <parameter callIndex='1' name='tcCity' elementName='tcCity' />
+          <parameter callIndex='2' name='tcState' elementName='tcState' />
+          <parameter callIndex='-1' name='retval' elementName='Result' />
+        </execute>
+      </operation>
+      <operation name='GetZipAreaCode'>
+        <execute uses='xZipCodesObject' method='GetZipAreaCode' dispID='3'>
+          <parameter callIndex='1' name='tcZipCode' elementName='tcZipCode' />
+          <parameter callIndex='-1' name='retval' elementName='Result' />
+        </execute>
+      </operation>
+      <operation name='GetZipLocn'>
+        <execute uses='xZipCodesObject' method='GetZipLocn' dispID='2'>
+          <parameter callIndex='1' name='tcZipCode' elementName='tcZipCode' />
+          <parameter callIndex='-1' name='retval' elementName='Result' />
+        </execute>
+      </operation>
+      <operation name='GetZipLine'>
+        <execute uses='xZipCodesObject' method='GetZipLine' dispID='1'>
+          <parameter callIndex='1' name='tcZipCode' elementName='tcZipCode' />
+          <parameter callIndex='-1' name='retval' elementName='Result' />
+        </execute>
+      </operation>
+      <operation name='IsZipValid'>
+        <execute uses='xZipCodesObject' method='IsZipValid' dispID='0'>
+          <parameter callIndex='1' name='tcZipCode' elementName='tcZipCode' />
+          <parameter callIndex='-1' name='retval' elementName='Result' />
+        </execute>
+      </operation>
+    </port>
+  </service>
+</servicemapping>
+ 
