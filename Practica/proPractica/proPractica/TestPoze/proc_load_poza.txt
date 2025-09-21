@@ -1,0 +1,23 @@
+declare
+f_lob bfile;
+b_lob blob;
+begin
+select poza into b_lob from test where nume='Primu' for update;
+if f_lob is not null then
+
+	f_lob:=bfilename('fotos','06130_1.jpeg');
+	if dbms_lob.fileexists(f_lob)=0 then
+		raise_application_error(-20324,'fisier foto inexistent');
+	end if;
+ 
+dbms_lob.fileopen(f_lob,dbms_lob.file_readonly);
+dbms_lob.loadfromfile(b_lob,f_lob,dbms_lob.getlength(f_lob));
+dbms_lob.fileclose(f_lob);
+end if;
+commit;
+exception
+	when others then
+		dbms_lob.fileclose(f_lob);
+		rollback;
+end;
+/
