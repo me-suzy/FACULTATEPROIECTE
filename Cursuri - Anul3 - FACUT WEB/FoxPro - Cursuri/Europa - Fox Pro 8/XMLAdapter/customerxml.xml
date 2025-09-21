@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="Windows-1252" standalone="yes"?> 
+ <Customers>
+<xsd:schema id="Customers" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+ <xsd:element name="Customers" msdata:IsDataSet="true">
+ <xsd:complexType>
+ <xsd:choice maxOccurs="unbounded">
+ <xsd:element name="customerxml" minOccurs="0" maxOccurs="unbounded">
+ <xsd:complexType>
+ <xsd:sequence>
+ <xsd:element name="customerid">
+ <xsd:simpleType>
+ <xsd:restriction base="xsd:string">
+  <xsd:maxLength value="5" /> 
+  </xsd:restriction>
+  </xsd:simpleType>
+  </xsd:element>
+ <xsd:element name="companynam">
+ <xsd:simpleType>
+ <xsd:restriction base="xsd:string">
+  <xsd:maxLength value="40" /> 
+  </xsd:restriction>
+  </xsd:simpleType>
+  </xsd:element>
+  </xsd:sequence>
+  </xsd:complexType>
+  </xsd:element>
+  </xsd:choice>
+  <xsd:anyAttribute namespace="http://www.w3.org/XML/1998/namespace" processContents="lax" /> 
+  </xsd:complexType>
+  </xsd:element>
+  </xsd:schema>
+ <customerxml>
+  <customerid>ALFKI</customerid> 
+  <companynam>Alfreds Futterkiste</companynam> 
+  </customerxml>
+ <customerxml>
+  <customerid>ANATR</customerid> 
+  <companynam>Ana Trujillo Emparedados y helados</companynam> 
+  </customerxml>
+ <customerxml>
+  <customerid>ANTON</customerid> 
+  <companynam>Antonio Moreno Taquería</companynam> 
+  </customerxml>
+ <customerxml>
+  <customerid>AROUT</customerid> 
+  <companynam>Around the Horn</companynam> 
+  </customerxml>
+</Customers>
