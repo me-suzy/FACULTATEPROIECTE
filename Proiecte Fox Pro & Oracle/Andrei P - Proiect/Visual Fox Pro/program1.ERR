@@ -1,0 +1,14 @@
+(pcnpcl in char,pRezultat out varchar2)
+Error in line 2: Unrecognized command verb.
+is
+Error in line 3: Unrecognized command verb.
+violare_fk exception v_client number pragma exception_init(violare_fk,-02292) begin
+Error in line 7: Unrecognized command verb.
+DELETE FROM clienti WHERE cnpcl = pcnpcl pRezultat := 'Succes' exception
+Error in line 10: Syntax error.
+when violare_fk then
+Error in line 11: Unrecognized command verb.
+SELECT codcl INTO v_client FROM clienti WHERE cnpcl=pcnpcl delete FROM clienti WHERE cnpcl=pcnpcl delete FROM cerere_cumparare WHERE cnpcl=pcnpcl delete FROM preturi WHERE cnpcl=pcnpcl pRezultat := 'Operatiunea de stergere a fost efectuata!!!'||v_client when others then
+Error in line 17: Syntax error.
+pRezultat := 'Insucces' END 
+Error in line 19: Unrecognized command verb.
