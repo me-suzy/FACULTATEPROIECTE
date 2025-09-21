@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>New Features in the JDBC 2.0 API</title>
+<script language="JavaScript">
+<!-- hide
+function openWin(term) {
+  url="../../information/glossary.html#" + term;
+  myWin= window.open(url, "Glossary",
+              "width=400,height=150,scrollbars=yes,status=no,toolbar=no,menubar=no");
+  myWin.focus();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#ffffff" LINK="#000099">
+<B><FONT SIZE="-1">The Java</font><sup><font size="-2">TM</font></sup> <font size="-1">Tutorial</FONT></B>
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#jdbc2dot0'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#jdbc2dot0" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="settingup.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/settingup.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+
+<br>
+<font size="-1">
+<b>Trail</b>: JDBC(TM) Database Access
+</font>
+
+<h2>
+Lesson: New Features in the JDBC 2.0 API
+</h2>
+<blockquote>
+The <CODE CLASS="Code">
+java.sql</CODE>
+ package that is included in the JDK 1.2 release (known as the JDBC 2.0 API) includes several new features not included in the <CODE CLASS="Code">
+java.sql</CODE>
+ package that is part of the JDK 1.1 release (referred to as the JDBC 1.0 API). The code samples in the previous sections of this tutorial are written using the JDBC 1.0 API.</P>
+<P CLASS="Body">
+<A NAME="pgfId=1017895">
+ </A>
+With the JDBC 2.0 API, you will be able to do the following:</P>
+<UL>
+<LI CLASS="Bullet">
+<A NAME="pgfId=1017897">
+ </A>
+Scroll forward and backward in a result set or move to a specific row</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId=1017898">
+ </A>
+Make updates to database tables using methods in the Java programming language instead of using SQL commands</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId=1017899">
+ </A>
+Send multiple SQL statements to the database as a unit, or batch</LI>
+<LI CLASS="Bullet">
+<A NAME="pgfId=1017900">
+ </A>
+Use the new SQL3 datatypes as column values</LI>
+</UL>
+</blockquote>
+<h3 CLASS="B-HeadTOC">
+<A HREF="settingup.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/settingup.html">
+Getting Set Up to Use the JDBC 2.0 API</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="cursor.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/cursor.html">
+Moving the Cursor in Scrollable Result Sets</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/makingupdates.html  \n\nThis file was not retrieved by Teleport Pro, because it was unavailable, or its retrieval was aborted, or the project was stopped too soon.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/makingupdates.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/makingupdates.html">
+Making Updates to Updatable Result Sets</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="updating.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/updating.html">
+Updating a Result Set Programmatically</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="inserting.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/inserting.html">
+Inserting and Deleting Rows Programmatically</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="sample.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/sample.html">
+Code Sample for Inserting a Row</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="deleting.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/deleting.html">
+Deleting a Row</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="batchupdates.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/batchupdates.html">
+Making Batch Updates</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="sql3.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/sql3.html">
+Using SQL3 Datatypes</A>
+</h3>
+<h3 CLASS="B-HeadTOC">
+<A HREF="extension.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/extension.html">
+Standard Extension Features</A>
+</h3>
+
+</blockquote>
+
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#jdbc2dot0'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#jdbc2dot0" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="settingup.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/jdbc2dot0/settingup.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<p>
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/information/copyright.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/information/copyright.html'" tppabs="http://java.sun.com/docs/books/tutorial/information/copyright.html">Copyright</a>
+1995-2002 Sun Microsystems, Inc.  All rights reserved.
+</font>
+</p>
+</body>
+</html>
