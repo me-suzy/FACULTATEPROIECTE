@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Using Joins</title>
+<script language="JavaScript">
+<!-- hide
+function openWin(term) {
+  url="../../information/glossary.html#" + term;
+  myWin= window.open(url, "Glossary",
+              "width=400,height=150,scrollbars=yes,status=no,toolbar=no,menubar=no");
+  myWin.focus();
+}
+//-->
+</script>
+</head>
+<body BGCOLOR="#ffffff" LINK="#000099">
+<B><FONT SIZE="-1">The Java</font><sup><font size="-2">TM</font></sup> <font size="-1">Tutorial</FONT></B>
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="prepared.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/prepared.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="transactions.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/transactions.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+
+<font size="-1">
+<b>Trail</b>: JDBC(TM) Database Access
+<br>
+<b>Lesson</b>: JDBC Basics
+</font>
+
+<h2>
+Using Joins
+</h2>
+<blockquote>
+Sometimes you need to use two or more tables to get the data you want. For example, suppose the proprietor of The Coffee Break wants a list of the coffees he buys from Acme, Inc. This involves information in the <CODE CLASS="Code">
+COFFEES</CODE>
+ table as well as the yet-to-be-created <CODE CLASS="Code">
+SUPPLIERS</CODE>
+ table. This is a case where a join is needed. A join is a database operation that relates two or more tables by means of values that they share in common. In our example database, the tables <CODE CLASS="Code">
+COFFEES</CODE>
+ and <CODE CLASS="Code">
+SUPPLIERS</CODE>
+ both have the column <CODE CLASS="Code">
+SUP_ID</CODE>
+, which can be used to join them.</P>
+<P CLASS="Body">
+<A NAME="pgfId=999139">
+ </A>
+Before we go any further, we need to create the table <CODE CLASS="Code">
+SUPPLIERS</CODE>
+ and populate it with values.</P>
+<P CLASS="Body">
+<A NAME="pgfId=999187">
+ </A>
+The code below creates the table <CODE CLASS="Code">
+SUPPLIERS</CODE>
+:</P>
+<blockquote><pre>
+String createSUPPLIERS = &quot;create table SUPPLIERS &quot; +  
+			 &quot;(SUP_ID INTEGER, SUP_NAME VARCHAR(40), &quot; + 
+			 &quot;STREET VARCHAR(40), CITY VARCHAR(20), &quot; +
+			 &quot;STATE CHAR(2), ZIP CHAR(5))&quot;;
+stmt.executeUpdate(createSUPPLIERS);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=999897">
+ </A>
+The following code inserts rows for three suppliers into <CODE CLASS="Code">
+SUPPLIERS</CODE>
+: </P>
+<blockquote><pre>
+stmt.executeUpdate(&quot;insert into SUPPLIERS values (101, &quot; +
+    &quot;'Acme, Inc.', '99 Market Street', 'Groundsville', &quot; + &quot;'CA', '95199'&quot;);
+stmt.executeUpdate(&quot;Insert into SUPPLIERS values (49,&quot; +
+    &quot;'Superior Coffee', '1 Party Place', 'Mendocino', 'CA', &quot; + &quot;'95460'&quot;);
+stmt.executeUpdate(&quot;Insert into SUPPLIERS values (150, &quot; + 
+    &quot;'The High Ground', '100 Coffee Lane', 'Meadows', 'CA', &quot; + &quot;'93966'&quot;);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=999255">
+ </A>
+The following code selects the whole table and lets us see what the table <CODE CLASS="Code">
+SUPPLIERS</CODE>
+ looks like:</P>
+<blockquote><pre>
+ResultSet rs = stmt.executeQuery(&quot;select * from SUPPLIERS&quot;);
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=999261">
+ </A>
+The result set will look similar to this:</P>
+<TABLE>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+SUP_ID
+</TH>
+<TD ROWSPAN="1" COLSPAN="1">
+SUP_NAME</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011426">
+ </A>
+STREET</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011428">
+ </A>
+CITY		</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011430">
+ </A>
+STATE</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011432">
+ </A>
+ZIP</P>
+</TD>
+</TR>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+<A NAME="pgfId=1011434">
+ </A>
+------
+</TH>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011436">
+ </A>
+-------------</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011438">
+ </A>
+-------------</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011440">
+ </A>
+-----------</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011442">
+ </A>
+-----</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011444">
+ </A>
+-----</P>
+</TD>
+</TR>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+101
+</TH>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011448">
+ </A>
+Acme, Inc.</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011450">
+ </A>
+99 Market Street</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011452">
+ </A>
+Groundsville</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011454">
+ </A>
+CA</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011456">
+ </A>
+95199</P>
+</TD>
+</TR>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+49
+</TH>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011460">
+ </A>
+Superior Coffee</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011462">
+ </A>
+1 Party Place</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011464">
+ </A>
+Mendocino</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011466">
+ </A>
+CA</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011468">
+ </A>
+95460</P>
+</TD>
+</TR>
+<TR>
+<TH ROWSPAN="1" COLSPAN="1">
+150
+</TH>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011472">
+ </A>
+The High Ground</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011474">
+ </A>
+100 Coffee Lane</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011476">
+ </A>
+Meadows</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011478">
+ </A>
+CA</P>
+</TD>
+<TD ROWSPAN="1" COLSPAN="1">
+<P CLASS="TAB-Table-Body">
+<A NAME="pgfId=1011480">
+ </A>
+93966</P>
+</TD>
+</TR>
+</TABLE>
+<P CLASS="Body">
+<A NAME="pgfId=999269">
+ </A>
+Now that we have the tables <CODE CLASS="Code">
+COFFEES</CODE>
+ and <CODE CLASS="Code">
+SUPPLIERS</CODE>
+, we can proceed with the scenario where the owner wants to get a list of the coffees he buys from a particular supplier. The names of the suppliers are in the table <CODE CLASS="Code">
+SUPPLIERS</CODE>
+, and the names of the coffees are in the table <CODE CLASS="Code">
+COFFEES</CODE>
+. Since both tables have the column <CODE CLASS="Code">
+SUP_ID</CODE>
+, this column can be used in a join. It follows that you need some way to distinguish which <CODE CLASS="Code">
+SUP_ID</CODE>
+ column you are referring to. This is done by preceding the column name with the table name, as in &quot;<CODE CLASS="Code">
+COFFEES.SUP_ID</CODE>
+&quot; to indicate that you mean the column <CODE CLASS="Code">
+SUP_ID</CODE>
+ in the table <CODE CLASS="Code">
+COFFEES</CODE>
+. The following code, in which <CODE CLASS="Code-Variable1">
+stmt</CODE>
+ is a <CODE CLASS="Code">
+Statement</CODE>
+ object, will select the coffees bought from Acme, Inc.:</P>
+<blockquote><pre>
+String query = &quot;
+SELECT COFFEES.COF_NAME &quot; +
+   &quot;FROM COFFEES, SUPPLIERS &quot; +
+   &quot;WHERE SUPPLIERS.SUP_NAME LIKE 'Acme, Inc.' &quot; +
+   &quot;and SUPPLIERS.SUP_ID = COFFEES.SUP_ID&quot;;
+
+ResultSet rs = stmt.executeQuery(query);
+System.out.println(&quot;Coffees bought from Acme, Inc.: &quot;);
+while (rs.next()) {
+    String coffeeName = rs.getString(&quot;COF_NAME&quot;);
+    System.out.println(&quot;     &quot; + coffeeName);
+}
+</pre></blockquote>
+<P CLASS="Body">
+<A NAME="pgfId=999489">
+ </A>
+This will produce the following output:</P>
+<blockquote><pre>
+Coffees bought from Acme, Inc.:
+     Colombian
+     Colombian_Decaf
+</pre></blockquote>
+
+</blockquote>
+
+<img src="blueline.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/blueline.gif" width="550" height="8" ALIGN="BOTTOM" NATURALSIZEFLAG="3">
+<br>
+<table width="550">
+<tr>
+<td align="left" valign="center">
+<a href="prepared.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/prepared.html" target="_top"><img src="PreviousArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/PreviousArrow.gif" width="26" height="26" align="center" border="0" alt="Previous Page"></a>
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/TOC.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/TOC.html#basics" target="_top"><img src="TOCIcon.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/TOCIcon.gif" width="26" height="26" align="center" border="0" alt="Lesson Contents"></a>
+<a href="transactions.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/transactions.html" target="_top"><img src="NextArrow.gif" tppabs="http://java.sun.com/docs/books/tutorial/images/NextArrow.gif" width="26" height="26" align="center" border="0" alt="Next Page"></a></td>
+
+<td align="center" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/index.html" target="_top">Start of Tutorial</a>
+&gt;
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/jdbc/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/jdbc/index.html'" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/index.html" target="_top">Start of Trail</a>
+&gt;
+<a href="index.html" tppabs="http://java.sun.com/docs/books/tutorial/jdbc/basics/index.html" target="_top">Start of Lesson</a>
+</font>
+</td>
+
+<td align="right" valign="center">
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/search.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/search.html'" tppabs="http://java.sun.com/docs/books/tutorial/search.html" target="_top">Search</a>
+<br><a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/forms/sendusmail.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/forms/sendusmail.html'" tppabs="http://java.sun.com/docs/books/tutorial/forms/sendusmail.html">Feedback Form</a>
+</font>
+</td>
+
+</tr>
+</table>
+<p>
+<font size="-1">
+<a href="javascript:if(confirm('http://java.sun.com/docs/books/tutorial/information/copyright.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://java.sun.com/docs/books/tutorial/information/copyright.html'" tppabs="http://java.sun.com/docs/books/tutorial/information/copyright.html">Copyright</a>
+1995-2002 Sun Microsystems, Inc.  All rights reserved.
+</font>
+</p>
+</body>
+</html>
