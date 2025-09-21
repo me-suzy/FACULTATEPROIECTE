@@ -1,0 +1,17 @@
+/*
+ * Salariat.java
+ *
+ * Created on 24 martie 2003, 10:48
+ */
+
+/**
+ *
+ * @author  strimbeic
+ */
+public class Salariat {
+    
+    /** Creates a new instance of Salariat */
+    public Salariat() {
+    }
+    
+}
