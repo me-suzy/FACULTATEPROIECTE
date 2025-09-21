@@ -1,0 +1,44 @@
+							***View - Meciuri
+							
+create sql view vmeciuri as ;
+select idmeci,datameci,codstad,etapa,campionat,nrgolec1,nrgolec2,orainceput,orasfarsit,nrfault,cartrosu,cartgalb,nreliminari,nrjucschimb,idech1,idech2 from meciuri
+
+dbsetprop('vmeciuri.codcompo','field','keyfield',.t.)
+
+dbsetprop('vmeciuri.idmeci','field','updatename','meciuri.idmeci')
+dbsetprop('vmeciuri.datameci','field','updatename','meciuri.datameci')
+dbsetprop('vmeciuri.codstad','field','updatename','meciuri.codstad')
+dbsetprop('vmeciuri.etapa','field','updatename','meciuri.etapa')
+dbsetprop('vmeciuri.campionat','field','updatename','meciuri.campionat')
+dbsetprop('vmeciuri.nrgolec1','field','updatename','meciuri.nrgolec1')
+dbsetprop('vmeciuri.nrgolec2','field','updatename','meciuri.nrgolec2')
+dbsetprop('vmeciuri.orainceput','field','updatename','meciuri.orainceput')
+dbsetprop('vmeciuri.orasfarsit','field','updatename','meciuri.orasfarsit')
+dbsetprop('vmeciuri.nrfault','field','updatename','meciuri.nrfault')
+dbsetprop('vmeciuri.cartrosu','field','updatename','meciuri.cartrosu')
+dbsetprop('vmeciuri.cartgalb','field','updatename','meciuri.cartgalb')
+dbsetprop('vmeciuri.nreliminari','field','updatename','meciuri.nreliminari')
+dbsetprop('vmeciuri.nrjucschimb','field','updatename','meciuri.nrjucschimb')
+dbsetprop('vmeciuri.idech1','field','updatename','meciuri.idech1')
+dbsetprop('vmeciuri.idech2','field','updatename','meciuri.idech2')
+
+dbsetprop('vmeciuri.idmeci','field','defaultvalue','def_idmeci_meciuri()')
+
+dbsetprop('vmeciuri.idmeci','field','updatable',.t.)
+dbsetprop('vmeciuri.datameci','field','updatable',.t.)
+dbsetprop('vmeciuri.codstad','field','updatable',.t.)
+dbsetprop('vmeciuri.etapa','field','updatable',.t.)
+dbsetprop('vmeciuri.campionat','field','updatable',.t.)
+dbsetprop('vmeciuri.nrgolec1','field','updatable',.t.)
+dbsetprop('vmeciuri.nrgolec2','field','updatable',.t.)
+dbsetprop('vmeciuri.orainceput','field','updatable',.t.)
+dbsetprop('vmeciuri.orasfarsit','field','updatable',.t.)
+dbsetprop('vmeciuri.nrfault','field','updatable',.t.)
+dbsetprop('vmeciuri.cartrosu','field','updatable',.t.)
+dbsetprop('vmeciuri.cartgalb','field','updatable',.t.)
+dbsetprop('vmeciuri.nreliminari','field','updatable',.t.)
+dbsetprop('vmeciuri.nrjucschimb','field','updatable',.t.)
+dbsetprop('vmeciuri.idech1','field','updatable',.t.)
+dbsetprop('vmeciuri.idech2','field','updatable',.t.)
+
+dbsetprop('vmeciuri','view','sendupdates',.t.)
